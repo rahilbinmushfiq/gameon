@@ -3,8 +3,8 @@ import { collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
 import GameCard from "../components/searchGames/gameCard";
 
-export default function SearchGames({ games }) {
-  const [gamesList, setGamesList] = useState(games);
+export default function SearchGames({ gamesData }) {
+  const [games, setGames] = useState(gamesData);
 
   return (
     <main>
@@ -18,12 +18,12 @@ export default function SearchGames({ games }) {
 }
 
 export async function getServerSideProps() {
-  let games;
+  let gamesData;
 
   try {
     const response = await getDocs(collection(db, "games"));
 
-    games = response.docs.map((doc) => {
+    gamesData = response.docs.map((doc) => {
       return {
         name: doc.data().name,
         thumbnailURL: doc.data().images.thumbnail,
@@ -39,7 +39,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      games
+      gamesData
     }
   }
 }
