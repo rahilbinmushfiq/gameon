@@ -1,11 +1,17 @@
 import { db } from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { useState } from "react";
+import GameCard from "../components/searchGames/gameCard";
 
-export default function SearchGames() {
+export default function SearchGames({ games }) {
+  const [gamesList, setGamesList] = useState(games);
+
   return (
     <main>
       <section>
-        <h1 className="text-3xl underline">Search Games</h1>
+        {games.map(game => {
+          return <GameCard key={game.name} game={game} />
+        })}
       </section>
     </main>
   );
