@@ -26,3 +26,9 @@ export const getYear = (timestamp) => {
 
     return year;
 }
+
+export const timestampConversion = (timestamp) => {
+    let date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+
+    return date;
+}
