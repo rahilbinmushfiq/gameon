@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from "next/router";
 import { collection, getDocs, addDoc } from "firebase/firestore"
 import { useState, useRef } from 'react';
+import createErrorMessage from "../utils/createErrorMessage";
 
 export default function SignIn({ users }) {
   const [user, loading] = useAuthState(auth);
@@ -31,7 +32,12 @@ export default function SignIn({ users }) {
 
     let password = passwordRef?.current?.value;
 
-    await signInWithEmailAndPassword(auth, email, password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log(createErrorMessage(error));
+      return;
+    }
 
     router.push('/');
   }
@@ -50,9 +56,14 @@ export default function SignIn({ users }) {
 
     try {
       const data = await createUserWithEmailAndPassword(auth, email, password);
-      await addDoc(usersCollectionRef, { email, fullName, userUID: data.user?.uid, photoURL: data.user?.photoURL });
-    } catch (error) {
-      console.log(error);
+
+      try {
+        await addDoc(usersCollectionRef, { email, fullName, userUID: data.user?.uid, photoURL: data.user?.photoURL });
+      } catch (docError) {
+        console.log(createErrorMessage(docError));
+      }
+    } catch (signUpError) {
+      console.log(createErrorMessage(signUpError));
       return;
     }
 
@@ -64,7 +75,7 @@ export default function SignIn({ users }) {
       const data = await signInWithPopup(auth, googleProvider);
       await addDoc(usersCollectionRef, { email: data.user?.email, fullName: data.user?.displayName, userUID: data.user?.uid, photoURL: data.user?.photoURL });
     } catch (error) {
-      console.log(error);
+      console.log(createErrorMessage(error));
     }
 
     router.push('/');
