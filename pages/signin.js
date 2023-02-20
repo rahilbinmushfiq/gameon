@@ -76,25 +76,29 @@ export default function SignIn({ users }) {
         <section>
           <h1 className="text-3xl underline mb-3">Sign In</h1>
           {email === "" &&
-            (<div>
-              <input ref={emailRef} type="text" placeholder="Enter your email" />
-              <button type="button" className="text-white bg-blue-400" onClick={() => setEmail(emailRef.current.value)}>Next</button>
+            (<div className="flex flex-col w-fit gap-4">
+              <input className="border border-neutral-900 w-[15rem] h-8" ref={emailRef} type="text" placeholder="Enter your email" onKeyUp={(e) => e.key === "Enter" && setEmail(emailRef?.current?.value)} autoFocus />
+              <button className="text-white bg-neutral-900 w-[5rem] h-8" type="button" onClick={() => setEmail(emailRef?.current?.value)}>Next</button>
             </div>)}
           {email !== "" && users.some((user) => user.email === email) &&
-            (<div>
-              <input ref={passwordRef} type="password" placeholder="Enter your password" />
-              <button type="button" className="mb-6 text-white bg-blue-400" onClick={() => setEmail("")}>Back</button>
-              <button className="mb-6 text-white bg-blue-400" onClick={(e) => handleSignIn(e)}>Sign in</button>
-            </div>)}
+            (<form className="flex flex-col w-fit gap-4" onSubmit={(e) => handleRegister(e)}>
+              <input className="border border-neutral-900 w-[15rem] h-8" ref={passwordRef} type="password" placeholder="Enter your password" autoFocus />
+              <div className="flex justify-between">
+                <button className="text-white bg-neutral-900 w-[5rem] h-8" type="button" onClick={() => setEmail("")}>Back</button>
+                <button className="text-white bg-neutral-900 w-[5rem] h-8" onClick={(e) => handleSignIn(e)}>Sign in</button>
+              </div>
+            </form>)}
           {email !== "" && users.every((user) => user.email !== email) &&
-            (<div>
-              <input ref={fullNameRef} type="text" placeholder="Enter your full name" />
-              <input ref={passwordRef} type="password" placeholder="Enter your password" />
-              <input ref={confirmPasswordRef} type="password" placeholder="Confirm password" />
-              <button type="button" className="mb-6 text-white bg-blue-400" onClick={() => setEmail("")}>Back</button>
-              <button className="mb-6 text-white bg-blue-400" onClick={(e) => handleRegister(e)}>Create account</button>
-            </div>)}
-          <button className="text-white bg-blue-400" onClick={handleGoogleSignIn}>Sign in with Google</button>
+            (<form className="flex flex-col w-fit gap-4" onSubmit={(e) => handleRegister(e)}>
+              <input className="border border-neutral-900 w-[15rem] h-8" ref={fullNameRef} type="text" placeholder="Enter your full name" autoFocus />
+              <input className="border border-neutral-900 w-[15rem] h-8" ref={passwordRef} type="password" placeholder="Enter your password" />
+              <input className="border border-neutral-900 w-[15rem] h-8" ref={confirmPasswordRef} type="password" placeholder="Confirm password" />
+              <div className="flex justify-between">
+                <button className="text-white bg-neutral-900 w-[4rem] h-8" type="button" onClick={() => setEmail("")}>Back</button>
+                <button className="text-white bg-neutral-900 w-[9rem] h-8" onClick={(e) => handleRegister(e)}>Create account</button>
+              </div>
+            </form>)}
+          <button className="text-white bg-neutral-900 mt-12 w-[15rem] h-10 mx-auto align-middle justify-self-center" onClick={handleGoogleSignIn}>Sign in with Google</button>
         </section>)}
     </main>
   );
