@@ -50,8 +50,6 @@ export default function SignIn({ users }) {
       console.log(createErrorMessage(error));
       return;
     }
-
-    router.push('/');
   }
 
   const handleRegister = async (e) => {
@@ -88,8 +86,6 @@ export default function SignIn({ users }) {
     } catch (error) {
       console.log(createErrorMessage(error));
     }
-
-    router.push('/');
   }
 
   return (
