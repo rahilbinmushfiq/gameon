@@ -1,6 +1,7 @@
 import { auth, googleProvider, db } from "../config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/router";
 import { collection, getDocs, addDoc } from "firebase/firestore"
 import { useState, useRef } from 'react';
@@ -20,11 +21,22 @@ export default function SignIn({ users }) {
   const router = useRouter();
 
   if (loading) {
-    return;
+    return <p>Loading...</p>;
   }
 
-  if (user) {
-    router.push('/');
+  if (user && user.emailVerified) {
+    router.push("/");
+  }
+
+  if (user && !user.emailVerified) {
+    let interval = setInterval(async () => {
+      if (user.emailVerified) {
+        clearInterval(interval);
+        auth.signOut();
+        setIsUserNew(true);
+      }
+      await user.reload();
+    }, 2000);
   }
 
   const handleSignIn = async (e) => {
@@ -56,6 +68,7 @@ export default function SignIn({ users }) {
 
     try {
       const data = await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(data.user);
 
       try {
         await addDoc(usersCollectionRef, { email, fullName, userUID: data.user?.uid, photoURL: data.user?.photoURL });
@@ -66,8 +79,6 @@ export default function SignIn({ users }) {
       console.log(createErrorMessage(signUpError));
       return;
     }
-
-    router.push('/');
   }
 
   const handleGoogleSignIn = async () => {
@@ -85,6 +96,9 @@ export default function SignIn({ users }) {
     <main>
       {!user && (
         <section>
+          {isUserNew && (
+            <p>Your account creation is complete! Now, you can sign in to your new account.</p>
+          )}
           <h1 className="text-3xl underline mb-3">Sign In</h1>
           {email === "" &&
             (<div className="flex flex-col w-fit gap-4">
@@ -111,6 +125,23 @@ export default function SignIn({ users }) {
             </form>)}
           <button className="text-white bg-neutral-900 mt-12 w-[15rem] h-10 mx-auto align-middle justify-self-center" onClick={handleGoogleSignIn}>Sign in with Google</button>
         </section>)}
+      {user && !user.emailVerified && (
+        <section className="flex flex-col gap-2">
+          <h3 className="text-xl font-bold">Verify Email</h3>
+          <div className="flex flex-col">
+            <p>You're almost there! A verification email has been sent to</p>
+            <p className="font-bold">{user.email}</p>
+          </div>
+          <div>
+            <p>Just click on the link provided in the email to complete your signup process.</p>
+            <p>If you don't see it, you may check your spam folder.</p>
+          </div>
+          <div>
+            <p>Still can't find our email?</p>
+            <button className="text-white bg-neutral-900 w-[8rem] h-8" onClick={() => sendEmailVerification(user)}>Resend Email</button>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
