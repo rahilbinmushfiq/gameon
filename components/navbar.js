@@ -21,8 +21,8 @@ export default function Navbar() {
                     <li><Link href="/">Home</Link></li>
                     <li><Link href="/search-games">Games</Link></li>
                     <li><Link href="/account">Account</Link></li>
-                    {!user && <li><Link href="/signin">Sign in</Link></li>}
-                    {user && <li onClick={() => auth.signOut()}>Sign out</li>}
+                    {(!user || (user && !user.emailVerified)) && <li><Link href="/signin">Sign in</Link></li>}
+                    {user && user.emailVerified && <li onClick={() => auth.signOut()}>Sign out</li>}
                 </ul>
             </nav>
         </header>
