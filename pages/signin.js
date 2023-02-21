@@ -23,7 +23,7 @@ export default function SignIn({ users }) {
     return <p>Loading...</p>;
   }
 
-  if (user && user.emailVerified) {
+  if (!isUserNew && user && user.emailVerified) {
     router.push("/");
   }
 
@@ -33,6 +33,7 @@ export default function SignIn({ users }) {
         clearInterval(interval);
         auth.signOut();
         setIsUserNew(true);
+        setEmail("");
       }
       await user.reload();
     }, 2000);
@@ -49,6 +50,8 @@ export default function SignIn({ users }) {
       console.log(createErrorMessage(error));
       return;
     }
+
+    if (isUserNew) setIsUserNew(false);
   }
 
   const handleRegister = async (e) => {
@@ -78,6 +81,8 @@ export default function SignIn({ users }) {
       console.log(createErrorMessage(signUpError));
       return;
     }
+
+    router.push("/signin");
   }
 
   const handleGoogleSignIn = async () => {
