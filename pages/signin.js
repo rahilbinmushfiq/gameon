@@ -1,11 +1,12 @@
-import { auth, googleProvider, db } from "../config/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { sendEmailVerification } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { collection, getDocs, doc, setDoc } from "firebase/firestore"
-import { useState, useRef } from 'react';
-import createErrorMessage from "../utils/createErrorMessage";
+import { auth, db } from "../config/firebase";
+import Register from "../components/signIn/register";
+import Verification from "../components/signIn/verification";
+import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn";
+import GoogleSignIn from "../components/signIn/googleSignIn";
 
 export default function SignIn({ users }) {
   const [user, loading] = useAuthState(auth);
@@ -39,68 +40,6 @@ export default function SignIn({ users }) {
     }, 2000);
   }
 
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-
-    let password = passwordRef?.current?.value;
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.log(createErrorMessage(error));
-      return;
-    }
-
-    if (isUserNew) setIsUserNew(false);
-  }
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
-    let password = passwordRef?.current?.value;
-    let confirmPassword = confirmPasswordRef?.current?.value;
-    let fullName = fullNameRef?.current?.value;
-
-    if (password != confirmPassword) {
-      console.log("passwords do not match.");
-      return;
-    }
-
-    try {
-      const data = await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(data.user);
-
-      try {
-        await setDoc(doc(db, "users", data?.user?.uid), {
-          email, fullName, photoURL: data?.user?.photoURL
-        });
-      } catch (docError) {
-        console.log(createErrorMessage(docError));
-      }
-    } catch (signUpError) {
-      console.log(createErrorMessage(signUpError));
-      return;
-    }
-
-    router.push("/signin");
-  }
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const data = await signInWithPopup(auth, googleProvider);
-
-      try {
-        await setDoc(doc(db, "users", data?.user?.uid), {
-          email: data?.user?.email, fullName: data?.user?.displayName, photoURL: data?.user?.photoURL
-        });
-      } catch (docError) {
-        console.log(createErrorMessage(docError));
-      }
-    } catch (error) {
-      console.log(createErrorMessage(error));
-    }
-  }
-
   return (
     <main>
       {!user && (
@@ -114,41 +53,29 @@ export default function SignIn({ users }) {
               <input className="border border-neutral-900 w-[15rem] h-8" ref={emailRef} type="text" placeholder="Enter your email" onKeyUp={(e) => e.key === "Enter" && setEmail(emailRef?.current?.value)} autoFocus />
               <button className="text-white bg-neutral-900 w-[5rem] h-8" type="button" onClick={() => setEmail(emailRef?.current?.value)}>Next</button>
             </div>)}
-          {email !== "" && users.some((user) => user.email === email) &&
-            (<form className="flex flex-col w-fit gap-4" onSubmit={(e) => handleRegister(e)}>
-              <input className="border border-neutral-900 w-[15rem] h-8" ref={passwordRef} type="password" placeholder="Enter your password" autoFocus />
-              <div className="flex justify-between">
-                <button className="text-white bg-neutral-900 w-[5rem] h-8" type="button" onClick={() => setEmail("")}>Back</button>
-                <button className="text-white bg-neutral-900 w-[5rem] h-8" onClick={(e) => handleSignIn(e)}>Sign in</button>
-              </div>
-            </form>)}
-          {email !== "" && users.every((user) => user.email !== email) &&
-            (<form className="flex flex-col w-fit gap-4" onSubmit={(e) => handleRegister(e)}>
-              <input className="border border-neutral-900 w-[15rem] h-8" ref={fullNameRef} type="text" placeholder="Enter your full name" autoFocus />
-              <input className="border border-neutral-900 w-[15rem] h-8" ref={passwordRef} type="password" placeholder="Enter your password" />
-              <input className="border border-neutral-900 w-[15rem] h-8" ref={confirmPasswordRef} type="password" placeholder="Confirm password" />
-              <div className="flex justify-between">
-                <button className="text-white bg-neutral-900 w-[4rem] h-8" type="button" onClick={() => setEmail("")}>Back</button>
-                <button className="text-white bg-neutral-900 w-[9rem] h-8" onClick={(e) => handleRegister(e)}>Create account</button>
-              </div>
-            </form>)}
-          <button className="text-white bg-neutral-900 mt-12 w-[15rem] h-10 mx-auto align-middle justify-self-center" onClick={handleGoogleSignIn}>Sign in with Google</button>
+          {email !== "" && users.some((user) => user.email === email) && (
+            <EmailAndPasswordSignIn
+              email={email}
+              setEmail={setEmail}
+              passwordRef={passwordRef}
+              isUserNew={isUserNew}
+              setIsUserNew={setIsUserNew}
+            />
+          )}
+          {email !== "" && users.every((user) => user.email !== email) && (
+            <Register
+              fullNameRef={fullNameRef}
+              passwordRef={passwordRef}
+              confirmPasswordRef={confirmPasswordRef}
+              email={email}
+              setEmail={setEmail}
+            />
+          )}
+          <GoogleSignIn />
         </section>)}
       {user && !user.emailVerified && (
         <section className="flex flex-col gap-2">
-          <h3 className="text-xl font-bold">Verify Email</h3>
-          <div className="flex flex-col">
-            <p>You're almost there! A verification email has been sent to</p>
-            <p className="font-bold">{user.email}</p>
-          </div>
-          <div>
-            <p>Just click on the link provided in the email to complete your signup process.</p>
-            <p>If you don't see it, you may check your spam folder.</p>
-          </div>
-          <div>
-            <p>Still can't find our email?</p>
-            <button className="text-white bg-neutral-900 w-[8rem] h-8" onClick={() => sendEmailVerification(user)}>Resend Email</button>
-          </div>
+          <Verification user={user} />
         </section>
       )}
     </main>
