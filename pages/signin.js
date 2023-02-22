@@ -12,12 +12,10 @@ export default function SignIn({ users }) {
   const [user, loading] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [isUserNew, setIsUserNew] = useState(false);
-
   const emailRef = useRef("");
   const fullNameRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
-
   const router = useRouter();
 
   if (loading) {
@@ -42,53 +40,65 @@ export default function SignIn({ users }) {
 
   return (
     <main>
-      {!user && (
+      {!user ? (
         <section>
-          {isUserNew && (
-            <p>Your account creation is complete! Now, you can sign in to your new account.</p>
-          )}
+          {isUserNew && <p>Your account creation is complete! Now, you can sign in to your new account.</p>}
           <h1 className="text-3xl underline mb-3">Sign In</h1>
-          {email === "" &&
-            (<div className="flex flex-col w-fit gap-4">
-              <input className="border border-neutral-900 w-[15rem] h-8" ref={emailRef} type="text" placeholder="Enter your email" onKeyUp={(e) => e.key === "Enter" && setEmail(emailRef?.current?.value)} autoFocus />
-              <button className="text-white bg-neutral-900 w-[5rem] h-8" type="button" onClick={() => setEmail(emailRef?.current?.value)}>Next</button>
-            </div>)}
-          {email !== "" && users.some((user) => user.email === email) && (
-            <EmailAndPasswordSignIn
-              email={email}
-              setEmail={setEmail}
-              passwordRef={passwordRef}
-              isUserNew={isUserNew}
-              setIsUserNew={setIsUserNew}
-            />
-          )}
-          {email !== "" && users.every((user) => user.email !== email) && (
-            <Register
-              fullNameRef={fullNameRef}
-              passwordRef={passwordRef}
-              confirmPasswordRef={confirmPasswordRef}
-              email={email}
-              setEmail={setEmail}
-            />
+          {!email ? (
+            <div className="flex flex-col w-fit gap-4">
+              <input
+                className="border border-neutral-900 w-[15rem] h-8"
+                ref={emailRef}
+                type="text"
+                placeholder="Enter your email"
+                onKeyUp={(event) => event.key === "Enter" && setEmail(emailRef?.current?.value)}
+                autoFocus
+              />
+              <button
+                className="text-white bg-neutral-900 w-[5rem] h-8"
+                type="button"
+                onClick={() => setEmail(emailRef?.current?.value)}
+              >
+                Next
+              </button>
+            </div>
+          ) : (
+            users.some((user) => user.email === email) ? (
+              <EmailAndPasswordSignIn
+                email={email}
+                setEmail={setEmail}
+                passwordRef={passwordRef}
+                isUserNew={isUserNew}
+                setIsUserNew={setIsUserNew}
+              />
+            ) : (
+              <Register
+                fullNameRef={fullNameRef}
+                passwordRef={passwordRef}
+                confirmPasswordRef={confirmPasswordRef}
+                email={email}
+                setEmail={setEmail}
+              />
+            )
           )}
           <GoogleSignIn />
-        </section>)}
-      {user && !user.emailVerified && (
-        <section className="flex flex-col gap-2">
-          <Verification user={user} />
         </section>
-      )}
+      ) : (
+        !user.emailVerified && (
+          <section className="flex flex-col gap-2">
+            <Verification user={user} />
+          </section>
+        ))}
     </main>
   );
 }
 
 export async function getServerSideProps() {
-  const usersCollectionRef = collection(db, "users");
-  const response = await getDocs(usersCollectionRef);
+  const querySnapshot = await getDocs(collection(db, "users"));
 
-  const users = response.docs.map((doc) => {
+  const users = querySnapshot.docs.map((doc) => {
     return { ...doc.data() }
-  })
+  });
 
   return {
     props: {
