@@ -14,11 +14,13 @@ export default function Account({ userData }) {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         router.push("/signin");
       }
-    })
+    });
+
+    unsubscribe();
   }, [user]);
 
   return (
