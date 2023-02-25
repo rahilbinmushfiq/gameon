@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const tokenInterval = setInterval(async () => {
             if (auth.currentUser) await getIdToken(auth.currentUser, true);
-        }, 1000);
+        }, 10 * 60 * 1000);
 
         return () => clearInterval(tokenInterval);
     }, []);
