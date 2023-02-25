@@ -7,6 +7,7 @@ import { auth } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
 import UserProfile from "../components/account/userProfile";
+import UpdatePassword from "../components/account/updatePassword";
 
 export default function Account({ userData }) {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ export default function Account({ userData }) {
   return (
     <main>
       <UserProfile userData={userData} />
+      <UpdatePassword user={user} />
     </main>
   )
 }
