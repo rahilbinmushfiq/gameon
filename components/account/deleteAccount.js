@@ -1,5 +1,7 @@
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useRef, useState } from "react";
+import { db } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function DeleteAccount({ user }) {
@@ -14,6 +16,12 @@ export default function DeleteAccount({ user }) {
       await reauthenticateWithCredential(user, credential);
 
       try {
+        try {
+          await deleteDoc(doc(db, "users", user.uid));
+        } catch (deleteDocError) {
+          console.log(createErrorMessage(deleteDocError));
+        }
+
         await deleteUser(user);
 
         console.log("Account Deleted!");

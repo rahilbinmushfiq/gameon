@@ -1,5 +1,7 @@
 import { updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import { useRef, useState } from "react";
+import { db } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function UserProfile({ user }) {
@@ -11,8 +13,16 @@ export default function UserProfile({ user }) {
       await updateProfile(user, {
         displayName: fullNameRef?.current?.value
       });
-    } catch (error) {
-      console.log(createErrorMessage(error));
+
+      try {
+        await updateDoc(doc(db, "users", user.uid), {
+          fullName: fullNameRef?.current?.value
+        });
+      } catch (updateDocError) {
+        console.log(createErrorMessage(updateDocError));
+      }
+    } catch (updateProfileError) {
+      console.log(createErrorMessage(updateProfileError));
     }
 
     setIsReadOnly(true);
