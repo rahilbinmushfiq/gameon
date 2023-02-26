@@ -1,10 +1,8 @@
 import { updateProfile } from "firebase/auth";
 import { useRef, useState } from "react";
-import { useAuth } from "../../config/auth";
 import createErrorMessage from "../../utils/createErrorMessage";
 
-export default function UserProfile() {
-  const { user } = useAuth();
+export default function UserProfile({ user }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const fullNameRef = useRef("");
 

@@ -10,7 +10,7 @@ import UserProfile from "../components/account/userProfile";
 import UpdatePassword from "../components/account/updatePassword";
 import DeleteAccount from "../components/account/deleteAccount";
 
-export default function Account({ userData }) {
+export default function Account() {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -26,7 +26,7 @@ export default function Account({ userData }) {
 
   return (
     <main>
-      <UserProfile userData={userData} />
+      <UserProfile user={user} />
       <UpdatePassword user={user} />
       <DeleteAccount user={user} />
     </main>
@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
     const adminAuth = getAuth(adminApp);
     const token = await adminAuth.verifyIdToken(cookies.token);
 
-    const { name, picture, email, email_verified, uid } = token;
+    const { email_verified } = token;
 
     if (!email_verified) {
       return {
@@ -61,12 +61,8 @@ export async function getServerSideProps(context) {
     }
 
     return {
-      props: {
-        userData: {
-          name, picture, email
-        }
-      }
-    }
+      props: {}
+    };
   } catch (error) {
     return {
       redirect: {
