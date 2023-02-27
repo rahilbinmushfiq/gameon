@@ -10,7 +10,7 @@ import UserProfile from "../components/account/userProfile";
 import UpdatePassword from "../components/account/updatePassword";
 import DeleteAccount from "../components/account/deleteAccount";
 
-export default function Account() {
+export default function Account({ signInProvider }) {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -27,8 +27,8 @@ export default function Account() {
   return (
     <main>
       <UserProfile user={user} />
-      <UpdatePassword user={user} />
-      <DeleteAccount user={user} />
+      <UpdatePassword user={user} signInProvider={signInProvider} />
+      <DeleteAccount user={user} signInProvider={signInProvider} />
     </main>
   )
 }
@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
     const adminAuth = getAuth(adminApp);
     const token = await adminAuth.verifyIdToken(cookies.token);
 
-    const { email_verified } = token;
+    const { email_verified, firebase: { sign_in_provider } } = token;
 
     if (!email_verified) {
       return {
@@ -61,7 +61,9 @@ export async function getServerSideProps(context) {
     }
 
     return {
-      props: {}
+      props: {
+        signInProvider: sign_in_provider
+      }
     };
   } catch (error) {
     return {
