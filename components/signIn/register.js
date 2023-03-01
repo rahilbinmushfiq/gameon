@@ -1,6 +1,6 @@
 import createErrorMessage from "../../utils/createErrorMessage";
 import { auth, db } from "../../config/firebase";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 
@@ -23,6 +23,16 @@ export default function Register({ email, setEmail, fullNameRef, passwordRef, co
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
             try {
+                await updateProfile(userCredential?.user, {
+                    displayName: fullName,
+                    photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png"
+                });
+            } catch (updateProfileError) {
+                console.log(createErrorMessage(updateProfileError));
+                return;
+            }
+
+            try {
                 await sendEmailVerification(userCredential.user);
             } catch (sendVerificationError) {
                 console.log(createErrorMessage(sendVerificationError));
@@ -33,7 +43,9 @@ export default function Register({ email, setEmail, fullNameRef, passwordRef, co
                 await setDoc(doc(db, "users", userCredential?.user?.uid), {
                     email: email,
                     fullName: fullName,
-                    photoURL: userCredential?.user?.photoURL
+                    photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png",
+                    registrationMethod: "password",
+                    linked: false
                 });
             } catch (docError) {
                 console.log(createErrorMessage(docError));

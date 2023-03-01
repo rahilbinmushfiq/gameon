@@ -81,7 +81,7 @@ export default function SignIn({ users }) {
               />
             )
           )}
-          <GoogleSignIn />
+          <GoogleSignIn users={users} />
         </section>
       ) : (
         !user.emailVerified && (

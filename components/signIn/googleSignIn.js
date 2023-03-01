@@ -1,21 +1,45 @@
 import { auth, db, googleProvider } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { signInWithPopup, updateProfile } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
-export default function GoogleSignIn() {
+export default function GoogleSignIn({ users }) {
     const handleGoogleSignIn = async () => {
         try {
             const userCredential = await signInWithPopup(auth, googleProvider);
 
-            try {
-                await setDoc(doc(db, "users", userCredential?.user?.uid), {
-                    email: userCredential?.user?.email,
-                    fullName: userCredential?.user?.displayName,
-                    photoURL: userCredential?.user?.photoURL
-                });
-            } catch (docError) {
-                console.log(createErrorMessage(docError));
+            if (users.every((user) => user.email !== userCredential?.user?.email)) {
+                try {
+                    await setDoc(doc(db, "users", userCredential?.user?.uid), {
+                        email: userCredential?.user?.email,
+                        fullName: userCredential?.user?.displayName,
+                        photoURL: userCredential?.user?.photoURL,
+                        registrationMethod: "google.com",
+                        linked: false
+                    });
+                } catch (docError) {
+                    console.log(createErrorMessage(docError));
+                }
+            } else {
+                const snapshot = await getDoc(doc(db, "users", userCredential?.user?.uid));
+
+                if (snapshot.data().registrationMethod === "password" && !snapshot.data().linked) {
+                    try {
+                        await updateProfile(userCredential?.user, {
+                            displayName: snapshot.data().fullName,
+                            photoURL: snapshot.data().photoURL
+                        });
+                    } catch (updateProfileError) {
+                        console.log(createErrorMessage(updateProfileError));
+                        return;
+                    }
+
+                    try {
+                        await updateDoc(doc(db, "users", userCredential?.user?.uid), { linked: true });
+                    } catch (updateDocError) {
+                        console.log(createErrorMessage(updateDocError));
+                    }
+                }
             }
         } catch (signInError) {
             console.log(createErrorMessage(signInError));
