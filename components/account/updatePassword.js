@@ -1,6 +1,7 @@
 import { EmailAuthProvider, linkWithCredential, reauthenticateWithCredential, reauthenticateWithPopup, updatePassword } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import { useRef, useState } from "react";
-import { googleProvider } from "../../config/firebase";
+import { db, googleProvider } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function UpdatePassword({ user, signInProvider }) {
@@ -70,6 +71,13 @@ export default function UpdatePassword({ user, signInProvider }) {
 
           try {
             await linkWithCredential(user, credential);
+
+            try {
+              await updateDoc(doc(db, "users", user.uid), { linked: true });
+            } catch (updateDocError) {
+              console.log(createErrorMessage(updateDocError));
+            }
+
             setIsPasswordModalOpen(false);
 
             console.log("Password added!");
