@@ -38,6 +38,16 @@ export default function SignIn({ users }) {
     }, 2000);
   }
 
+  const isProviderOnlyGoogle = () => {
+    const [user] = users.filter((user) => user.email === email);
+
+    if (user.registrationMethod === "google.com" && !user.linked) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <main>
       {!user ? (
@@ -63,15 +73,7 @@ export default function SignIn({ users }) {
               </button>
             </div>
           ) : (
-            users.some((user) => user.email === email) ? (
-              <EmailAndPasswordSignIn
-                email={email}
-                setEmail={setEmail}
-                passwordRef={passwordRef}
-                isUserNew={isUserNew}
-                setIsUserNew={setIsUserNew}
-              />
-            ) : (
+            users.every((user) => user.email !== email) ? (
               <Register
                 fullNameRef={fullNameRef}
                 passwordRef={passwordRef}
@@ -79,6 +81,20 @@ export default function SignIn({ users }) {
                 email={email}
                 setEmail={setEmail}
               />
+            ) : (
+              isProviderOnlyGoogle() ? (
+                <h2 className="w-[20rem]">
+                  The last time you signed up for our website, you used Google sign in provider. If you want to avail password sign in system for your account, first you must login via the Google sign in provider below and then add a password for your account.
+                </h2>
+              ) : (
+                <EmailAndPasswordSignIn
+                  email={email}
+                  setEmail={setEmail}
+                  passwordRef={passwordRef}
+                  isUserNew={isUserNew}
+                  setIsUserNew={setIsUserNew}
+                />
+              )
             )
           )}
           <GoogleSignIn users={users} />
