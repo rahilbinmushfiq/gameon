@@ -33,13 +33,6 @@ export default function Register({ email, setEmail, fullNameRef, passwordRef, co
             }
 
             try {
-                await sendEmailVerification(userCredential.user);
-            } catch (sendVerificationError) {
-                console.log(createErrorMessage(sendVerificationError));
-                return;
-            }
-
-            try {
                 await setDoc(doc(db, "users", userCredential?.user?.uid), {
                     email: email,
                     fullName: fullName,
@@ -51,12 +44,17 @@ export default function Register({ email, setEmail, fullNameRef, passwordRef, co
                 console.log(createErrorMessage(docError));
                 return;
             }
+
+            try {
+                await sendEmailVerification(userCredential.user);
+            } catch (sendVerificationError) {
+                console.log(createErrorMessage(sendVerificationError));
+                return;
+            }
         } catch (signUpError) {
             console.log(createErrorMessage(signUpError));
             return;
         }
-
-        router.push("/signin");
     }
 
     return (
