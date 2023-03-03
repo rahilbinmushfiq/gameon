@@ -16,6 +16,7 @@ export default function SignIn({ users }) {
   const { user, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [isUserNew, setIsUserNew] = useState(false);
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
   const emailRef = useRef("");
   const fullNameRef = useRef("");
   const passwordRef = useRef("");
@@ -24,7 +25,7 @@ export default function SignIn({ users }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && user.emailVerified) {
+      if (user && user.emailVerified && isUserLoaded) {
         router.push("/account");
       } else if (user && !user.emailVerified) {
         let interval = setInterval(async () => {
@@ -41,7 +42,7 @@ export default function SignIn({ users }) {
     });
 
     unsubscribe();
-  }, [user]);
+  }, [user, isUserLoaded]);
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -99,11 +100,15 @@ export default function SignIn({ users }) {
                 passwordRef={passwordRef}
                 isUserNew={isUserNew}
                 setIsUserNew={setIsUserNew}
+                setIsUserLoaded={setIsUserLoaded}
               />
             )
           )
         )}
-        <GoogleSignIn users={users} />
+        <GoogleSignIn
+          users={users}
+          setIsUserLoaded={setIsUserLoaded}
+        />
       </section>
     </main>
   );

@@ -2,7 +2,7 @@ import createErrorMessage from "../../utils/createErrorMessage";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, isUserNew, setIsUserNew }) {
+export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, isUserNew, setIsUserNew, setIsUserLoaded }) {
     const handleSignIn = async (event) => {
         event.preventDefault();
 
@@ -16,6 +16,7 @@ export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, i
         }
 
         if (isUserNew) setIsUserNew(false);
+        setIsUserLoaded(true);
     }
 
     return (

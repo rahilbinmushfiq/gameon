@@ -3,7 +3,7 @@ import createErrorMessage from "../../utils/createErrorMessage";
 import { signInWithPopup, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
-export default function GoogleSignIn({ users }) {
+export default function GoogleSignIn({ users, setIsUserLoaded }) {
     const handleGoogleSignIn = async () => {
         try {
             const userCredential = await signInWithPopup(auth, googleProvider);
@@ -44,6 +44,8 @@ export default function GoogleSignIn({ users }) {
         } catch (signInError) {
             console.log(createErrorMessage(signInError));
         }
+
+        setIsUserLoaded(true);
     }
 
     return (
