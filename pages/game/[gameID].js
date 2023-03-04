@@ -5,10 +5,10 @@ import SystemRequirements from "../../components/game/systemRequirements";
 import { db } from "../../config/firebase";
 
 import { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
 
-export default function GameDetails({ isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements }) {
+export default function GameDetails({ isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function GameDetails({ isGameFound, coverImage, name, overview, c
         </div>
         {tab === 'overview' && <Overview overview={overview} />}
         {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} />}
-        {tab === 'userReviews' && <UserReviews userReviews={userReviews} />}
+        {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} />}
         {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
       </section>)}
     </main>
@@ -85,9 +85,25 @@ export async function getServerSideProps(context) {
     systemRequirements = response.data().systemRequirements;
   }
 
+  let users = null;
+
+  try {
+    const usersSnapshot = await getDocs(collection(db, "users"));
+
+    users = usersSnapshot.docs.map((doc) => {
+      return { ...doc.data(), uid: doc.id }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  // let userData = users.filter(user => user.uid === 'Wj3vaFlS2xhfRE3DAYeU51Ex9gZ2');
+
+  // console.log(userData);
+
   return {
     props: {
-      isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements
+      isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users
     }
   }
 }

@@ -5,11 +5,17 @@ import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
 
-export default function UserReviews({ userReviews: { ratingsList } }) {
+export default function UserReviews({ userReviews: { ratingsList }, users }) {
   const { user } = useAuth();
   const router = useRouter();
   const [rating, setRating] = useState(null);
   const commentRef = useRef("");
+
+  const getUserData = (userUID) => {
+    let [userData] = users.filter(user => user.uid === userUID);
+
+    return userData;
+  }
 
   const handleUserReview = async () => {
     if (!user) return router.push("/signin");
@@ -20,8 +26,6 @@ export default function UserReviews({ userReviews: { ratingsList } }) {
           comment: commentRef?.current?.value,
           postedOn: Timestamp.now(),
           rating: rating,
-          userFullName: user.displayName,
-          userPhotoURL: user.photoURL,
           userUID: user.uid
         })
       });
@@ -58,16 +62,18 @@ export default function UserReviews({ userReviews: { ratingsList } }) {
         <button onClick={() => handleUserReview()} className="w-fit text-white bg-slate-600">comment</button>
       </div>
       <h4 className="text-xl underline">User Reviews</h4>
-      {ratingsList.map((review) => {
+      {ratingsList && ratingsList.map((review) => {
+        let { photoURL, fullName } = getUserData(review.userUID);
+
         return (
-          <div key={review.userUID}>
+          <div key={review.userUID + review.comment + Math.random()}>
             <div className="flex gap-[30rem]">
               <div className="flex gap-4">
                 <div>
-                  <img className="w-[3rem]" src={review.userPhotoURL} alt="user" referrerPolicy="no-referrer" />
+                  <img className="w-[3rem]" src={photoURL} alt="user" referrerPolicy="no-referrer" />
                 </div>
                 <div>
-                  <p>by {review.userFullName}</p>
+                  <p>by {fullName}</p>
                   <p>on {getDateAndTime(review.postedOn)}</p>
                 </div>
               </div>
