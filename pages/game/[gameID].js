@@ -3,107 +3,91 @@ import CriticReviews from "../../components/game/criticReviews";
 import UserReviews from "../../components/game/userReviews";
 import SystemRequirements from "../../components/game/systemRequirements";
 import { db } from "../../config/firebase";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { useRouter } from "next/router";
 
-export default function GameDetails({ isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isGameFound) {
-      router.push('/search-games');
-    }
-  }, [])
-
+export default function GameDetails({ coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
 
   return (
     <main>
-      {isGameFound && (<section>
+      <section>
         <h1 className="text-3xl underline">Game Details</h1>
         <div>
           <img className="w-[72rem]" src={coverImage} alt={`${name} cover`} />
           <h2>{name}</h2>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => setTab("overview")} className="text-white bg-blue-400">Overview</button>
-          <button onClick={() => setTab("criticReviews")} className="text-white bg-blue-400">Critic Reviews</button>
-          <button onClick={() => setTab("userReviews")} className="text-white bg-blue-400">User Reviews</button>
-          <button onClick={() => setTab("systemRequirements")} className="text-white bg-blue-400">System Requirements</button>
+          <button className="text-white bg-blue-400" onClick={() => setTab("overview")}>
+            Overview
+          </button>
+          <button className="text-white bg-blue-400" onClick={() => setTab("criticReviews")}>
+            Critic Reviews
+          </button>
+          <button className="text-white bg-blue-400" onClick={() => setTab("userReviews")}>
+            User Reviews
+          </button>
+          <button className="text-white bg-blue-400" onClick={() => setTab("systemRequirements")}>
+            System Requirements
+          </button>
         </div>
         {tab === 'overview' && <Overview overview={overview} />}
         {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} />}
         {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} />}
         {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
-      </section>)}
+      </section>
     </main>
   );
 }
 
 export async function getServerSideProps(context) {
   const { params: { gameID } } = context;
-
-  const response = await getDoc(doc(db, "games", gameID));
-
-  let isGameFound = false;
-  let averageRating = null;
-  let averageScore = null;
-  let coverImage = null;
-  let name = null;
-  let overview = null;
-  let criticReviews = null;
-  let userReviews = null;
-  let systemRequirements = null;
-
-  if (response.data()) {
-    isGameFound = true;
-
-    averageRating = response.data().reviews.ratings.allRatings.reduce((accumulator, rating) => {
-      return accumulator + rating
-    }, 0) / response.data().reviews.ratings.allRatings.length;
-    averageScore = response.data().reviews.scores.allScores.reduce((accumulator, score) => {
-      return accumulator + score
-    }, 0) / response.data().reviews.scores.allScores.length;
-
-    coverImage = response.data().images.cover;
-    name = response.data().name;
-    overview = { ...response.data().overview, releaseDate: JSON.parse(JSON.stringify(response.data().overview.releaseDate)), averageRating, averageScore };
-    criticReviews = {
-      allScores: response.data().reviews.scores.allScores,
-      scoresList: response.data().reviews.scores.scoresList.map((userScore) => {
-        return { ...userScore, postedOn: JSON.parse(JSON.stringify(userScore.postedOn)) }
-      })
-    };
-    userReviews = {
-      allRatings: response.data().reviews.ratings.allRatings,
-      ratingsList: response.data().reviews.ratings.ratingsList.map((userRating) => {
-        return { ...userRating, postedOn: JSON.parse(JSON.stringify(userRating.postedOn)) }
-      })
-    };
-    systemRequirements = response.data().systemRequirements;
-  }
-
-  let users = null;
+  let game;
+  let usersList;
 
   try {
-    const usersSnapshot = await getDocs(collection(db, "users"));
+    const gameSnapshot = await getDoc(doc(db, "games", gameID));
+    game = gameSnapshot.data();
 
-    users = usersSnapshot.docs.map((doc) => {
+    const usersSnapshot = await getDocs(collection(db, "users"));
+    usersList = usersSnapshot.docs.map((doc) => {
       return { ...doc.data(), uid: doc.id }
     });
   } catch (error) {
     console.log(error);
   }
 
-  // let userData = users.filter(user => user.uid === 'Wj3vaFlS2xhfRE3DAYeU51Ex9gZ2');
-
-  // console.log(userData);
+  if (!game || !usersList) {
+    return {
+      redirect: {
+        destination: "/search-games",
+        permanent: false
+      }
+    }
+  }
 
   return {
     props: {
-      isGameFound, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users
+      users: usersList,
+      coverImage: game.images.cover,
+      name: game.name,
+      overview: {
+        ...game.overview,
+        releaseDate: JSON.parse(JSON.stringify(game.overview.releaseDate)),
+        averageRating: game.reviews.ratings.averageRating,
+        averageScore: game.reviews.scores.averageScore
+      },
+      criticReviews: {
+        scoresList: game.reviews.scores.scoresList.map((userScore) => {
+          return { ...userScore, postedOn: JSON.parse(JSON.stringify(userScore.postedOn)) }
+        })
+      },
+      userReviews: {
+        ratingsList: game.reviews.ratings.ratingsList.map((userRating) => {
+          return { ...userRating, postedOn: JSON.parse(JSON.stringify(userRating.postedOn)) }
+        })
+      },
+      systemRequirements: game.systemRequirements,
     }
   }
 }
