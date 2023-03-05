@@ -57,11 +57,11 @@ export default function CriticReviews({ criticReviews: { scoresList } }) {
       <h4 className="text-xl underline">Critic Reviews</h4>
       {scoresList.map((review) => {
         return (
-          <div key={review.userUID}>
+          <div key={review.userUID + review.comment + Math.random()}>
             <div className="flex gap-[30rem]">
               <div className="flex gap-4">
                 <div>
-                  <img className="w-[3rem]" src="https://lh3.googleusercontent.com/a/AEdFTp7lFa-o7rKx5aNNxqZY8p1BOfayskkPK12m29TLdw=s288-p-rw-no" alt="user" />
+                  <img className="w-[3rem]" src="https://static.thenounproject.com/png/2204677-200.png" alt="group" />
                 </div>
                 <div>
                   <p>by {review.organizationName}</p>
