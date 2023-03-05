@@ -59,6 +59,7 @@ export async function getServerSideProps() {
 
     gamesData = response.docs.map((doc) => {
       return {
+        id: doc.id,
         name: doc.data().name,
         thumbnailURL: doc.data().images.thumbnail,
         ...doc.data().overview,
