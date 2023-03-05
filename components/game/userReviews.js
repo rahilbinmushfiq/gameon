@@ -5,7 +5,7 @@ import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
 
-export default function UserReviews({ userReviews: { ratingsList }, users }) {
+export default function UserReviews({ userReviews: { ratingsList }, users, gameID }) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const [rating, setRating] = useState(null);
@@ -23,7 +23,7 @@ export default function UserReviews({ userReviews: { ratingsList }, users }) {
     if (!user) return router.push("/signin");
 
     try {
-      await updateDoc(doc(db, "games", "fifa-21"), {
+      await updateDoc(doc(db, "games", gameID), {
         "reviews.ratings.ratingsList": arrayUnion({
           comment: commentRef?.current?.value,
           postedOn: Timestamp.now(),
@@ -38,7 +38,7 @@ export default function UserReviews({ userReviews: { ratingsList }, users }) {
       console.log(error);
     }
 
-    router.push("/game/fifa-21", undefined, { scroll: false });
+    router.push(router.asPath, undefined, { scroll: false });
   }
 
   return (

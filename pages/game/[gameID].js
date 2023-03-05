@@ -6,7 +6,7 @@ import { db } from "../../config/firebase";
 import { useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
-export default function GameDetails({ coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
+export default function GameDetails({ gameID, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
 
   return (
@@ -32,8 +32,8 @@ export default function GameDetails({ coverImage, name, overview, criticReviews,
           </button>
         </div>
         {tab === 'overview' && <Overview overview={overview} />}
-        {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} />}
-        {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} />}
+        {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}
+        {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} gameID={gameID} />}
         {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
       </section>
     </main>
@@ -68,6 +68,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      gameID,
       users: usersList,
       coverImage: game.images.cover,
       name: game.name,

@@ -5,7 +5,7 @@ import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
 
-export default function CriticReviews({ criticReviews: { scoresList } }) {
+export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
   const organizationNameRef = useRef();
@@ -20,7 +20,7 @@ export default function CriticReviews({ criticReviews: { scoresList } }) {
     if (!user) return router.push("/signin");
 
     try {
-      await updateDoc(doc(db, "games", "fifa-21"), {
+      await updateDoc(doc(db, "games", gameID), {
         "reviews.scores.scoresList": arrayUnion({
           organizationName: organizationNameRef?.current?.value,
           organizationEmail: organizationEmailRef?.current?.value,
@@ -41,7 +41,7 @@ export default function CriticReviews({ criticReviews: { scoresList } }) {
       console.log(error);
     }
 
-    router.push("/game/fifa-21", undefined, { scroll: false });
+    router.push(router.asPath, undefined, { scroll: false });
   }
 
   return (
