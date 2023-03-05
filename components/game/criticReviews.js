@@ -6,13 +6,15 @@ import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
 
 export default function CriticReviews({ criticReviews: { scoresList } }) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const organizationNameRef = useRef();
   const organizationEmailRef = useRef();
   const scoreRef = useRef();
   const articleLinkRef = useRef();
   const commentRef = useRef();
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   const handleCriticReview = async () => {
     if (!user) return router.push("/signin");

@@ -6,10 +6,12 @@ import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
 
 export default function UserReviews({ userReviews: { ratingsList }, users }) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const [rating, setRating] = useState(null);
   const commentRef = useRef("");
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   const getUserData = (userUID) => {
     let [userData] = users.filter(user => user.uid === userUID);
