@@ -66,6 +66,18 @@ export async function getServerSideProps(context) {
     }
   }
 
+  let averageRating = game.reviews.ratings.ratingsList ? (
+    game.reviews.ratings.ratingsList.reduce((accumulator, review) => {
+      return accumulator + review.rating
+    }, 0) / game.reviews.ratings.ratingsList.length
+  ) : 0;
+
+  let averageScore = game.reviews.scores.scoresList ? (
+    game.reviews.scores.scoresList.reduce((accumulator, review) => {
+      return accumulator + review.score
+    }, 0) / game.reviews.scores.scoresList.length
+  ) : 0;
+
   return {
     props: {
       gameID,
@@ -75,20 +87,22 @@ export async function getServerSideProps(context) {
       overview: {
         ...game.overview,
         releaseDate: JSON.parse(JSON.stringify(game.overview.releaseDate)),
-        averageRating: game.reviews.ratings.averageRating,
-        averageScore: game.reviews.scores.averageScore
+        averageRating,
+        averageScore
       },
       criticReviews: {
-        scoresList: game.reviews.scores.scoresList.map((userScore) => {
+        averageScore,
+        scoresList: game.reviews.scores.scoresList ? game.reviews.scores.scoresList.map((userScore) => {
           return { ...userScore, postedOn: JSON.parse(JSON.stringify(userScore.postedOn)) }
-        })
+        }) : null
       },
       userReviews: {
-        ratingsList: game.reviews.ratings.ratingsList.map((userRating) => {
+        averageRating,
+        ratingsList: game.reviews.ratings.ratingsList ? game.reviews.ratings.ratingsList.map((userRating) => {
           return { ...userRating, postedOn: JSON.parse(JSON.stringify(userRating.postedOn)) }
-        })
+        }) : null
       },
-      systemRequirements: game.systemRequirements,
+      systemRequirements: game.systemRequirements || null,
     }
   }
 }

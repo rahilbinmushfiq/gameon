@@ -52,20 +52,32 @@ export default function SearchGames({ gamesData }) {
 }
 
 export async function getServerSideProps() {
-  let gamesData;
+  let gamesData = null;
 
   try {
-    const response = await getDocs(collection(db, "games"));
+    const gamesSnapshot = await getDocs(collection(db, "games"));
 
-    gamesData = response.docs.map((doc) => {
+    gamesData = gamesSnapshot.docs.map((doc) => {
+      let averageRating = doc.data().reviews.ratings.ratingsList ? (
+        doc.data().reviews.ratings.ratingsList.reduce((accumulator, review) => {
+          return accumulator + review.rating
+        }, 0) / doc.data().reviews.ratings.ratingsList.length
+      ) : 0;
+
+      let averageScore = doc.data().reviews.scores.scoresList ? (
+        doc.data().reviews.scores.scoresList.reduce((accumulator, review) => {
+          return accumulator + review.score
+        }, 0) / doc.data().reviews.scores.scoresList.length
+      ) : 0;
+
       return {
         id: doc.id,
         name: doc.data().name,
         thumbnailURL: doc.data().images.thumbnail,
         ...doc.data().overview,
         releaseDate: JSON.parse(JSON.stringify(doc.data().overview.releaseDate)),
-        averageRating: doc.data().reviews?.ratings?.averageRating || null,
-        averageScore: doc.data().reviews?.scores?.averageScore || null
+        averageRating,
+        averageScore
       }
     })
   } catch (error) {
