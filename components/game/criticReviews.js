@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { getDateAndTime } from "../../utils/convertTimestamp";
+import { useAuth } from "../../config/auth";
 
 export default function CriticReviews({ criticReviews: { scoresList } }) {
-  const [user] = useAuthState(auth);
+  const { user } = useAuth();
   const router = useRouter();
   const organizationNameRef = useRef();
   const organizationEmailRef = useRef();
