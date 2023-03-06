@@ -1,12 +1,14 @@
 import { db } from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { getYear, timestampConversion } from "../utils/convertTimestamp";
 import Search from "../components/searchGames/search";
 import Filter from "../components/searchGames/filter";
 import GameCard from "../components/searchGames/gameCard";
 
 export default function SearchGames({ gamesData }) {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState({
     sort: "",
@@ -19,6 +21,22 @@ export default function SearchGames({ gamesData }) {
       "2023": false
     }
   });
+
+  useEffect(() => {
+    if (router?.query?.platform) {
+      setFilter({
+        sort: "",
+        platform: router.query.platform,
+        releaseDates: {
+          "2019": false,
+          "2020": false,
+          "2021": false,
+          "2022": false,
+          "2023": false
+        }
+      });
+    }
+  }, [router?.query]);
 
   const games = gamesData.filter(gameData => {
     return gameData.name.toLowerCase().includes(search.toLowerCase())

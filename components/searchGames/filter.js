@@ -9,10 +9,10 @@ export default function Filter({ filter, setFilter }) {
                         ...prevFilter,
                         platform: e.target.value
                     }))}>
-                        <option value="">Any</option>
-                        <option value="pc">PC</option>
-                        <option value="playstation">PlayStation</option>
-                        <option value="xbox">Xbox</option>
+                        <option value="" selected={filter.platform === ""}>Any</option>
+                        <option value="pc" selected={filter.platform === "pc"}>PC</option>
+                        <option value="playstation" selected={filter.platform === "playstation"}>PlayStation</option>
+                        <option value="xbox" selected={filter.platform === "xbox"}>Xbox</option>
                     </select>
                 </label>
                 <div className="flex gap-2">
