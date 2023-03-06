@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useState, useRef } from "react";
 import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
-import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
+import Review from "./review";
 
 export default function UserReviews({ userReviews: { ratingsList }, users, gameID }) {
   const { user, isLoading } = useAuth();
@@ -12,12 +12,6 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
   const commentRef = useRef("");
 
   if (isLoading) return <h1>Loading...</h1>;
-
-  const getUserData = (userUID) => {
-    let [userData] = users.filter(user => user.uid === userUID);
-
-    return userData;
-  }
 
   const handleUserReview = async () => {
     if (!user) return router.push("/signin");
@@ -65,28 +59,19 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
       </div>
       <h4 className="text-xl underline">User Reviews</h4>
       {ratingsList && ratingsList.map((review) => {
-        let { photoURL, fullName } = getUserData(review.userUID);
+        let [userData] = users.filter(user => user.uid === review.userUID);
+        let { photoURL, fullName } = userData;
 
         return (
-          <div key={review.userUID + review.comment + Math.random()}>
-            <div className="flex gap-[30rem]">
-              <div className="flex gap-4">
-                <div>
-                  <img className="w-[3rem]" src={photoURL} alt="user" referrerPolicy="no-referrer" />
-                </div>
-                <div>
-                  <p>by {fullName}</p>
-                  <p>on {getDateAndTime(review.postedOn)}</p>
-                </div>
-              </div>
-              <div>
-                <p>Rating: {review.rating}</p>
-              </div>
-            </div>
-            <div className="w-[50rem]">
-              {review.comment}
-            </div>
-          </div>
+          <Review
+            key={review.userUID + review.comment + Math.random()}
+            reviewType="user"
+            photoURL={photoURL}
+            name={fullName}
+            postedOn={review.postedOn}
+            assessment={review.rating}
+            comment={review.comment}
+          />
         )
       })}
     </>

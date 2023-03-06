@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
-import { getDateAndTime } from "../../utils/convertTimestamp";
 import { useAuth } from "../../config/auth";
+import Review from "./review";
 
 export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
   const { user, isLoading } = useAuth();
@@ -24,7 +24,7 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
         "reviews.scores.scoresList": arrayUnion({
           organizationName: organizationNameRef?.current?.value,
           organizationEmail: organizationEmailRef?.current?.value,
-          score: scoreRef?.current?.value,
+          score: parseInt(scoreRef?.current?.value),
           articleLink: articleLinkRef?.current?.value,
           comment: commentRef?.current?.value,
           postedOn: Timestamp.now(),
@@ -57,28 +57,18 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
         <button onClick={() => handleCriticReview()} className="w-fit text-white bg-slate-600">Review</button>
       </div>
       <h4 className="text-xl underline">Critic Reviews</h4>
-      {scoresList.map((review) => {
+      {scoresList && scoresList.map((review) => {
         return (
-          <div key={review.userUID + review.comment + Math.random()}>
-            <div className="flex gap-[30rem]">
-              <div className="flex gap-4">
-                <div>
-                  <img className="w-[3rem]" src="https://static.thenounproject.com/png/2204677-200.png" alt="group" />
-                </div>
-                <div>
-                  <p>by {review.organizationName}</p>
-                  <p>on {getDateAndTime(review.postedOn)}</p>
-                </div>
-              </div>
-              <div>
-                <p>Score: {review.score}</p>
-              </div>
-            </div>
-            <div className="w-[50rem]">
-              {review.comment}
-            </div>
-            <a href={review.articleLink} target="_blank" rel="noopener noreferrer">Read full review</a>
-          </div>
+          <Review
+            key={review.userUID + review.comment + Math.random()}
+            reviewType="critic"
+            photoURL="https://static.thenounproject.com/png/2204677-200.png"
+            name={review.organizationName}
+            postedOn={review.postedOn}
+            assessment={review.score}
+            comment={review.comment}
+            articleLink={review.articleLink}
+          />
         )
       })}
     </>
