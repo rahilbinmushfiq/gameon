@@ -1,17 +1,13 @@
 import Logo from "../public/logo.svg";
 import { auth } from "../config/firebase";
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "../config/auth";
 
 export default function Navbar() {
-    const [user, loading] = useAuthState(auth);
+    const { user, isLoading } = useAuth();
 
-    if (loading) {
-        return <h1>loading...</h1>
-    } else if (!user) {
-        <h1>wait</h1>
-    }
+    if (isLoading) return <h1>Loading...</h1>;
 
     return (
         <header className="mb-2">
