@@ -11,6 +11,7 @@ import { getAuth } from "firebase-admin/auth";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import ForgotPassword from "../components/signIn/forgotPassword";
 
 export default function SignIn({ users }) {
   const { user, isLoading } = useAuth();
@@ -94,14 +95,17 @@ export default function SignIn({ users }) {
                 The last time you signed up for our website, you used Google sign in provider. If you want to avail password sign in system for your account, first you must login via the Google sign in provider below and then add a password for your account.
               </h2>
             ) : (
-              <EmailAndPasswordSignIn
-                email={email}
-                setEmail={setEmail}
-                passwordRef={passwordRef}
-                isUserNew={isUserNew}
-                setIsUserNew={setIsUserNew}
-                setIsUserLoaded={setIsUserLoaded}
-              />
+              <>
+                <ForgotPassword email={email} />
+                <EmailAndPasswordSignIn
+                  email={email}
+                  setEmail={setEmail}
+                  passwordRef={passwordRef}
+                  isUserNew={isUserNew}
+                  setIsUserNew={setIsUserNew}
+                  setIsUserLoaded={setIsUserLoaded}
+                />
+              </>
             )
           )
         )}
