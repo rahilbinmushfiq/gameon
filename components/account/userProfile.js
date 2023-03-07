@@ -1,6 +1,7 @@
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { db, storage } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
@@ -67,8 +68,8 @@ export default function UserProfile({ user }) {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum nihil veritatis ipsum necessitatibus recusandae animi?
           </p>
         </div>
-        <div className="relative">
-          <img className="w-[8rem] h-[8rem] rounded-full" src={user.photoURL} alt="user" referrerPolicy="no-referrer" />
+        <div className="relative w-[8rem] h-[8rem]">
+          <Image className="object-cover rounded-full" src={user.photoURL} fill sizes="8rem" alt="user" />
           <button
             className="absolute bottom-2 right-0 bg-black text-white w-8 h-8 rounded-full flex justify-center items-center cursor-pointer"
             id="update-photo-button"

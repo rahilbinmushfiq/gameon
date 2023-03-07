@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getDateAndTime } from "../../utils/convertTimestamp";
 
 export default function Review({ reviewType, photoURL, name, postedOn, assessment, comment, articleLink }) {
@@ -5,8 +6,8 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
     <div className="flex flex-col gap-1 m-2 p-2 bg-gray-100 w-fit">
       <div className="flex justify-between">
         <div className="flex gap-2">
-          <div>
-            <img className="w-[3rem] rounded-full" src={photoURL} alt="group" />
+          <div className="relative w-[3rem]">
+            <Image className="object-cover rounded-full" src={photoURL} fill sizes="3rem" alt={`${reviewType === "critic" ? "user" : "critic"}`} />
           </div>
           <div>
             <p className="font-semibold">{name}</p>

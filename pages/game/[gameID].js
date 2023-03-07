@@ -5,6 +5,7 @@ import SystemRequirements from "../../components/game/systemRequirements";
 import { db } from "../../config/firebase";
 import { useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import Image from "next/image";
 
 export default function GameDetails({ gameID, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
@@ -14,7 +15,9 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
       <section>
         <h1 className="text-3xl underline">Game Details</h1>
         <div>
-          <img className="w-[72rem]" src={coverImage} alt={`${name} cover`} />
+          <div className="relative w-[35rem] h-[20rem]">
+            <Image className="object-cover" src={coverImage} fill sizes="35rem" alt={`${name} cover`} />
+          </div>
           <h2>{name}</h2>
         </div>
         <div className="flex gap-3">
