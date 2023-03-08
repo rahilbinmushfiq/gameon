@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Logo from "../public/logo.svg";
+import Logo from "../public/logo.png";
 
 export default function Footer() {
   const router = useRouter();
@@ -16,11 +16,9 @@ export default function Footer() {
 
   return (
     <footer className="flex gap-16">
-      <Image
-        className="w-24 h-12"
-        src={Logo}
-        alt="gameon-footer-logo"
-      />
+      <div className="w-36 h-12 relative">
+        <Image className="object-cover" src={Logo} fill sizes="200px" alt="gamon-logo" />
+      </div>
       <div className="w-[15rem]">
         <h2 className="font-semibold">SEARCH GAMES</h2>
         <p className="cursor-pointer hover:bg-gray-100 w-fit" onClick={() => handleSearchGames("pc")}>

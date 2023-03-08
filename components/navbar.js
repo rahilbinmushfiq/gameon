@@ -1,4 +1,4 @@
-import Logo from "../public/logo.svg";
+import Logo from "../public/logo.png";
 import { auth } from "../config/firebase";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,9 @@ export default function Navbar() {
 
     return (
         <header className="mb-2">
-            <Image className="w-24 h-12" src={Logo} alt="gamon-logo" />
+            <div className=" w-28 h-10 relative">
+                <Image className="object-cover" src={Logo} fill sizes="200px" alt="gamon-logo" />
+            </div>
             <nav>
                 <ul>
                     <li><Link href="/">Home</Link></li>
