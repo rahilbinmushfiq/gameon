@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider>
       <Layout>
         {isPageLoading ? (
-          <div className="min-h-screen max-w-screen flex justify-center items-center">
+          <div className="min-h-screen max-w-screen fixed inset-0 z-[2] flex justify-center items-center">
             <HashLoader
               color="rgb(225 29 72)"
               loading={isPageLoading}

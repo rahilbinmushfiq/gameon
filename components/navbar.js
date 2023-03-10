@@ -20,7 +20,7 @@ export default function Navbar() {
         </button>
         {isNavbarOpen && (
           <div
-            className="fixed inset-0 w-screen h-screen bg-[#3f3f3f] bg-opacity-25 backdrop-blur"
+            className="fixed inset-0 z-[1] w-screen h-screen bg-[#3f3f3f] bg-opacity-25 backdrop-blur"
             id="navbar-bg"
             onClick={(event) => event.target.id === "navbar-bg" && setIsNavbarOpen(prevState => !prevState)}
           >
