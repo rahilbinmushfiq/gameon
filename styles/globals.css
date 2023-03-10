@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-[#1f1f1f] text-[#f1f1f1];
+    @apply bg-[#1f1f1f] text-[#f1f1f1] text-sm;
   }
 }
 
