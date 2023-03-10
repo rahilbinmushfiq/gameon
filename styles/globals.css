@@ -7,3 +7,17 @@
     @apply bg-[#1f1f1f] text-[#f1f1f1];
   }
 }
+
+@layer components {
+  .nav--li {
+    @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1];
+  }
+
+  .footer--li {
+    @apply w-fit rounded-sm cursor-pointer text-[#9f9f9f] hover:text-[#f1f1f1];
+  }
+
+  .footer--a {
+    @apply flex justify-center items-center w-10 h-10 rounded-full cursor-pointer bg-[#f1f1f1] hover:bg-[#e30e30] [&>*]:hover:fill-[#f1f1f1];
+  }
+}
