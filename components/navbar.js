@@ -11,7 +11,7 @@ export default function Navbar() {
   const { asPath } = useRouter();
 
   return (
-    <header className="px-6 py-4">
+    <header className="px-6 py-3 h-14">
       <nav>
         <button
           onClick={() => setIsNavbarOpen(prevState => !prevState)}
