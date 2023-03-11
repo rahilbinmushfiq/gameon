@@ -15,16 +15,16 @@ export default function Footer() {
   }
 
   return (
-    <footer className="max-w-screen">
-      <div className="p-6 space-y-12">
+    <footer className="max-w-screen px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f]">
+      <div className="py-10 space-y-12">
         <div className="space-y-2">
           <p className="text-3xl font-extrabold">
             <Link href="/">
               GAME <span className="text-[#e30e30]">ON</span>
             </Link>
           </p>
-          <p className="text-[#9f9f9f]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla non massa id consequat. Mauris sed nulla quis urna hendrerit accumsan vitae sit amet nisi.
+          <p className="text-[#9f9f9f] leading-6">
+            With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.
           </p>
           <div className="flex gap-4 pt-4">
             <a className="footer--a" href="https://www.discord.com" target="_blank" rel="noopener noreferrer">
@@ -65,8 +65,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="max-w-screen px-6 py-3 bg-[#2f2f2f]">
-        <p className="text-[#f1f1f1] text-center text-sm">Copyright &copy; <span className="text-[#e30e30]">Game On</span> - 2023. All Rights Reserved</p>
+      <div className="max-w-screen pt-6 pb-4">
+        <p className="text-[#dfdfdf] text-center text-xs">Copyright &copy; <span className="text-[#e30e30] font-bold">Game On</span> - 2023. All Rights Reserved</p>
       </div>
     </footer>
   )
