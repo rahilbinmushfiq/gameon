@@ -11,7 +11,7 @@ import { getAuth } from "firebase-admin/auth";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { IoChevronForward } from "react-icons/io5";
+import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 
 export default function SignIn({ users }) {
   const { user, isLoading } = useAuth();
@@ -60,26 +60,40 @@ export default function SignIn({ users }) {
   if (!user) return (
     <main>
       <section className="px-6 py-8 max-w-full">
-        {isUserNew && <p className="text-[#a9a9a9]">Your account creation is complete! Now, you can sign in to your new account.</p>}
-        {/* <h1 className="text-3xl underline mb-3">Sign In</h1> */}
+        {isUserNew && (
+          <div className="space-y-1 pb-12">
+            <h2 className="text-lg font-semibold text-[#f1f1f1]">Account Successfully Created!</h2>
+            <p className="text-[#a9a9a9] leading-6">
+              Your account creation is complete! Now, you can sign in to your new account.
+            </p>
+          </div>
+        )}
         {!email ? (
-          <div className="space-y-8 py-12">
-            <input
-              className="sign-in--input"
-              ref={emailRef}
-              type="text"
-              placeholder="Enter your email"
-              onKeyUp={(event) => event.key === "Enter" && setEmail(emailRef?.current?.value)}
-              autoFocus
-            />
-            <button
-              className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
-              type="button"
-              onClick={() => setEmail(emailRef?.current?.value)}
-            >
-              <p className="font-semibold">Next</p>
-              <IoChevronForward size={13} color="#1f1f1f" />
-            </button>
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-[#f1f1f1]">Sign in</h2>
+              <p className="text-[#a9a9a9]">
+                Provide your email address to continue.
+              </p>
+            </div>
+            <div className="space-y-8 pb-12">
+              <input
+                className="sign-in--input"
+                ref={emailRef}
+                type="text"
+                placeholder="Enter your email"
+                onKeyUp={(event) => event.key === "Enter" && setEmail(emailRef?.current?.value)}
+                autoFocus
+              />
+              <button
+                className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
+                type="button"
+                onClick={() => setEmail(emailRef?.current?.value)}
+              >
+                <p className="font-semibold">Next</p>
+                <IoChevronForward size={13} color="#1f1f1f" />
+              </button>
+            </div>
           </div>
         ) : (
           users.every((user) => user.email !== email) ? (
@@ -92,16 +106,28 @@ export default function SignIn({ users }) {
             />
           ) : (
             isProviderOnlyGoogle() ? (
-              <p className="text-[#a9a9a9] py-4">
-                The last time you signed up for our website, you used Google sign in provider. If you want to avail password sign in system for your account, first you must login via the Google sign in provider below and then add a password for your account.
-              </p>
+              <div className="space-y-6 pb-12">
+                <div className="space-y-3">
+                  <h2 className="text-xl font-bold text-[#f1f1f1]">Can't Sign in with Password</h2>
+                  <p className="text-[#a9a9a9] leading-6">
+                    The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google below.
+                  </p>
+                </div>
+                <button
+                  className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
+                  type="button"
+                  onClick={() => setEmail("")}
+                >
+                  <IoChevronBack size={13} color="#1f1f1f" />
+                  <p className="font-semibold">Back</p>
+                </button>
+              </div>
             ) : (
               <EmailAndPasswordSignIn
                 email={email}
                 setEmail={setEmail}
                 passwordRef={passwordRef}
                 isUserNew={isUserNew}
-                setIsUserNew={setIsUserNew}
                 setIsUserLoaded={setIsUserLoaded}
               />
             )
