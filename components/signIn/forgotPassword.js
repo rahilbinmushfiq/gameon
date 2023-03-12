@@ -20,45 +20,47 @@ export default function ForgotPassword({ email }) {
   }
 
   return (
-    <>
-      <p
-        className="underline cursor-pointer"
-        onClick={() => setIsForgotPasswordModalOpen(true)}
-      >
-        Forgot password?
-      </p>
+    <div>
+      <div className="flex justify-end">
+        <p
+          className="text-xs font-bold text-[#d9d9d9] underline cursor-pointer"
+          onClick={() => setIsForgotPasswordModalOpen(true)}
+        >
+          Forgot password?
+        </p>
+      </div>
       {isForgotPasswordModalOpen && (
         <div
-          className="fixed inset-0 w-screen h-screen bg-black bg-opacity-25 backdrop-blur flex justify-center items-center"
+          className="fixed inset-0 z-[1] w-screen h-screen bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md flex justify-center items-center"
           id="forgot-password-modal-bg"
           onClick={(event) => event.target.id === "forgot-password-modal-bg" && setIsForgotPasswordModalOpen(false)}
         >
-          <div className="w-[40rem] h-[20rem] flex flex-col justify-center items-center bg-white shadow-2xl">
-            <h2 className="mb-6 text-2xl">RESET YOUR PASSWORD</h2>
-            <div className="flex flex-col gap-2">
-              <div className="w-[34rem]">
-                <p>An email will be sent to your email address, <span className="font-semibold">{email}</span>. Click on the link provided in the email and reset your password.<br /><br /></p>
+          <div className="mx-6 p-8 rounded-md space-y-16 bg-[#1f1f1f]">
+            <div className="space-y-4">
+              <h2 className="text-lg font-bold">RESET YOUR PASSWORD</h2>
+              <div className="space-y-4 text-[#a9a9a9]">
+                <p>An email will be sent to your email address, <span className="font-bold">{email}</span>. Click on the link provided in the email and reset your password.</p>
                 <p>If you don't see it in your inbox, you may want to check your spam folder.</p>
               </div>
-              <div className="flex justify-between mt-6">
-                <button
-                  className="text-white bg-black w-[5rem] h-8"
-                  type="button"
-                  onClick={() => setIsForgotPasswordModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="text-white bg-green-700 w-[8rem] h-8"
-                  onClick={resetUserPassword}
-                >
-                  Send reset link
-                </button>
-              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+                type="button"
+                onClick={() => setIsForgotPasswordModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
+                onClick={resetUserPassword}
+              >
+                Send link
+              </button>
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

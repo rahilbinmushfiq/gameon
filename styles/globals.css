@@ -24,4 +24,8 @@
   .home--card {
     @apply w-[45%] rounded-sm space-y-1;
   }
+
+  .sign-in--input {
+    @apply w-full h-12 px-3 rounded-sm bg-[#2f2f2f] caret-[#f1f1f1] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a];
+  }
 }

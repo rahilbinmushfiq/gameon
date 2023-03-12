@@ -11,7 +11,7 @@ import { getAuth } from "firebase-admin/auth";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import ForgotPassword from "../components/signIn/forgotPassword";
+import { IoChevronForward } from "react-icons/io5";
 
 export default function SignIn({ users }) {
   const { user, isLoading } = useAuth();
@@ -59,13 +59,13 @@ export default function SignIn({ users }) {
 
   if (!user) return (
     <main>
-      <section>
-        {isUserNew && <p>Your account creation is complete! Now, you can sign in to your new account.</p>}
-        <h1 className="text-3xl underline mb-3">Sign In</h1>
+      <section className="px-6 py-8 max-w-full">
+        {isUserNew && <p className="text-[#a9a9a9]">Your account creation is complete! Now, you can sign in to your new account.</p>}
+        {/* <h1 className="text-3xl underline mb-3">Sign In</h1> */}
         {!email ? (
-          <div className="flex flex-col w-fit gap-4">
+          <div className="space-y-8 py-12">
             <input
-              className="border border-neutral-900 w-[15rem] h-8"
+              className="sign-in--input"
               ref={emailRef}
               type="text"
               placeholder="Enter your email"
@@ -73,11 +73,12 @@ export default function SignIn({ users }) {
               autoFocus
             />
             <button
-              className="text-white bg-neutral-900 w-[5rem] h-8"
+              className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
               type="button"
               onClick={() => setEmail(emailRef?.current?.value)}
             >
-              Next
+              <p className="font-semibold">Next</p>
+              <IoChevronForward size={13} color="#1f1f1f" />
             </button>
           </div>
         ) : (
@@ -91,24 +92,28 @@ export default function SignIn({ users }) {
             />
           ) : (
             isProviderOnlyGoogle() ? (
-              <h2 className="w-[20rem]">
+              <p className="text-[#a9a9a9] py-4">
                 The last time you signed up for our website, you used Google sign in provider. If you want to avail password sign in system for your account, first you must login via the Google sign in provider below and then add a password for your account.
-              </h2>
+              </p>
             ) : (
-              <>
-                <ForgotPassword email={email} />
-                <EmailAndPasswordSignIn
-                  email={email}
-                  setEmail={setEmail}
-                  passwordRef={passwordRef}
-                  isUserNew={isUserNew}
-                  setIsUserNew={setIsUserNew}
-                  setIsUserLoaded={setIsUserLoaded}
-                />
-              </>
+              <EmailAndPasswordSignIn
+                email={email}
+                setEmail={setEmail}
+                passwordRef={passwordRef}
+                isUserNew={isUserNew}
+                setIsUserNew={setIsUserNew}
+                setIsUserLoaded={setIsUserLoaded}
+              />
             )
           )
         )}
+        <div className="grid grid-cols-7 items-center pb-6">
+          <hr className="col-span-3 border-[#a9a9a9]" />
+          <p className="col-span-1 text-base text-center text-[#a9a9a9]">
+            or
+          </p>
+          <hr className="col-span-3 border-[#a9a9a9]" />
+        </div>
         <GoogleSignIn
           users={users}
           setIsUserLoaded={setIsUserLoaded}
@@ -118,7 +123,7 @@ export default function SignIn({ users }) {
   );
   if (user && !user.emailVerified) return (
     <main>
-      <section className="flex flex-col gap-2">
+      <section className="px-6 py-8 space-y-8 max-w-full">
         <Verification user={user} />
       </section>
     </main>
