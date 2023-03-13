@@ -42,47 +42,45 @@ export default function DeleteAccount({ user, signInProvider }) {
   }
 
   if (user) return (
-    <section className="mt-16">
-      <div className="flex justify-center items-center">
-        <button
-          className="text-white bg-neutral-900 w-[10rem] h-8"
-          onClick={() => setIsDeleteAccountModalOpen(true)}
-        >
-          Delete Account
-        </button>
-      </div>
+    <section className="pt-6">
+      <button
+        className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
+        onClick={() => setIsDeleteAccountModalOpen(true)}
+      >
+        Delete Account
+      </button>
       {isDeleteAccountModalOpen && (
         <div
-          className="fixed inset-0 w-screen h-screen bg-black bg-opacity-25 backdrop-blur flex justify-center items-center"
+          className="fixed inset-0 w-screen h-screen bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md flex justify-center items-center"
           id="delete-account-modal-bg"
           onClick={(event) => event.target.id === "delete-account-modal-bg" && setIsDeleteAccountModalOpen(false)}
         >
-          <div className="w-[28rem] h-[16rem] flex flex-col justify-center items-center bg-white shadow-lg">
-            <h2 className="mb-6 text-xl">Delete your account</h2>
-            <div className="flex flex-col gap-2">
+          <div className="w-full mx-6 p-8 rounded-md space-y-4 bg-[#1f1f1f]">
+            <h2 className="text-lg font-bold">Delete your account</h2>
+            <div className="space-y-4 mb-12">
               {signInProvider === "password" ? (
                 <input
-                  className="border border-neutral-900 w-[15rem] h-8 px-2"
+                  className="sign-in--input mb-10"
                   ref={passwordRef}
                   type="password"
                   placeholder="Enter your password"
+                  autoFocus
                   onKeyUp={(event) => event.key === "Enter" && deleteUserAccount()}
                 />
               ) : (
-                <h3 className="max-w-sm">
+                <p className="text-[#a9a9a9] mb-10">
                   After you press the confirm button, you need to be re-authenticated to make sure you're the owner of this account.
-                </h3>
+                </p>
               )}
-              <div className="flex justify-between mt-6">
+              <div className="grid grid-cols-2 gap-4">
                 <button
-                  className="text-white bg-red-700 w-[5rem] h-8"
-                  type="button"
+                  className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
                   onClick={() => setIsDeleteAccountModalOpen(false)}
                 >
                   Cancel
                 </button>
                 <button
-                  className="text-white bg-green-700 w-[5rem] h-8"
+                  className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
                   onClick={deleteUserAccount}
                 >
                   Confirm

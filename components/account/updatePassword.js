@@ -94,54 +94,54 @@ export default function UpdatePassword({ user, signInProvider }) {
   }
 
   if (user) return (
-    <section className="mt-16">
-      <div className="flex justify-center items-center">
-        <button
-          className="text-white bg-neutral-900 w-[10rem] h-8"
-          onClick={() => setIsPasswordModalOpen(true)}
-        >
-          {`${isPasswordProviderPresent() ? "Change" : "Add"} password`}
-        </button>
-      </div>
+    <section className="pt-10">
+      <button
+        className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+        onClick={() => setIsPasswordModalOpen(true)}
+      >
+        {`${isPasswordProviderPresent() ? "Change" : "Add"} password`}
+      </button>
       {isPasswordModalOpen && (
         <div
-          className="fixed inset-0 w-screen h-screen bg-black bg-opacity-25 backdrop-blur flex justify-center items-center"
+          className="fixed inset-0 w-screen h-screen bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md flex justify-center items-center"
           id="password-modal-bg"
           onClick={(event) => event.target.id === "password-modal-bg" && setIsPasswordModalOpen(false)}
         >
-          <div className="w-[28rem] h-[18rem] flex flex-col justify-center items-center bg-white shadow-lg">
-            <h2 className="mb-6 text-xl">{`${isPasswordProviderPresent() ? "Update your" : "Add"}`} password</h2>
-            <form className="flex flex-col gap-2 items-center" onSubmit={updateUserPassword}>
+          <div className="mx-6 p-8 rounded-md space-y-4 bg-[#1f1f1f]">
+            <h2 className="text-lg font-bold">{`${isPasswordProviderPresent() ? "Update your" : "Add"}`} password</h2>
+            <form className="space-y-2" onSubmit={updateUserPassword}>
               {signInProvider === "google.com" && (
-                <p className="max-w-sm">
+                <p className="text-[#a9a9a9] mb-4">
                   After you press the {`${isPasswordProviderPresent() ? "update" : "add"}`} button, a pop-up will appear asking you to sign in with your email.
                 </p>
               )}
-              {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
+              <div className="space-y-4 mb-10">
+                {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
+                  <input
+                    className="sign-in--input"
+                    ref={firstPasswordRef}
+                    type="password"
+                    placeholder={`${isPasswordProviderPresent() ? "Old password" : "Password"}`}
+                    autoFocus
+                  />
+                )}
                 <input
-                  className="border border-neutral-900 w-[15rem] h-8 px-2"
-                  ref={firstPasswordRef}
+                  className="sign-in--input mb-10"
+                  ref={secondPasswordRef}
                   type="password"
-                  placeholder={`${isPasswordProviderPresent() ? "Old password" : "Password"}`}
-                  autoFocus
+                  placeholder={`${isPasswordProviderPresent() ? "New password" : "Confirm password"}`}
                 />
-              )}
-              <input
-                className="border border-neutral-900 w-[15rem] h-8 px-2"
-                ref={secondPasswordRef}
-                type="password"
-                placeholder={`${isPasswordProviderPresent() ? "New password" : "Confirm password"}`}
-              />
-              <div className="flex gap-6 mt-6">
+              </div>
+              <div className="grid grid-cols-2 gap-4">
                 <button
-                  className="text-white bg-red-700 w-[5rem] h-8"
+                  className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
                   type="button"
                   onClick={() => setIsPasswordModalOpen(false)}
                 >
                   Cancel
                 </button>
                 <button
-                  className="text-white bg-green-700 w-[5rem] h-8"
+                  className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
                   onClick={updateUserPassword}
                 >
                   {`${isPasswordProviderPresent() ? "Update" : "Add"}`}

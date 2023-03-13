@@ -25,7 +25,7 @@ export default function Account({ signInProvider }) {
   }, [user]);
 
   return (
-    <main>
+    <main className="max-w-full px-6 py-12">
       <UserProfile user={user} />
       <UpdatePassword user={user} signInProvider={signInProvider} />
       <DeleteAccount user={user} signInProvider={signInProvider} />
