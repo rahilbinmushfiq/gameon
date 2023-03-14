@@ -5,14 +5,18 @@ export default function Filter({ filter, setFilter }) {
             <div className="flex gap-10 mb-10">
                 <label className="flex gap-2">
                     Platform:
-                    <select className="border-2 border-neutral-900" onChange={(e) => setFilter(prevFilter => ({
-                        ...prevFilter,
-                        platform: e.target.value
-                    }))}>
-                        <option value="" selected={filter.platform === ""}>Any</option>
-                        <option value="pc" selected={filter.platform === "pc"}>PC</option>
-                        <option value="playstation" selected={filter.platform === "playstation"}>PlayStation</option>
-                        <option value="xbox" selected={filter.platform === "xbox"}>Xbox</option>
+                    <select
+                        className="border-2 border-neutral-900"
+                        value={filter.platform}
+                        onChange={(e) => setFilter(prevFilter => ({
+                            ...prevFilter,
+                            platform: e.target.value
+                        }))}
+                    >
+                        <option value="">Any</option>
+                        <option value="pc">PC</option>
+                        <option value="playstation">PlayStation</option>
+                        <option value="xbox">Xbox</option>
                     </select>
                 </label>
                 <div className="flex gap-2">
