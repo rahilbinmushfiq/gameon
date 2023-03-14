@@ -1,49 +1,59 @@
 export default function Filter({ filter, setFilter }) {
-    return (
-        <>
-            <h3 className="text-xl mt-6 underline">Filter Games</h3>
-            <div className="flex gap-10 mb-10">
-                <label className="flex gap-2">
-                    Platform:
-                    <select
-                        className="border-2 border-neutral-900"
-                        value={filter.platform}
-                        onChange={(e) => setFilter(prevFilter => ({
-                            ...prevFilter,
-                            platform: e.target.value
-                        }))}
-                    >
-                        <option value="">Any</option>
-                        <option value="pc">PC</option>
-                        <option value="playstation">PlayStation</option>
-                        <option value="xbox">Xbox</option>
-                    </select>
-                </label>
-                <div className="flex gap-2">
-                    Release Date:
-                    {Object.entries(filter.releaseDates).map(([year, checked]) => (
-                        <label key={year}>
-                            <input type="checkbox" checked={checked} onChange={() => setFilter(prevFilter => ({
-                                ...prevFilter,
-                                releaseDates: { ...filter.releaseDates, [year]: !checked }
-                            }))} />
-                            {year}
-                        </label>
-                    ))}
-                </div>
-                <label className="flex gap-2">
-                    Sort by:
-                    <select className="border-2 border-neutral-900" onChange={(e) => setFilter(prevFilter => ({
-                        ...prevFilter,
-                        sort: e.target.value
-                    }))}>
-                        <option value="">---</option>
-                        <option value="topRated">Top rated</option>
-                        <option value="topScored">Top scored</option>
-                        <option value="releaseDate">Release Date</option>
-                    </select>
-                </label>
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className="space-y-6 bg-[#1f1f1f] mx-6 p-4">
+        <h1 className="text-base font-bold text-[#a9a9a9]">FILTER RESULTS</h1>
+        <label className="search--label">
+          <p className="font-semibold w-14 text-[#a9a9a9]">Platform:</p>
+          <select
+            className="bg-[#1f1f1f] h-12 flex-grow text-xs text-[#a9a9a9] px-3 rounded-sm border border-[#353535] focus:outline-none focus:border focus:border-[#e30e30]/60"
+            value={filter.platform}
+            onChange={(e) => setFilter(prevFilter => ({
+              ...prevFilter,
+              platform: e.target.value
+            }))}
+          >
+            <option value="">Any</option>
+            <option value="pc">PC</option>
+            <option value="playstation">PlayStation</option>
+            <option value="xbox">Xbox</option>
+          </select>
+        </label>
+        <label className="search--label">
+          <p className="font-semibold w-14 text-[#a9a9a9]">Sort by:</p>
+          <select
+            className="bg-[#1f1f1f] h-12 flex-grow text-xs text-[#a9a9a9] px-3 rounded-sm border border-[#353535] focus:outline-none focus:border focus:border-[#e30e30]/60"
+            onChange={(e) => setFilter(prevFilter => ({
+              ...prevFilter,
+              sort: e.target.value
+            }))}
+          >
+            <option value="">---</option>
+            <option value="topRated">Top rated</option>
+            <option value="topScored">Top scored</option>
+            <option value="releaseDate">Release Date</option>
+          </select>
+        </label>
+        <div className="search--label">
+          <p className="font-semibold w-14 text-[#a9a9a9]">Release Date:</p>
+          <div className="flex-grow grid grid-cols-3 gap-2">
+            {Object.entries(filter.releaseDates).map(([year, checked]) => (
+              <label key={year} className="flex gap-1 justify-center items-center">
+                <input
+                  className="h-4 w-4 accent-[#f1f1f1]"
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => setFilter(prevFilter => ({
+                    ...prevFilter,
+                    releaseDates: { ...filter.releaseDates, [year]: !checked }
+                  }))}
+                />
+                <p className="text-xs text-[#a9a9a9]">{year}</p>
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }

@@ -56,14 +56,16 @@ export default function SearchGames({ gamesData }) {
 
   return (
     <main>
-      <section>
-        <Search setSearch={setSearch} />
-        <Filter filter={filter} setFilter={setFilter} />
-        {
-          games.map(game => (
+      <section className="max-w-full px-4 pb-8 space-y-3">
+        <div className="bg-[#2a2a2a] rounded-md py-8">
+          <Search setSearch={setSearch} />
+          <Filter filter={filter} setFilter={setFilter} />
+        </div>
+        <div className="bg-[#2a2a2a] rounded-md py-1">
+          {games.map(game => (
             <GameCard key={game.name} game={game} />
-          ))
-        }
+          ))}
+        </div>
       </section>
     </main>
   );
