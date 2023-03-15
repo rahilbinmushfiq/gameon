@@ -6,39 +6,69 @@ import { db } from "../../config/firebase";
 import { useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Image from "next/image";
+import { FaInfoCircle, FaUser, FaUserTie, FaDesktop } from "react-icons/fa";
 
 export default function GameDetails({ gameID, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
 
   return (
     <main>
-      <section>
-        <h1 className="text-3xl underline">Game Details</h1>
-        <div>
-          <div className="relative w-[35rem] h-[20rem]">
-            <Image className="object-cover" src={coverImage} fill sizes="35rem" alt={`${name} cover`} />
+      <div className="py-6">
+        <div className="relative max-w-full h-72">
+          <Image className="object-cover" src={coverImage} fill sizes="35rem" alt={`${name} cover`} />
+          <h2 className="absolute bottom-0 px-6 z-[1] text-2xl font-bold">
+            {name}
+          </h2>
+          <div className="absolute h-full inset-0">
+            <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
+            <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
           </div>
-          <h2>{name}</h2>
         </div>
-        <div className="flex gap-3">
-          <button className="text-white bg-blue-400" onClick={() => setTab("overview")}>
-            Overview
+      </div>
+      <section className="max-w-full px-6 py-4 rounded-md">
+        <div className="flex justify-between rounded-[4px] overflow-hidden">
+          <button
+            className={`game--tab ${tab === 'overview' && "bg-[#e30e30]"}`}
+            onClick={() => setTab("overview")}
+          >
+            <FaInfoCircle
+              size={14}
+              color={`${tab === 'overview' && "#f1f1f1"}`}
+            />
           </button>
-          <button className="text-white bg-blue-400" onClick={() => setTab("criticReviews")}>
-            Critic Reviews
+          <button
+            className={`game--tab ${tab === 'criticReviews' && "bg-[#e30e30]"}`}
+            onClick={() => setTab("criticReviews")}
+          >
+            <FaUserTie
+              size={14}
+              color={`${tab === 'criticReviews' && "#f1f1f1"}`}
+            />
           </button>
-          <button className="text-white bg-blue-400" onClick={() => setTab("userReviews")}>
-            User Reviews
+          <button
+            className={`game--tab ${tab === 'userReviews' && "bg-[#e30e30]"}`}
+            onClick={() => setTab("userReviews")}
+          >
+            <FaUser
+              size={14}
+              color={`${tab === 'userReviews' && "#f1f1f1"}`}
+            />
           </button>
-          <button className="text-white bg-blue-400" onClick={() => setTab("systemRequirements")}>
-            System Requirements
+          <button
+            className={`game--tab ${tab === 'systemRequirements' && "bg-[#e30e30]"}`}
+            onClick={() => setTab("systemRequirements")}
+          >
+            <FaDesktop
+              size={14}
+              color={`${tab === 'systemRequirements' && "#f1f1f1"}`}
+            />
           </button>
         </div>
-        {tab === 'overview' && <Overview overview={overview} />}
-        {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}
-        {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} gameID={gameID} />}
-        {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
       </section>
+      {tab === 'overview' && <Overview overview={overview} />}
+      {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}
+      {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} gameID={gameID} />}
+      {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
     </main>
   );
 }
