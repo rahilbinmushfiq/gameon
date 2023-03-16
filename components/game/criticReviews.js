@@ -16,7 +16,9 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  const handleCriticReview = async () => {
+  const handleCriticReview = async (e) => {
+    e.preventDefault();
+
     if (!user) return router.push("/signin");
 
     try {
@@ -46,31 +48,78 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
 
   return (
     <>
-      <h2 className="text-2xl underline">Critic Reviews Tab</h2>
-      <div className="flex flex-col mb-[2rem]">
-        <h4 className="underline">Review this game</h4>
-        <input ref={organizationNameRef} type="text" placeholder="Name of the organization" required />
-        <input ref={organizationEmailRef} type="email" placeholder="Email of the organization" required />
-        <input ref={scoreRef} type="number" placeholder="Score (0-50)" min="0" max="50" required />
-        <input ref={articleLinkRef} type="url" placeholder="Article link" required />
-        <textarea ref={commentRef} className="w-[50rem] mb-2" placeholder="Comment" required></textarea>
-        <button onClick={() => handleCriticReview()} className="w-fit text-white bg-slate-600">Review</button>
-      </div>
-      <h4 className="text-xl underline">Critic Reviews</h4>
-      {scoresList && scoresList.map((review) => {
-        return (
-          <Review
-            key={review.userUID + review.comment + Math.random()}
-            reviewType="critic"
-            photoURL="https://static.thenounproject.com/png/2204677-200.png"
-            name={review.organizationName}
-            postedOn={review.postedOn}
-            assessment={review.score}
-            comment={review.comment}
-            articleLink={review.articleLink}
+      <section className="max-w-full space-y-2 py-8 bg-[#2a2a2a]">
+        <div className="mx-6 pb-8 space-y-2">
+          <h4 className="inline-block mb-1 text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
+            Submit Your Review
+          </h4>
+          <p className="text-[#a9a9a9]">
+            If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.
+          </p>
+        </div>
+        <form className="mx-6 space-y-4" onSubmit={handleCriticReview}>
+          <input
+            className="sign-in--input"
+            ref={organizationNameRef}
+            type="text"
+            placeholder="Name of the organization"
+            required
           />
-        )
-      })}
+          <input
+            className="sign-in--input"
+            ref={organizationEmailRef}
+            type="email"
+            placeholder="Email of the organization"
+            required
+          />
+          <input
+            className="sign-in--input"
+            ref={scoreRef}
+            type="number"
+            placeholder="Score (0-50)" min="0" max="50"
+            required
+          />
+          <input
+            className="sign-in--input"
+            ref={articleLinkRef}
+            type="url"
+            placeholder="Article link"
+            required
+          />
+          <textarea
+            className="py-[16px] w-full px-3 rounded-sm bg-[#2f2f2f] caret-[#f1f1f1] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a]"
+            rows="8"
+            ref={commentRef}
+            placeholder="Comment"
+            required
+          />
+          <button
+            className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
+            onClick={handleCriticReview}
+          >
+            Submit
+          </button>
+        </form>
+      </section >
+      <section className="max-w-full space-y-2 py-8">
+        <h4 className="mx-6 mb-4 inline-block text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
+          Critic Reviews
+        </h4>
+        {scoresList && scoresList.map((review) => {
+          return (
+            <Review
+              key={review.userUID + review.comment + Math.random()}
+              reviewType="critic"
+              photoURL="https://static.thenounproject.com/png/2204677-200.png"
+              name={review.organizationName}
+              postedOn={review.postedOn}
+              assessment={review.score}
+              comment={review.comment}
+              articleLink={review.articleLink}
+            />
+          )
+        })}
+      </section >
     </>
   );
 }
