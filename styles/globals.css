@@ -6,6 +6,15 @@
   body {
     @apply bg-[#1f1f1f] text-[#f1f1f1] text-sm;
   }
+
+  th,
+  td {
+    @apply text-left align-text-top p-4 whitespace-nowrap;
+  }
+
+  td {
+    @apply text-[#a9a9a9];
+  }
 }
 
 @layer components {
