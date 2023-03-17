@@ -22,8 +22,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Layout>
-        {isPageLoading ? (
-          <div className="min-h-screen max-w-screen fixed inset-0 z-[2] flex justify-center items-center">
+        {isPageLoading && (
+          <div className="min-h-screen max-w-screen fixed inset-0 z-[2] flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md">
             <HashLoader
               color="rgb(225 29 72)"
               loading={isPageLoading}
@@ -31,9 +31,8 @@ function MyApp({ Component, pageProps }) {
               speedMultiplier={2}
             />
           </div>
-        ) : (
-          <Component {...pageProps} />
         )}
+        <Component {...pageProps} />
       </Layout>
     </AuthProvider>
   )
