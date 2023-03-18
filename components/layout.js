@@ -3,6 +3,8 @@ import Navbar from "./navbar";
 import Footer from "./footer";
 import { useAuth } from "../config/auth";
 import { HashLoader } from "react-spinners";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Layout({ children }) {
   const { isLoading } = useAuth();
@@ -27,6 +29,18 @@ export default function Layout({ children }) {
           <Navbar />
           {children}
           <Footer />
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </div>
       )}
     </>
