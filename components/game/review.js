@@ -25,9 +25,9 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
             <div className="flex gap-[1px]">
               {[1, 2, 3, 4, 5].map((value) => (
                 assessment >= value ? (
-                  <FaStar size={15} color="#e30e30" />
+                  <FaStar key={value} size={15} color="#e30e30" />
                 ) : (
-                  <FaRegStar size={15} color="#e30e30" />
+                  <FaRegStar key={value} size={15} color="#e30e30" />
                 )
               ))}
             </div>
