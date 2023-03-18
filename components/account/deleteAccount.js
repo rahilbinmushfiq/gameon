@@ -1,6 +1,7 @@
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential, reauthenticateWithPopup } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 
@@ -12,32 +13,25 @@ export default function DeleteAccount({ user, signInProvider }) {
     try {
       if (signInProvider === "password") {
         let password = passwordRef?.current?.value;
+
+        if (!password) {
+          toast.error("Password field cannot be empty.");
+          return;
+        }
+
         let credential = EmailAuthProvider.credential(user.email, password);
 
         await reauthenticateWithCredential(user, credential);
       } else {
-        try {
-          await reauthenticateWithPopup(user, googleProvider);
-        } catch (reauthenticationError) {
-          console.log(createErrorMessage(reauthenticationError));
-        }
+        await reauthenticateWithPopup(user, googleProvider);
       }
 
-      try {
-        try {
-          await deleteDoc(doc(db, "users", user.uid));
-        } catch (deleteDocError) {
-          console.log(createErrorMessage(deleteDocError));
-        }
+      await deleteDoc(doc(db, "users", user.uid));
+      await deleteUser(user);
 
-        await deleteUser(user);
-
-        console.log("Account Deleted!");
-      } catch (deleteAccountError) {
-        console.log(createErrorMessage(deleteAccountError));
-      }
-    } catch (reauthenticationError) {
-      console.log(createErrorMessage(reauthenticationError));
+      toast.success("Your account has been deleted.");
+    } catch (error) {
+      toast.error(createErrorMessage(error));
     }
   }
 

@@ -3,6 +3,7 @@ import createErrorMessage from "../../utils/createErrorMessage";
 import { signInWithPopup, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 export default function GoogleSignIn({ users, setIsUserLoaded }) {
   const handleGoogleSignIn = async () => {
@@ -10,40 +11,27 @@ export default function GoogleSignIn({ users, setIsUserLoaded }) {
       const userCredential = await signInWithPopup(auth, googleProvider);
 
       if (users.every((user) => user.email !== userCredential?.user?.email)) {
-        try {
-          await setDoc(doc(db, "users", userCredential?.user?.uid), {
-            email: userCredential?.user?.email,
-            fullName: userCredential?.user?.displayName,
-            photoURL: userCredential?.user?.photoURL,
-            registrationMethod: "google.com",
-            linked: false
-          });
-        } catch (docError) {
-          console.log(createErrorMessage(docError));
-        }
+        await setDoc(doc(db, "users", userCredential?.user?.uid), {
+          email: userCredential?.user?.email,
+          fullName: userCredential?.user?.displayName,
+          photoURL: userCredential?.user?.photoURL,
+          registrationMethod: "google.com",
+          linked: false
+        });
       } else {
         const snapshot = await getDoc(doc(db, "users", userCredential?.user?.uid));
 
         if (snapshot.data().registrationMethod === "password" && !snapshot.data().linked) {
-          try {
-            await updateProfile(userCredential?.user, {
-              displayName: snapshot.data().fullName,
-              photoURL: snapshot.data().photoURL
-            });
-          } catch (updateProfileError) {
-            console.log(createErrorMessage(updateProfileError));
-            return;
-          }
+          await updateProfile(userCredential?.user, {
+            displayName: snapshot.data().fullName,
+            photoURL: snapshot.data().photoURL
+          });
 
-          try {
-            await updateDoc(doc(db, "users", userCredential?.user?.uid), { linked: true });
-          } catch (updateDocError) {
-            console.log(createErrorMessage(updateDocError));
-          }
+          await updateDoc(doc(db, "users", userCredential?.user?.uid), { linked: true });
         }
       }
-    } catch (signInError) {
-      console.log(createErrorMessage(signInError));
+    } catch (error) {
+      toast.error(createErrorMessage(error));
     }
 
     setIsUserLoaded(true);

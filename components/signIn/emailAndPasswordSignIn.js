@@ -3,21 +3,25 @@ import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { IoChevronBack } from "react-icons/io5";
 import ForgotPassword from "./forgotPassword";
+import { toast } from "react-toastify";
 
-export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, isUserNew, setIsUserNew, setIsUserLoaded }) {
+export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, setIsUserLoaded }) {
   const handleSignIn = async (event) => {
     event.preventDefault();
 
     let password = passwordRef?.current?.value;
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.log(createErrorMessage(error));
+    if (!password) {
+      toast.error("Password field cannot be empty.");
       return;
     }
 
-    if (isUserNew) setIsUserNew(false);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      toast.error(createErrorMessage(error));
+    }
+
     setIsUserLoaded(true);
   }
 
@@ -52,7 +56,6 @@ export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, i
           <button
             className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
             type="submit"
-            onClick={handleSignIn}
           >
             Sign in
           </button>

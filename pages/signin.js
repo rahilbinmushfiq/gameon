@@ -12,6 +12,7 @@ import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 export default function SignIn({ users }) {
   const { user, isLoading } = useAuth();
@@ -27,6 +28,7 @@ export default function SignIn({ users }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user && user.emailVerified && isUserLoaded) {
+        toast.success("Sign in successful.");
         router.push("/account");
       } else if (user && !user.emailVerified) {
         let interval = setInterval(async () => {
@@ -35,6 +37,9 @@ export default function SignIn({ users }) {
             auth.signOut();
             setIsUserNew(true);
             setEmail("");
+            toast.success("Email verification successful.", {
+              autoClose: 4000
+            });
             router.push("/signin");
           }
           await user.reload();
@@ -46,6 +51,18 @@ export default function SignIn({ users }) {
   }, [user, isUserLoaded]);
 
   if (isLoading) return <h1>Loading...</h1>;
+
+  const emailValidation = () => {
+    if (!emailRef?.current?.value) {
+      toast.error("Email field cannot be empty.");
+      return;
+    } else if (!(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(emailRef?.current?.value))) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setEmail(emailRef?.current?.value);
+  }
 
   const isProviderOnlyGoogle = () => {
     const [user] = users.filter((user) => user.email === email);
@@ -82,13 +99,13 @@ export default function SignIn({ users }) {
                 ref={emailRef}
                 type="text"
                 placeholder="Enter your email"
-                onKeyUp={(event) => event.key === "Enter" && setEmail(emailRef?.current?.value)}
+                onKeyUp={(event) => event.key === "Enter" && emailValidation()}
                 autoFocus
               />
               <button
                 className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
                 type="button"
-                onClick={() => setEmail(emailRef?.current?.value)}
+                onClick={() => emailValidation()}
               >
                 <p className="font-semibold">Next</p>
                 <IoChevronForward size={13} color="#1f1f1f" />

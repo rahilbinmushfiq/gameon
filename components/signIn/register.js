@@ -2,58 +2,52 @@ import createErrorMessage from "../../utils/createErrorMessage";
 import { auth, db } from "../../config/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
 import { IoChevronBack } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 export default function Register({ email, setEmail, fullNameRef, passwordRef, confirmPasswordRef }) {
-  const router = useRouter();
-
   const handleRegister = async (event) => {
     event.preventDefault();
 
+    let fullName = fullNameRef?.current?.value;
     let password = passwordRef?.current?.value;
     let confirmPassword = confirmPasswordRef?.current?.value;
-    let fullName = fullNameRef?.current?.value;
 
-    if (password != confirmPassword) {
-      console.log("passwords do not match.");
+    if (!fullName || !password || !confirmPassword) {
+      toast.error("Please fill up the form first.");
+      return;
+    } else if (!(/^[a-zA-Z.,\-\s]{3,}$/i.test(fullName))) {
+      toast.error("Please provide a valid full name.");
+      return;
+    } else if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    } else if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
       return;
     }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-      try {
-        await updateProfile(userCredential?.user, {
-          displayName: fullName,
-          photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png"
-        });
-      } catch (updateProfileError) {
-        console.log(createErrorMessage(updateProfileError));
-        return;
-      }
+      await updateProfile(userCredential?.user, {
+        displayName: fullName,
+        photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png"
+      });
 
-      try {
-        await setDoc(doc(db, "users", userCredential?.user?.uid), {
-          email: email,
-          fullName: fullName,
-          photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png",
-          registrationMethod: "password",
-          linked: false
-        });
-      } catch (docError) {
-        console.log(createErrorMessage(docError));
-        return;
-      }
+      await setDoc(doc(db, "users", userCredential?.user?.uid), {
+        email: email,
+        fullName: fullName,
+        photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png",
+        registrationMethod: "password",
+        linked: false
+      });
 
-      try {
-        await sendEmailVerification(userCredential.user);
-      } catch (sendVerificationError) {
-        console.log(createErrorMessage(sendVerificationError));
-        return;
-      }
-    } catch (signUpError) {
-      console.log(createErrorMessage(signUpError));
+      await sendEmailVerification(userCredential.user);
+
+      toast.success("Verification email sent.");
+    } catch (error) {
+      toast.error(createErrorMessage(error));
       return;
     }
   }
@@ -100,7 +94,6 @@ export default function Register({ email, setEmail, fullNameRef, passwordRef, co
           <button
             className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
             type="submit"
-            onClick={handleRegister}
           >
             Create account
           </button>

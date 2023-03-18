@@ -1,5 +1,7 @@
 import { sendEmailVerification } from "firebase/auth";
 import { BsFillSendFill } from "react-icons/bs"
+import { toast } from "react-toastify";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function Verification({ user }) {
   return (
@@ -14,7 +16,14 @@ export default function Verification({ user }) {
         <h4 className="text-[#a9a9a9]">If you don't see it, you may check your spam folder. Still can't find our email?</h4>
         <button
           className="flex gap-2 justify-center items-center w-40 h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
-          onClick={() => sendEmailVerification(user)}
+          onClick={() => {
+            try {
+              sendEmailVerification(user);
+              toast.success("Verification email sent.");
+            } catch (error) {
+              toast.error(createErrorMessage(error));
+            }
+          }}
         >
           <p className="font-semibold">Resend email</p>
           <BsFillSendFill size={15} color="#1f1f1f" />

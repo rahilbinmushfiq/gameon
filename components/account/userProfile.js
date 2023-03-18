@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { db, storage } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { MdAddAPhoto } from "react-icons/md";
+import { toast } from "react-toastify";
 
 export default function UserProfile({ user }) {
   const [isReadOnly, setIsReadOnly] = useState(true);
@@ -13,50 +14,57 @@ export default function UserProfile({ user }) {
   const fullNameRef = useRef("");
   const photoRef = useRef("");
 
-  const updateUserProfile = async () => {
-    try {
-      await updateProfile(user, {
-        displayName: fullNameRef?.current?.value
-      });
+  const updateUserDisplayName = async () => {
+    let name = fullNameRef?.current?.value;
 
-      try {
-        await updateDoc(doc(db, "users", user.uid), {
-          fullName: fullNameRef?.current?.value
-        });
-      } catch (updateDocError) {
-        console.log(createErrorMessage(updateDocError));
-      }
-    } catch (updateProfileError) {
-      console.log(createErrorMessage(updateProfileError));
+    if (!name) {
+      toast.error("Name field cannot be empty.");
+      return;
+    } else if (!(/^[a-zA-Z.,\-\s]{3,}$/i.test(name))) {
+      toast.error("Please provide a valid full name.");
+      return;
     }
 
-    setIsReadOnly(true);
+    try {
+      await updateProfile(user, {
+        displayName: name
+      });
+
+      await updateDoc(doc(db, "users", user.uid), {
+        fullName: name
+      });
+
+      setIsReadOnly(true);
+      toast.success("Your name has been updated.");
+    } catch (error) {
+      toast.error(createErrorMessage(error));
+    }
   }
 
   const updateUserPhoto = async () => {
     let image = photoRef?.current?.files[0];
 
-    if (image && image.size <= 1000000 && /\/(jpe?g|png)$/i.test(image.type)) {
-      let userPhotoRef = ref(storage, `userPhotos/${user.uid}`);
+    if (!image) {
+      toast.error("You need to choose an image first.");
+      return;
+    } else if (image.size > 1000000 || !(/\/(jpe?g|png)$/i.test(image.type))) {
+      toast.error("Please upload a valid image file (JPG, JPEG or PNG) with a maximum size of 1 MB.", {
+        autoClose: 5000
+      });
+      return;
+    }
 
+    try {
+      let userPhotoRef = ref(storage, `userPhotos/${user.uid}`);
       await uploadBytes(userPhotoRef, image);
       let photoURL = await getDownloadURL(userPhotoRef);
-
-      try {
-        await updateProfile(user, { photoURL });
-
-        try {
-          await updateDoc(doc(db, "users", user.uid), { photoURL });
-        } catch (updateDocError) {
-          console.log(createErrorMessage(updateDocError));
-        }
-      } catch (updateProfileError) {
-        console.log(createErrorMessage(updateProfileError));
-      }
+      await updateProfile(user, { photoURL });
+      await updateDoc(doc(db, "users", user.uid), { photoURL });
 
       setIsPhotoModalOpen(false);
-    } else {
-      alert("Please select a valid image file (JPG, JPEG or PNG) with a maximum size of 1 MB.");
+      toast.success("Your profile picture has been updated.");
+    } catch (error) {
+      toast.error(createErrorMessage(error));
     }
   }
 
@@ -167,7 +175,7 @@ export default function UserProfile({ user }) {
                 <button
                   className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
                   type="button"
-                  onClick={updateUserProfile}
+                  onClick={updateUserDisplayName}
                 >
                   Save
                 </button>

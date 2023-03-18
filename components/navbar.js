@@ -4,6 +4,7 @@ import { useAuth } from "../config/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -81,7 +82,10 @@ export default function Navbar() {
                     </Link>
                     <li
                       className="nav--li cursor-pointer"
-                      onClick={() => auth.signOut()}
+                      onClick={() => {
+                        auth.signOut();
+                        toast.success("Successfully signed out.");
+                      }}
                     >
                       <IoLogOutOutline
                         size={20}

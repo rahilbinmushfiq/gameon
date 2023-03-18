@@ -4,6 +4,8 @@ import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { useAuth } from "../../config/auth";
 import Review from "./review";
+import { toast } from "react-toastify";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
   const { user, isLoading } = useAuth();
@@ -16,19 +18,48 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  const handleCriticReview = async (e) => {
-    e.preventDefault();
+  const handleCriticReview = async (event) => {
+    event.preventDefault();
 
-    if (!user) return router.push("/signin");
+    if (!user) {
+      toast.error("You must be signed in to post your review.");
+      return router.push("/signin");
+    }
+
+    let organizationName = organizationNameRef?.current?.value;
+    let organizationEmail = organizationEmailRef?.current?.value;
+    let score = parseInt(scoreRef?.current?.value);
+    let articleLink = articleLinkRef?.current?.value;
+    let comment = commentRef?.current?.value;
+
+    if (!organizationName || !organizationEmail || !score || !articleLink || !comment) {
+      toast.error("Please fill up the form first.");
+      return;
+    } else if (organizationName.length < 2) {
+      toast.error("Please provide a valid name.");
+      return;
+    } else if (!(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(organizationEmail))) {
+      toast.error("Please provide a valid email.");
+      return;
+    } else if (score < 0 || score > 50) {
+      toast.error("Score must be within 0 to 50.");
+      return;
+    } else if (!(/https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}/.test(articleLink))) {
+      toast.error("Please provide a valid link of your article.");
+      return;
+    } else if (comment.length > 1000) {
+      toast.error("Comment field must not exceed 1000 characters.");
+      return;
+    }
 
     try {
       await updateDoc(doc(db, "games", gameID), {
         "reviews.scores.scoresList": arrayUnion({
-          organizationName: organizationNameRef?.current?.value,
-          organizationEmail: organizationEmailRef?.current?.value,
-          score: parseInt(scoreRef?.current?.value),
-          articleLink: articleLinkRef?.current?.value,
-          comment: commentRef?.current?.value,
+          organizationName,
+          organizationEmail,
+          score,
+          articleLink,
+          comment,
           postedOn: Timestamp.now(),
           userUID: user.uid
         })
@@ -39,11 +70,12 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
       scoreRef.current.value = "";
       articleLinkRef.current.value = "";
       commentRef.current.value = "";
-    } catch (error) {
-      console.log(error);
-    }
 
-    router.push(router.asPath, undefined, { scroll: false });
+      toast.success("Thank you for submitting you review.");
+      router.push(router.asPath, undefined, { scroll: false });
+    } catch (error) {
+      toast.error(createErrorMessage(error));
+    }
   }
 
   return (

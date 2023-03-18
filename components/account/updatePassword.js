@@ -1,6 +1,7 @@
 import { EmailAuthProvider, linkWithCredential, reauthenticateWithCredential, reauthenticateWithPopup, updatePassword } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 
@@ -9,87 +10,77 @@ export default function UpdatePassword({ user, signInProvider }) {
   const firstPasswordRef = useRef("");
   const secondPasswordRef = useRef("");
 
-  //console.log(signInProvider);
-  //console.log(user)
-
   const isPasswordProviderPresent = () => {
-    return user?.providerData.some(provider => provider.providerId.includes("password"))
+    return user?.providerData.some(provider => provider.providerId.includes("password"));
   }
-
-  //console.log(isPasswordProviderPresent())
 
   const updateUserPassword = async (event) => {
     event.preventDefault();
 
-    let oldPassword = firstPasswordRef?.current?.value;
-    let newPassword = secondPasswordRef?.current?.value;
+    try {
+      if (isPasswordProviderPresent()) {
+        let oldPassword = firstPasswordRef?.current?.value;
+        let newPassword = secondPasswordRef?.current?.value;
 
-    if (isPasswordProviderPresent()) {
-      if (signInProvider === "password") {
+        if (signInProvider === "password") {
+          if (!oldPassword || !newPassword) {
+            toast.error("Please fill up the form first.");
+            return;
+          } else if (newPassword.length < 6) {
+            toast.error("Password must be at least 6 characters long.");
+            return;
+          }
 
-        let credential = EmailAuthProvider.credential(user.email, oldPassword);
+          let credential = EmailAuthProvider.credential(user.email, oldPassword);
 
-        try {
           await reauthenticateWithCredential(user, credential);
-        } catch (reauthenticationError) {
-          console.log(createErrorMessage(reauthenticationError));
-          return;
-        }
-      } else {
-        try {
+
+          if (oldPassword === newPassword) {
+            toast.error("Your old and new passwords are same.");
+            return;
+          }
+        } else {
+          if (!newPassword) {
+            toast.error("Please fill up the form first.");
+            return;
+          } else if (newPassword.length < 6) {
+            toast.error("Password must be at least 6 characters long.");
+            return;
+          }
+
           await reauthenticateWithPopup(user, googleProvider);
-        } catch (reauthenticationError) {
-          console.log(reauthenticationError);
+        }
+
+        await updatePassword(user, newPassword);
+
+        setIsPasswordModalOpen(false);
+        toast.success("Password updated!");
+      } else {
+        let password = firstPasswordRef?.current?.value;
+        let confirmPassword = secondPasswordRef?.current?.value;
+
+        if (!password || !confirmPassword) {
+          toast.error("Please fill up the form first.");
+          return;
+        } else if (password.length < 6) {
+          toast.error("Password must be at least 6 characters long.");
+          return;
+        } else if (password !== confirmPassword) {
+          toast.error("Passwords do not match.");
           return;
         }
-      }
+        await reauthenticateWithPopup(user, googleProvider);
 
-      if (oldPassword === newPassword) {
-        console.log("Your previous password and the new password are same.");
-        return;
-      }
-
-      try {
-        await updatePassword(user, newPassword);
-        setIsPasswordModalOpen(false);
-
-        console.log("Password updated!");
-      } catch (updatePasswordError) {
-        console.log("updatePasswordError: ", updatePasswordError);
-      }
-
-
-    } else {
-      let password = firstPasswordRef?.current?.value;
-      let confirmPassword = secondPasswordRef?.current?.value;
-
-      if (password === confirmPassword) {
         let credential = EmailAuthProvider.credential(user.email, password);
 
-        try {
-          await reauthenticateWithPopup(user, googleProvider);
+        await linkWithCredential(user, credential);
+        await updateDoc(doc(db, "users", user.uid), { linked: true });
 
-          try {
-            await linkWithCredential(user, credential);
-
-            try {
-              await updateDoc(doc(db, "users", user.uid), { linked: true });
-            } catch (updateDocError) {
-              console.log(createErrorMessage(updateDocError));
-            }
-
-            setIsPasswordModalOpen(false);
-
-            console.log("Password added!");
-          } catch (addPasswordError) {
-            console.log(createErrorMessage(addPasswordError));
-          }
-        } catch (reauthenticationError) {
-          console.log(createErrorMessage(reauthenticationError));
-        }
-      } else {
-        console.log("Passwords do not match.");
+        setIsPasswordModalOpen(false);
+        toast.success("Password added. Now, you can sign in with email and password.");
       }
+    } catch (error) {
+      toast.error(createErrorMessage(error));
     }
   }
 

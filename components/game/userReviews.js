@@ -5,6 +5,8 @@ import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { useAuth } from "../../config/auth";
 import Review from "./review";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function UserReviews({ userReviews: { ratingsList }, users, gameID }) {
   const { user } = useAuth();
@@ -12,28 +14,45 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
   const [rating, setRating] = useState(null);
   const commentRef = useRef("");
 
-  const handleUserReview = async (e) => {
-    e.preventDefault();
+  const handleUserReview = async (event) => {
+    event.preventDefault();
 
-    if (!user) return router.push("/signin");
+    if (!user) {
+      toast.error("You must be signed in to post your review.");
+      return router.push("/signin");
+    }
+
+    let comment = commentRef?.current?.value;
+
+    if (!rating) {
+      toast.error("Please provide a rating.");
+      return;
+    } else if (!comment) {
+      toast.error("Comment field cannot be empty.");
+      return;
+    } else if (comment.length > 1000) {
+      toast.error("Comment field must not exceed 1000 characters.");
+      return;
+    }
 
     try {
       await updateDoc(doc(db, "games", gameID), {
         "reviews.ratings.ratingsList": arrayUnion({
-          comment: commentRef?.current?.value,
+          comment,
+          rating,
           postedOn: Timestamp.now(),
-          rating: rating,
           userUID: user.uid
         })
       });
 
       commentRef.current.value = "";
       setRating(null);
-    } catch (error) {
-      console.log(error);
-    }
 
-    router.push(router.asPath, undefined, { scroll: false });
+      toast.success("Thank you for submitting you review.");
+      router.push(router.asPath, undefined, { scroll: false });
+    } catch (error) {
+      toast.error(createErrorMessage(error));
+    }
   }
 
   return (

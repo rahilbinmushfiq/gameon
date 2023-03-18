@@ -1,21 +1,20 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { auth } from "../../config/firebase";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function ForgotPassword({ email }) {
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
 
   const resetUserPassword = async () => {
     try {
-      const something = await sendPasswordResetEmail(auth, email);
-
-      console.log(something);
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset link sent.");
 
       setIsForgotPasswordModalOpen(false);
-
-      alert("Reset link sent!");
     } catch (error) {
-      console.log(error);
+      toast.error(createErrorMessage(error));
     }
   }
 
@@ -53,6 +52,7 @@ export default function ForgotPassword({ email }) {
               </button>
               <button
                 className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
+                type="button"
                 onClick={resetUserPassword}
               >
                 Send link
