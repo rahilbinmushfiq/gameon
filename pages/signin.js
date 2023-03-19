@@ -20,9 +20,6 @@ export default function SignIn({ users }) {
   const [isUserNew, setIsUserNew] = useState(false);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const emailRef = useRef("");
-  const fullNameRef = useRef("");
-  const passwordRef = useRef("");
-  const confirmPasswordRef = useRef("");
   const router = useRouter();
 
   useEffect(() => {
@@ -115,9 +112,6 @@ export default function SignIn({ users }) {
         ) : (
           users.every((user) => user.email !== email) ? (
             <Register
-              fullNameRef={fullNameRef}
-              passwordRef={passwordRef}
-              confirmPasswordRef={confirmPasswordRef}
               email={email}
               setEmail={setEmail}
             />
@@ -143,8 +137,6 @@ export default function SignIn({ users }) {
               <EmailAndPasswordSignIn
                 email={email}
                 setEmail={setEmail}
-                passwordRef={passwordRef}
-                isUserNew={isUserNew}
                 setIsUserLoaded={setIsUserLoaded}
               />
             )

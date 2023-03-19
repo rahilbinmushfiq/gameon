@@ -4,8 +4,13 @@ import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } 
 import { doc, setDoc } from "firebase/firestore";
 import { IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { useRef } from "react";
 
-export default function Register({ email, setEmail, fullNameRef, passwordRef, confirmPasswordRef }) {
+export default function Register({ email, setEmail }) {
+  const fullNameRef = useRef("");
+  const passwordRef = useRef("");
+  const confirmPasswordRef = useRef("");
+
   const handleRegister = async (event) => {
     event.preventDefault();
 

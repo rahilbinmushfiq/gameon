@@ -4,8 +4,11 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { IoChevronBack } from "react-icons/io5";
 import ForgotPassword from "./forgotPassword";
 import { toast } from "react-toastify";
+import { useRef } from "react";
 
-export default function EmailAndPasswordSignIn({ email, setEmail, passwordRef, setIsUserLoaded }) {
+export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoaded }) {
+  const passwordRef = useRef("");
+
   const handleSignIn = async (event) => {
     event.preventDefault();
 
