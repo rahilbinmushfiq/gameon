@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
 import { toast } from "react-toastify";
+import { signOut } from "firebase/auth";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -27,12 +28,12 @@ export default function Navbar() {
           >
             <div className="w-3/5 h-screen p-6 bg-[#1f1f1f] rounded-r-[1rem]">
               <p className="text-3xl font-extrabold mb-10">
-                <Link href="/">
+                <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                   GAME <span className="text-[#e30e30]">ON</span>
                 </Link>
               </p>
               <ul className="flex flex-col gap-2">
-                <Link href="/">
+                <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                   <li className="nav--li">
                     <IoHomeOutline
                       size={20}
@@ -43,7 +44,7 @@ export default function Navbar() {
                     </p>
                   </li>
                 </Link>
-                <Link href="/search-games">
+                <Link href="/search-games" onClick={() => setIsNavbarOpen(false)}>
                   <li className="nav--li">
                     <IoGameControllerOutline
                       size={20}
@@ -55,7 +56,7 @@ export default function Navbar() {
                   </li>
                 </Link>
                 {(!user || (user && !user.emailVerified)) && (
-                  <Link href="/signin">
+                  <Link href="/signin" onClick={() => setIsNavbarOpen(false)}>
                     <li className="nav--li">
                       <IoLogInOutline
                         size={20}
@@ -69,7 +70,7 @@ export default function Navbar() {
                 )}
                 {user && user.emailVerified && (
                   <>
-                    <Link href="/account">
+                    <Link href="/account" onClick={() => setIsNavbarOpen(false)}>
                       <li className="nav--li">
                         <IoPersonOutline
                           size={20}
@@ -83,7 +84,7 @@ export default function Navbar() {
                     <li
                       className="nav--li cursor-pointer"
                       onClick={() => {
-                        auth.signOut();
+                        signOut(auth);
                         toast.success("Successfully signed out.");
                       }}
                     >
