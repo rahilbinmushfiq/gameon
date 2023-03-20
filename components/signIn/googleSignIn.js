@@ -4,9 +4,14 @@ import { signInWithPopup, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { useLoading } from "../../contexts/loading";
 
 export default function GoogleSignIn({ users, setIsUserLoaded }) {
+  const { setIsPageLoading } = useLoading();
+
   const handleGoogleSignIn = async () => {
+    setIsPageLoading(true);
+
     try {
       const userCredential = await signInWithPopup(auth, googleProvider);
 
@@ -35,6 +40,7 @@ export default function GoogleSignIn({ users, setIsUserLoaded }) {
     }
 
     setIsUserLoaded(true);
+    setIsPageLoading(false);
   }
 
   return (

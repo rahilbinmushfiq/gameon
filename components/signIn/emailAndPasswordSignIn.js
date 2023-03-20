@@ -5,8 +5,10 @@ import { IoChevronBack } from "react-icons/io5";
 import ForgotPassword from "./forgotPassword";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+import { useLoading } from "../../contexts/loading";
 
 export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoaded }) {
+  const { setIsPageLoading } = useLoading();
   const passwordRef = useRef("");
 
   const handleSignIn = async (event) => {
@@ -19,6 +21,8 @@ export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoade
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -26,6 +30,7 @@ export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoade
     }
 
     setIsUserLoaded(true);
+    setIsPageLoading(false);
   }
 
   return (

@@ -3,20 +3,20 @@ import { useRef } from "react";
 import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { useAuth } from "../../config/auth";
+import { useLoading } from "../../contexts/loading";
 import Review from "./review";
 import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
+  const { setIsPageLoading } = useLoading();
   const router = useRouter();
   const organizationNameRef = useRef();
   const organizationEmailRef = useRef();
   const scoreRef = useRef();
   const articleLinkRef = useRef();
   const commentRef = useRef();
-
-  if (isLoading) return <h1>Loading...</h1>;
 
   const handleCriticReview = async (event) => {
     event.preventDefault();
@@ -52,6 +52,8 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       await updateDoc(doc(db, "games", gameID), {
         "reviews.scores.scoresList": arrayUnion({
@@ -72,9 +74,11 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
       commentRef.current.value = "";
 
       toast.success("Thank you for submitting you review.");
+      setIsPageLoading(false);
       router.push(router.asPath, undefined, { scroll: false });
     } catch (error) {
       toast.error(createErrorMessage(error));
+      setIsPageLoading(false);
     }
   }
 

@@ -7,8 +7,10 @@ import { db, storage } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { MdAddAPhoto } from "react-icons/md";
 import { toast } from "react-toastify";
+import { useLoading } from "../../contexts/loading";
 
 export default function UserProfile({ user }) {
+  const { setIsPageLoading } = useLoading();
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const fullNameRef = useRef("");
@@ -25,6 +27,8 @@ export default function UserProfile({ user }) {
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       await updateProfile(user, {
         displayName: name
@@ -39,6 +43,8 @@ export default function UserProfile({ user }) {
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
+
+    setIsPageLoading(false);
   }
 
   const updateUserPhoto = async () => {
@@ -54,6 +60,8 @@ export default function UserProfile({ user }) {
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       let userPhotoRef = ref(storage, `userPhotos/${user.uid}`);
       await uploadBytes(userPhotoRef, image);
@@ -66,6 +74,8 @@ export default function UserProfile({ user }) {
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
+
+    setIsPageLoading(false);
   }
 
   if (user) return (

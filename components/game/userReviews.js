@@ -7,9 +7,11 @@ import Review from "./review";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
+import { useLoading } from "../../contexts/loading";
 
 export default function UserReviews({ userReviews: { ratingsList }, users, gameID }) {
   const { user } = useAuth();
+  const { setIsPageLoading } = useLoading();
   const router = useRouter();
   const [rating, setRating] = useState(null);
   const commentRef = useRef("");
@@ -35,6 +37,8 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       await updateDoc(doc(db, "games", gameID), {
         "reviews.ratings.ratingsList": arrayUnion({
@@ -49,9 +53,11 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
       setRating(null);
 
       toast.success("Thank you for submitting you review.");
+      setIsPageLoading(false);
       router.push(router.asPath, undefined, { scroll: false });
     } catch (error) {
       toast.error(createErrorMessage(error));
+      setIsPageLoading(false);
     }
   }
 

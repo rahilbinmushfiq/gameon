@@ -10,12 +10,15 @@ import GoogleSignIn from "../components/signIn/googleSignIn";
 import { getAuth } from "firebase-admin/auth";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../config/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { useLoading } from "../contexts/loading";
+import createErrorMessage from "../utils/createErrorMessage";
 
 export default function SignIn({ users }) {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
+  const { setIsPageLoading } = useLoading();
   const [email, setEmail] = useState("");
   const [isUserNew, setIsUserNew] = useState(false);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
@@ -31,7 +34,15 @@ export default function SignIn({ users }) {
         let interval = setInterval(async () => {
           if (user.emailVerified) {
             clearInterval(interval);
-            auth.signOut();
+
+            setIsPageLoading(true);
+            try {
+              await signOut(auth);
+            } catch (error) {
+              toast.error(createErrorMessage(error));
+            }
+            setIsPageLoading(false);
+
             setIsUserNew(true);
             setEmail("");
             toast.success("Email verification successful.", {
@@ -46,8 +57,6 @@ export default function SignIn({ users }) {
 
     unsubscribe();
   }, [user, isUserLoaded]);
-
-  if (isLoading) return <h1>Loading...</h1>;
 
   const emailValidation = () => {
     if (!emailRef?.current?.value) {

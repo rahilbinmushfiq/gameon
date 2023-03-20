@@ -1,6 +1,7 @@
 import { auth } from "../config/firebase";
 import Link from "next/link";
 import { useAuth } from "../config/auth";
+import { useLoading } from "../contexts/loading";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
@@ -9,8 +10,22 @@ import { signOut } from "firebase/auth";
 
 export default function Navbar() {
   const { user } = useAuth();
+  const { setIsPageLoading } = useLoading();
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const { asPath } = useRouter();
+
+  const userSignOut = async () => {
+    setIsPageLoading(true);
+
+    try {
+      await signOut(auth);
+      toast.success("Successfully signed out.");
+    } catch (error) {
+      toast.error("Failed to sign out. Please try again.");
+    }
+
+    setIsPageLoading(false);
+  }
 
   return (
     <header className="px-6 py-3 h-14">
@@ -83,10 +98,7 @@ export default function Navbar() {
                     </Link>
                     <li
                       className="nav--li cursor-pointer"
-                      onClick={() => {
-                        signOut(auth);
-                        toast.success("Successfully signed out.");
-                      }}
+                      onClick={userSignOut}
                     >
                       <IoLogOutOutline
                         size={20}

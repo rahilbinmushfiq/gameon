@@ -5,8 +5,10 @@ import { doc, setDoc } from "firebase/firestore";
 import { IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+import { useLoading } from "../../contexts/loading";
 
 export default function Register({ email, setEmail }) {
+  const { setIsPageLoading } = useLoading();
   const fullNameRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
@@ -32,6 +34,8 @@ export default function Register({ email, setEmail }) {
       return;
     }
 
+    setIsPageLoading(true);
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -53,8 +57,9 @@ export default function Register({ email, setEmail }) {
       toast.success("Verification email sent.");
     } catch (error) {
       toast.error(createErrorMessage(error));
-      return;
     }
+
+    setIsPageLoading(false);
   }
 
   return (

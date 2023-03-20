@@ -3,20 +3,24 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
+import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function DeleteAccount({ user, signInProvider }) {
+  const { setIsPageLoading } = useLoading();
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const passwordRef = useRef("");
 
   const deleteUserAccount = async () => {
-    try {
+    setIsPageLoading(true);
+
+    userDelete: try {
       if (signInProvider === "password") {
         let password = passwordRef?.current?.value;
 
         if (!password) {
           toast.error("Password field cannot be empty.");
-          return;
+          break userDelete;
         }
 
         let credential = EmailAuthProvider.credential(user.email, password);
@@ -33,6 +37,8 @@ export default function DeleteAccount({ user, signInProvider }) {
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
+
+    setIsPageLoading(false);
   }
 
   if (user) return (

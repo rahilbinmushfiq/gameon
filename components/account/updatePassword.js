@@ -3,9 +3,11 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
+import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function UpdatePassword({ user, signInProvider }) {
+  const { setIsPageLoading } = useLoading();
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const firstPasswordRef = useRef("");
   const secondPasswordRef = useRef("");
@@ -17,7 +19,9 @@ export default function UpdatePassword({ user, signInProvider }) {
   const updateUserPassword = async (event) => {
     event.preventDefault();
 
-    try {
+    setIsPageLoading(true);
+
+    passwordUpdate: try {
       if (isPasswordProviderPresent()) {
         let oldPassword = firstPasswordRef?.current?.value;
         let newPassword = secondPasswordRef?.current?.value;
@@ -25,10 +29,10 @@ export default function UpdatePassword({ user, signInProvider }) {
         if (signInProvider === "password") {
           if (!oldPassword || !newPassword) {
             toast.error("Please fill up the form first.");
-            return;
+            break passwordUpdate;
           } else if (newPassword.length < 6) {
             toast.error("Password must be at least 6 characters long.");
-            return;
+            break passwordUpdate;
           }
 
           let credential = EmailAuthProvider.credential(user.email, oldPassword);
@@ -37,15 +41,15 @@ export default function UpdatePassword({ user, signInProvider }) {
 
           if (oldPassword === newPassword) {
             toast.error("Your old and new passwords are same.");
-            return;
+            break passwordUpdate;
           }
         } else {
           if (!newPassword) {
             toast.error("Please fill up the form first.");
-            return;
+            break passwordUpdate;
           } else if (newPassword.length < 6) {
             toast.error("Password must be at least 6 characters long.");
-            return;
+            break passwordUpdate;
           }
 
           await reauthenticateWithPopup(user, googleProvider);
@@ -61,13 +65,13 @@ export default function UpdatePassword({ user, signInProvider }) {
 
         if (!password || !confirmPassword) {
           toast.error("Please fill up the form first.");
-          return;
+          break passwordUpdate;
         } else if (password.length < 6) {
           toast.error("Password must be at least 6 characters long.");
-          return;
+          break passwordUpdate;
         } else if (password !== confirmPassword) {
           toast.error("Passwords do not match.");
-          return;
+          break passwordUpdate;
         }
         await reauthenticateWithPopup(user, googleProvider);
 
@@ -82,6 +86,8 @@ export default function UpdatePassword({ user, signInProvider }) {
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
+
+    setIsPageLoading(false);
   }
 
   if (user) return (
