@@ -3,37 +3,16 @@ import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import { AuthProvider } from '../config/auth'
 import '../styles/globals.css'
-import { HashLoader } from "react-spinners";
+import { LoadingProvider } from '../contexts/loading';
 
 function MyApp({ Component, pageProps }) {
-  const [isPageLoading, setIsPageLoading] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    router.events.on("routeChangeStart", () => setIsPageLoading(true));
-    router.events.on("routeChangeComplete", () => setIsPageLoading(false));
-
-    return () => {
-      router.events.off("routeChangeStart", () => setIsPageLoading(true));
-      router.events.off("routeChangeComplete", () => setIsPageLoading(false));
-    }
-  }, []);
-
   return (
     <AuthProvider>
-      <Layout>
-        {isPageLoading && (
-          <div className="min-h-screen max-w-screen fixed inset-0 z-[2] flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md">
-            <HashLoader
-              color="rgb(225 29 72)"
-              loading={isPageLoading}
-              size={50}
-              speedMultiplier={2}
-            />
-          </div>
-        )}
-        <Component {...pageProps} />
-      </Layout>
+      <LoadingProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </LoadingProvider>
     </AuthProvider>
   )
 }
