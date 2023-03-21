@@ -129,10 +129,7 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
             placeholder="Comment"
             required
           />
-          <button
-            className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-            onClick={handleCriticReview}
-          >
+          <button className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]">
             Submit
           </button>
         </form>

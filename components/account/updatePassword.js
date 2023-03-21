@@ -139,7 +139,6 @@ export default function UpdatePassword({ user, signInProvider }) {
                 </button>
                 <button
                   className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-                  onClick={updateUserPassword}
                 >
                   {`${isPasswordProviderPresent() ? "Update" : "Add"}`}
                 </button>

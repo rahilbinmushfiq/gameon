@@ -16,11 +16,16 @@ export default function UserProfile({ user }) {
   const fullNameRef = useRef("");
   const photoRef = useRef("");
 
-  const updateUserDisplayName = async () => {
+  const updateUserDisplayName = async (event) => {
+    event.preventDefault();
+
     let name = fullNameRef?.current?.value;
 
     if (!name) {
       toast.error("Name field cannot be empty.");
+      return;
+    } else if (name === user.displayName) {
+      toast.error("If you want to update your name, change it first.");
       return;
     } else if (!(/^[a-zA-Z.,\-\s]{3,}$/i.test(name))) {
       toast.error("Please provide a valid full name.");
@@ -47,7 +52,9 @@ export default function UserProfile({ user }) {
     setIsPageLoading(false);
   }
 
-  const updateUserPhoto = async () => {
+  const updateUserPhoto = async (event) => {
+    event.preventDefault();
+
     let image = photoRef?.current?.files[0];
 
     if (!image) {
@@ -103,7 +110,7 @@ export default function UserProfile({ user }) {
             id="update-photo-modal-bg"
             onClick={(event) => event.target.id === "update-photo-modal-bg" && setIsPhotoModalOpen(false)}
           >
-            <div className="mx-6 p-8 rounded-md space-y-12 bg-[#1f1f1f]">
+            <form className="mx-6 p-8 rounded-md space-y-12 bg-[#1f1f1f]" onSubmit={updateUserPhoto}>
               <div className="space-y-8">
                 <div className="space-y-2">
                   <h2 className="text-lg font-bold">Update profile picture</h2>
@@ -128,14 +135,11 @@ export default function UserProfile({ user }) {
                 >
                   Cancel
                 </button>
-                <button
-                  className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-                  onClick={updateUserPhoto}
-                >
+                <button className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]">
                   Confirm
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         )}
       </div>
@@ -151,7 +155,7 @@ export default function UserProfile({ user }) {
             />
           </label>
         </div>
-        <div className="space-y-4 p-4 bg-[#2a2a2a]">
+        <form className="space-y-4 p-4 bg-[#2a2a2a]" onSubmit={updateUserDisplayName}>
           <label className="space-y-1">
             <p className="text-base font-semibold">Name</p>
             <input
@@ -165,7 +169,11 @@ export default function UserProfile({ user }) {
           {isReadOnly ? (
             <button
               className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
-              onClick={() => setIsReadOnly(false)}
+              onClick={() => {
+                setIsReadOnly(false);
+                fullNameRef.current.disabled = false;
+                fullNameRef.current.focus();
+              }}
             >
               Edit
             </button>
@@ -182,17 +190,13 @@ export default function UserProfile({ user }) {
                 >
                   Cancel
                 </button>
-                <button
-                  className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-                  type="button"
-                  onClick={updateUserDisplayName}
-                >
+                <button className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]">
                   Save
                 </button>
               </div>
             </>
           )}
-        </div>
+        </form>
       </div>
     </section>
   )

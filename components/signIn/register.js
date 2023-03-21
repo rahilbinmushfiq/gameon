@@ -101,10 +101,7 @@ export default function Register({ email, setEmail }) {
             <IoChevronBack size={13} color="#1f1f1f" />
             <p className="font-semibold">Back</p>
           </button>
-          <button
-            className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-            type="submit"
-          >
+          <button className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]">
             Create account
           </button>
         </div>

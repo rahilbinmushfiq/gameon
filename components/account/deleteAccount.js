@@ -11,7 +11,9 @@ export default function DeleteAccount({ user, signInProvider }) {
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const passwordRef = useRef("");
 
-  const deleteUserAccount = async () => {
+  const deleteUserAccount = async (event) => {
+    event.preventDefault();
+
     setIsPageLoading(true);
 
     userDelete: try {
@@ -57,7 +59,7 @@ export default function DeleteAccount({ user, signInProvider }) {
         >
           <div className="w-full mx-6 p-8 rounded-md space-y-4 bg-[#1f1f1f]">
             <h2 className="text-lg font-bold">Delete your account</h2>
-            <div className="space-y-4 mb-12">
+            <form className="space-y-4 mb-12" onSubmit={deleteUserAccount}>
               {signInProvider === "password" ? (
                 <input
                   className="sign-in--input mb-10"
@@ -81,12 +83,11 @@ export default function DeleteAccount({ user, signInProvider }) {
                 </button>
                 <button
                   className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-                  onClick={deleteUserAccount}
                 >
                   Confirm
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       )}
