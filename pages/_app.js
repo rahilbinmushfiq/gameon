@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
-import { AuthProvider } from '../config/auth'
+import { AuthProvider } from '../contexts/auth'
 import '../styles/globals.css'
 import { LoadingProvider } from '../contexts/loading';
 

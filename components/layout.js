@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Navbar from "./navbar";
 import Footer from "./footer";
-import { useAuth } from "../config/auth";
+import { useAuth } from "../contexts/auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./loader";

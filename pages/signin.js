@@ -9,7 +9,7 @@ import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn"
 import GoogleSignIn from "../components/signIn/googleSignIn";
 import { getAuth } from "firebase-admin/auth";
 import { adminApp } from "../config/firebaseAdmin";
-import { useAuth } from "../config/auth";
+import { useAuth } from "../contexts/auth";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";

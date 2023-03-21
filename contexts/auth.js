@@ -1,5 +1,5 @@
 import nookies from "nookies";
-import { auth } from "./firebase";
+import { auth } from "../config/firebase";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getIdToken, onIdTokenChanged } from "firebase/auth";
 

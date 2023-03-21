@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { db } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
-import { useAuth } from "../../config/auth";
+import { useAuth } from "../../contexts/auth";
 import { useLoading } from "../../contexts/loading";
 import Review from "./review";
 import { toast } from "react-toastify";

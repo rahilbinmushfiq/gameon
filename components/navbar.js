@@ -1,6 +1,6 @@
 import { auth } from "../config/firebase";
 import Link from "next/link";
-import { useAuth } from "../config/auth";
+import { useAuth } from "../contexts/auth";
 import { useLoading } from "../contexts/loading";
 import { useState } from "react";
 import { useRouter } from "next/router";

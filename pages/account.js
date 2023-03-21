@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
-import { useAuth } from "../config/auth";
+import { useAuth } from "../contexts/auth";
 import UserProfile from "../components/account/userProfile";
 import UpdatePassword from "../components/account/updatePassword";
 import DeleteAccount from "../components/account/deleteAccount";
