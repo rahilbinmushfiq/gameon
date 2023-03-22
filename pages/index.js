@@ -2,6 +2,7 @@ import Image from "next/image";
 import hero from "../public/hero.jpg";
 import { IoStopwatchSharp, IoGameController } from "react-icons/io5";
 import { FaUserTie, FaCommentDots, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Home() {
   const socialProofs = {
@@ -36,12 +37,16 @@ export default function Home() {
             </p>
           </div>
           <div className="flex gap-6">
-            <button className="w-32 h-12 rounded-sm font-bold text-[#f1f1f1] bg-[#e30e30] hover:bg-[#f1f1f1] hover:text-[#e30e30]">
-              Explore
-            </button>
-            <button className="w-32 h-12 rounded-sm font-bold border border-[#f1f1f1] hover:bg-[#f1f1f1] hover:text-[#1f1f1f]">
-              Join us
-            </button>
+            <Link href="/search-games">
+              <button className="w-32 h-12 rounded-sm font-bold text-[#f1f1f1] bg-[#e30e30] hover:bg-[#f1f1f1] hover:text-[#e30e30]">
+                Explore
+              </button>
+            </Link>
+            <Link href="/signin">
+              <button className="w-32 h-12 rounded-sm font-bold border border-[#f1f1f1] hover:bg-[#f1f1f1] hover:text-[#1f1f1f]">
+                Join us
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -81,10 +86,14 @@ export default function Home() {
               Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.
             </p>
           </div>
-          <button className="flex justify-center items-center gap-2 w-40 h-12 rounded-sm bg-[#e30e30] hover:bg-[#f1f1f1] [&>*]:hover:text-[#e30e30] [&>*]:hover:fill-[#e30e30]">
-            <p className="font-bold text-[#f1f1f1]">Join for free</p>
-            <FaArrowRight size={14} color="#f1f1f1" />
-          </button>
+          <div className="inline-block">
+            <Link href="/signin">
+              <button className="flex justify-center items-center gap-2 w-40 h-12 rounded-sm bg-[#e30e30] hover:bg-[#f1f1f1] [&>*]:hover:text-[#e30e30] [&>*]:hover:fill-[#e30e30]">
+                <p className="font-bold text-[#f1f1f1]">Join for free</p>
+                <FaArrowRight size={14} color="#f1f1f1" />
+              </button>
+            </Link>
+          </div>
           <div className="flex gap-12">
             {Object.entries(socialProofs).map(([number, topic]) => (
               <div key={number}>
