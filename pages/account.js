@@ -9,6 +9,7 @@ import { useAuth } from "../contexts/auth";
 import UserProfile from "../components/account/userProfile";
 import UpdatePassword from "../components/account/updatePassword";
 import DeleteAccount from "../components/account/deleteAccount";
+import Head from "next/head";
 
 export default function Account({ signInProvider }) {
   const { user } = useAuth();
@@ -26,6 +27,9 @@ export default function Account({ signInProvider }) {
 
   return (
     <main className="max-w-full px-6 py-12">
+      <Head>
+        <title>{`${user && `${user.displayName} |`} Game On`}</title>
+      </Head>
       <UserProfile user={user} />
       <UpdatePassword user={user} signInProvider={signInProvider} />
       <DeleteAccount user={user} signInProvider={signInProvider} />

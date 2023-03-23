@@ -3,6 +3,7 @@ import hero from "../public/hero.jpg";
 import { IoStopwatchSharp, IoGameController } from "react-icons/io5";
 import { FaUserTie, FaCommentDots, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Home() {
   const socialProofs = {
@@ -13,6 +14,9 @@ export default function Home() {
 
   return (
     <main>
+      <Head>
+        <title>Game On</title>
+      </Head>
       <section className="min-h-[calc(100vh_-_3.5rem)] flex flex-col">
         <div className="relative max-w-screen flex-grow bg-[#e30e30]/[.8]">
           <Image

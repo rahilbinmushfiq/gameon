@@ -7,12 +7,16 @@ import { useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { FaInfoCircle, FaUser, FaUserTie, FaDesktop } from "react-icons/fa";
+import Head from "next/head";
 
 export default function GameDetails({ gameID, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
 
   return (
     <main>
+      <Head>
+        <title>{`${`${tab === "overview" ? "Overview" : tab === "criticReviews" ? "Critic Reviews" : tab === "userReviews" ? "User Reviews" : "System Requirements"} - ${name}`} | Game On`}</title>
+      </Head>
       <div className="py-6">
         <div className="relative max-w-full z-[-1] h-72">
           <Image className="object-cover" src={coverImage} fill sizes="35rem" alt={`${name} cover`} />

@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react'
 import Layout from '../components/layout'
 import { AuthProvider } from '../contexts/auth'
 import '../styles/globals.css'

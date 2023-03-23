@@ -15,6 +15,7 @@ import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useLoading } from "../contexts/loading";
 import createErrorMessage from "../utils/createErrorMessage";
+import Head from "next/head";
 
 export default function SignIn({ users }) {
   const { user } = useAuth();
@@ -82,6 +83,9 @@ export default function SignIn({ users }) {
 
   if (!user) return (
     <main>
+      <Head>
+        <title>{`${(email && users.every((user) => user.email !== email)) ? "Register" : "Sign in"} | Game On`}</title>
+      </Head>
       <section className="px-6 py-8 max-w-full">
         {isUserNew && (
           <div className="space-y-1 pb-12">
@@ -167,6 +171,9 @@ export default function SignIn({ users }) {
   );
   if (user && !user.emailVerified) return (
     <main>
+      <Head>
+        <title>Verfiy Email | Game On</title>
+      </Head>
       <section className="px-6 py-8 space-y-8 max-w-full">
         <Verification user={user} />
       </section>

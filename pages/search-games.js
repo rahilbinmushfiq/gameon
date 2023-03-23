@@ -6,6 +6,7 @@ import { getYear, timestampConversion } from "../utils/convertTimestamp";
 import Search from "../components/searchGames/search";
 import Filter from "../components/searchGames/filter";
 import GameCard from "../components/searchGames/gameCard";
+import Head from "next/head";
 
 export default function SearchGames({ gamesData }) {
   const router = useRouter();
@@ -56,6 +57,9 @@ export default function SearchGames({ gamesData }) {
 
   return (
     <main>
+      <Head>
+        <title>Search Games | Games</title>
+      </Head>
       <section className="max-w-full px-4 pb-8 space-y-3">
         <div className="bg-[#2a2a2a] rounded-md py-8">
           <Search setSearch={setSearch} />
