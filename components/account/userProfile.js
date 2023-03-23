@@ -8,6 +8,7 @@ import createErrorMessage from "../../utils/createErrorMessage";
 import { MdAddAPhoto } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useLoading } from "../../contexts/loading";
+import { useRouter } from "next/router";
 
 export default function UserProfile({ user }) {
   const { setIsPageLoading } = useLoading();
@@ -15,6 +16,7 @@ export default function UserProfile({ user }) {
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const fullNameRef = useRef("");
   const photoRef = useRef("");
+  const router = useRouter();
 
   const updateUserDisplayName = async (event) => {
     event.preventDefault();
@@ -50,6 +52,7 @@ export default function UserProfile({ user }) {
     }
 
     setIsPageLoading(false);
+    router.push(router.asPath, undefined, { scroll: false });
   }
 
   const updateUserPhoto = async (event) => {

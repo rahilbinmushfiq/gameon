@@ -67,7 +67,6 @@ export default function DeleteAccount({ user, signInProvider }) {
                   type="password"
                   placeholder="Enter your password"
                   autoFocus
-                  onKeyUp={(event) => event.key === "Enter" && deleteUserAccount()}
                 />
               ) : (
                 <p className="text-[#a9a9a9] mb-10">
@@ -77,6 +76,7 @@ export default function DeleteAccount({ user, signInProvider }) {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+                  type="button"
                   onClick={() => setIsDeleteAccountModalOpen(false)}
                 >
                   Cancel
