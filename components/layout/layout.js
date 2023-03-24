@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Navbar from "./navbar";
-import Footer from "./footer";
-import { useAuth } from "../contexts/auth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loader from "./loader";
-import { useLoading } from "../contexts/loading";
+import { useAuth } from "../../contexts/auth";
+import { useLoading } from "../../contexts/loading";
+import Navbar from "./navbar";
+import Footer from "./footer";
+import Loader from "../loader";
 
 export default function Layout({ children }) {
   const { isUserLoading } = useAuth();

@@ -1,14 +1,14 @@
-import { auth } from "../config/firebase";
 import Link from "next/link";
-import { useAuth } from "../contexts/auth";
-import { useLoading } from "../contexts/loading";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
-import { toast } from "react-toastify";
-import { signOut } from "firebase/auth";
 import Image from "next/image";
-import logo from "../public/logo.png";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
+import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
+import { auth } from "../../config/firebase";
+import { useAuth } from "../../contexts/auth";
+import { useLoading } from "../../contexts/loading";
+import logo from "../../public/logo.png";
 
 export default function Navbar() {
   const { user } = useAuth();

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaDiscord, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
-import logo from "../public/logo.png";
+import logo from "../../public/logo.png";
 
 export default function Footer() {
   const router = useRouter();
