@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import Image from "next/image";
+import logo from "../public/logo.png";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -42,11 +44,11 @@ export default function Navbar() {
             onClick={(event) => event.target.id === "navbar-bg" && setIsNavbarOpen(prevState => !prevState)}
           >
             <div className="w-3/5 h-screen p-6 bg-[#1f1f1f] rounded-r-[1rem]">
-              <p className="text-3xl font-extrabold mb-10">
+              <div className="inline-block mb-10">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
-                  GAME <span className="text-[#e30e30]">ON</span>
+                  <Image src={logo} alt="game-on-logo" width={125} />
                 </Link>
-              </p>
+              </div>
               <ul className="flex flex-col gap-2">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                   <li className="nav--li">

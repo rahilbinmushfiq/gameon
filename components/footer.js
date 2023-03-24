@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaDiscord, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
+import logo from "../public/logo.png";
 
 export default function Footer() {
   const router = useRouter();
@@ -18,11 +20,11 @@ export default function Footer() {
     <footer className="max-w-screen px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f]">
       <div className="py-10 space-y-12">
         <div className="space-y-2">
-          <p className="text-3xl font-extrabold">
+          <div className="inline-block">
             <Link href="/">
-              GAME <span className="text-[#e30e30]">ON</span>
+              <Image src={logo} width={150} alt="game-on-logo" />
             </Link>
-          </p>
+          </div>
           <p className="text-[#9f9f9f] leading-6">
             With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.
           </p>

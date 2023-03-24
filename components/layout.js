@@ -18,7 +18,7 @@ export default function Layout({ children }) {
         <meta name="description" content="Game On is a free platform where users can review and search games." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="game, review, rating, comment, search, filter, overview, critic reviews, user reviews, system requirements" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       {isUserLoading ? (
         <Loader isLoading={isUserLoading} />
