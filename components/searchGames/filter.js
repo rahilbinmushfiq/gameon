@@ -1,8 +1,13 @@
+import { IoFilterOutline } from "react-icons/io5";
+
 export default function Filter({ filter, setFilter }) {
   return (
     <>
       <div className="space-y-6 bg-[#1f1f1f] mx-6 p-4">
-        <h1 className="text-base font-bold text-[#a9a9a9]">FILTER RESULTS</h1>
+        <div className="flex items-center gap-2">
+          <IoFilterOutline size={18} color="#f1f1f1" />
+          <h2 className="text-base font-semibold text-[#bfbfbf]">Filter Results</h2>
+        </div>
         <label className="search--label">
           <p className="font-semibold w-14 text-[#a9a9a9]">Platform:</p>
           <select
