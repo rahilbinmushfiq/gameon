@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
+import { FaKey, FaChevronRight } from "react-icons/fa";
 
 export default function UpdatePassword({ user, signInProvider }) {
   const { setIsPageLoading } = useLoading();
@@ -91,12 +92,18 @@ export default function UpdatePassword({ user, signInProvider }) {
   }
 
   if (user) return (
-    <section className="pt-10">
+    <section>
       <button
-        className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+        className="flex justify-between items-center w-full h-16 px-6 hover:bg-[#2a2a2a] [&>div>p]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1]"
         onClick={() => setIsPasswordModalOpen(true)}
       >
-        {`${isPasswordProviderPresent() ? "Change" : "Add"} password`}
+        <div className="flex gap-4 items-center">
+          <FaKey size={18} color="#f1f1f1" />
+          <p className="font-semibold text-[#a9a9a9]">
+            {`${isPasswordProviderPresent() ? "Change" : "Add"} Password`}
+          </p>
+        </div>
+        <FaChevronRight size={14} color="#a9a9a9" />
       </button>
       {isPasswordModalOpen && (
         <div
@@ -105,14 +112,22 @@ export default function UpdatePassword({ user, signInProvider }) {
           onClick={(event) => event.target.id === "password-modal-bg" && setIsPasswordModalOpen(false)}
         >
           <div className="mx-6 p-8 rounded-md space-y-4 bg-[#1f1f1f]">
-            <h2 className="text-lg font-bold">{`${isPasswordProviderPresent() ? "Update your" : "Add"}`} password</h2>
-            <form className="space-y-2" onSubmit={updateUserPassword}>
-              {signInProvider === "google.com" && (
+            <div className="space-y-2">
+              <h3 className="inline-block mb-1 text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
+                {`${isPasswordProviderPresent() ? "Update Your" : "Add"}`} Password
+              </h3>
+              {signInProvider === "google.com" ? (
                 <p className="text-[#a9a9a9] mb-4">
                   After you press the {`${isPasswordProviderPresent() ? "update" : "add"}`} button, a pop-up will appear asking you to sign in with your email.
                 </p>
+              ) : (
+                <p className="text-[#a9a9a9] mb-4">
+                  Make sure that your new password is at least 6 characters long.
+                </p>
               )}
-              <div className="space-y-4 mb-10">
+            </div>
+            <form className="space-y-10" onSubmit={updateUserPassword}>
+              <div className="space-y-3">
                 {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
                   <input
                     className="sign-in--input"
@@ -123,7 +138,7 @@ export default function UpdatePassword({ user, signInProvider }) {
                   />
                 )}
                 <input
-                  className="sign-in--input mb-10"
+                  className="sign-in--input"
                   ref={secondPasswordRef}
                   type="password"
                   placeholder={`${isPasswordProviderPresent() ? "New password" : "Confirm password"}`}
