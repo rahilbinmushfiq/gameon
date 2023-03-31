@@ -84,74 +84,70 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
 
   return (
     <>
-      <section className="max-w-full space-y-2 py-8 bg-[#2a2a2a]">
-        <div className="mx-6 pb-8 space-y-2">
-          <h4 className="inline-block mb-1 text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
-            Submit Your Review
-          </h4>
-          <p className="text-[#a9a9a9]">
-            If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.
-          </p>
+      <section className="space-y-8 py-8 bg-[#2a2a2a]">
+        <div className="space-y-2 mx-6">
+          <h2 className="text-lg font-bold">Submit Your Review</h2>
+          <p>If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.</p>
         </div>
-        <form className="mx-6 space-y-4" onSubmit={handleCriticReview}>
-          <input
-            className="sign-in--input"
-            ref={organizationNameRef}
-            type="text"
-            placeholder="Name of the organization"
-            required
-          />
-          <input
-            className="sign-in--input"
-            ref={organizationEmailRef}
-            type="email"
-            placeholder="Email of the organization"
-            required
-          />
-          <input
-            className="sign-in--input"
-            ref={scoreRef}
-            type="number"
-            placeholder="Score (0-50)" min="0" max="50"
-            required
-          />
-          <input
-            className="sign-in--input"
-            ref={articleLinkRef}
-            type="url"
-            placeholder="Article link"
-            required
-          />
-          <textarea
-            className="py-[16px] w-full px-3 rounded-sm bg-[#2f2f2f] caret-[#f1f1f1] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a]"
-            rows="8"
-            ref={commentRef}
-            placeholder="Comment"
-            required
-          />
-          <button className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]">
+        <form className="mx-6 space-y-8" onSubmit={handleCriticReview}>
+          <div className="space-y-4 [&>input]:typing-input">
+            <input
+              ref={organizationNameRef}
+              type="text"
+              placeholder="Name of the organization"
+              required
+            />
+            <input
+              ref={organizationEmailRef}
+              type="email"
+              placeholder="Email of the organization"
+              required
+            />
+            <input
+              ref={scoreRef}
+              type="number"
+              min="0"
+              max="50"
+              placeholder="Score (0-50)"
+              required
+            />
+            <input
+              ref={articleLinkRef}
+              type="url"
+              placeholder="Article link"
+              required
+            />
+            <textarea
+              className="w-full py-4 px-3 rounded-sm border border-[#4f4f4f] bg-[#2f2f2f] caret-[#f1f1f1] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a]"
+              ref={commentRef}
+              rows="8"
+              placeholder="Comment"
+              required
+            />
+          </div>
+          <button className="primary-btn primary-btn--hover w-full h-12">
             Submit
           </button>
         </form>
       </section >
-      <section className="max-w-full space-y-2 py-8">
-        <h4 className="mx-6 mb-4 inline-block text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
-          Critic Reviews
-        </h4>
-        {scoresList && scoresList.map((review) => {
-          return (
-            <Review
-              key={review.userUID + review.comment + Math.random()}
-              reviewType="critic"
-              photoURL="https://static.thenounproject.com/png/2204677-200.png"
-              name={review.organizationName}
-              postedOn={review.postedOn}
-              assessment={review.score}
-              comment={review.comment}
-              articleLink={review.articleLink}
-            />
-          )
-        })}
+      <section className="space-y-4 py-8">
+        <h2 className="heading mx-6">Critic Reviews</h2>
+        <div className="space-y-2">
+          {scoresList && scoresList.map((review) => {
+            return (
+              <Review
+                key={review.userUID + review.comment + Math.random()}
+                reviewType="critic"
+                photoURL="https://static.thenounproject.com/png/2204677-200.png"
+                name={review.organizationName}
+                postedOn={review.postedOn}
+                assessment={review.score}
+                comment={review.comment}
+                articleLink={review.articleLink}
+              />
+            )
+          })}
+        </div>
       </section >
     </>
   );

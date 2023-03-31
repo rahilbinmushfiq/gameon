@@ -1,13 +1,14 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { BsFillSendFill, BsChevronLeft } from "react-icons/bs";
 import { auth } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function ForgotPassword({ email }) {
   const { setIsPageLoading } = useLoading();
-  const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const resetUserPassword = async () => {
     setIsPageLoading(true);
@@ -16,7 +17,7 @@ export default function ForgotPassword({ email }) {
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset link sent.");
 
-      setIsForgotPasswordModalOpen(false);
+      setIsModalOpen(false);
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
@@ -27,46 +28,42 @@ export default function ForgotPassword({ email }) {
   return (
     <div>
       <div className="flex justify-end">
-        <p
-          className="text-xs font-bold text-[#d9d9d9] underline cursor-pointer"
-          onClick={() => setIsForgotPasswordModalOpen(true)}
-        >
+        <p className="cursor-pointer font-bold text-xs text-[#cfcfcf]" onClick={() => setIsModalOpen(true)}>
           Forgot password?
         </p>
       </div>
-      {isForgotPasswordModalOpen && (
+      {isModalOpen && (
         <div
-          className="fixed inset-0 z-[1] w-screen h-screen bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md flex justify-center items-center"
-          id="forgot-password-modal-bg"
-          onClick={(event) => event.target.id === "forgot-password-modal-bg" && setIsForgotPasswordModalOpen(false)}
+          className="modal-bg"
+          id="forgot-password-modal"
+          onClick={(event) => event.target.id === "forgot-password-modal" && setIsModalOpen(false)}
         >
-          <div className="mx-6 p-8 rounded-md space-y-16 bg-[#1f1f1f]">
-            <div className="space-y-4">
-              <h2 className="text-lg font-bold">RESET YOUR PASSWORD</h2>
-              <div className="space-y-4 text-[#a9a9a9]">
-                <p>An email will be sent to your email address, <span className="font-bold">{email}</span>. Click on the link provided in the email and reset your password.</p>
-                <p>If you don't see it in your inbox, you may want to check your spam folder.</p>
-              </div>
+          <div className="mx-6 p-8 space-y-10 rounded-md bg-[#1f1f1f]">
+            <div className="space-y-2">
+              <h2 className="text-xl font-bold">Reset Password</h2>
+              <p>An email will be sent to your email address, <span className="font-bold">{email}</span>. Click on the link provided in the email and reset your password.</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="modal-btn-container">
               <button
-                className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+                className="secondary-btn"
                 type="button"
-                onClick={() => setIsForgotPasswordModalOpen(false)}
+                onClick={() => setIsModalOpen(false)}
               >
-                Cancel
+                <BsChevronLeft size={12} color="#1f1f1f" />
+                <p>Cancel</p>
               </button>
               <button
-                className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
+                className="primary-btn"
                 type="button"
                 onClick={resetUserPassword}
               >
-                Send link
+                <p>Send Link</p>
+                <BsFillSendFill size={12} color="#f1f1f1" />
               </button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </div >
   )
 }

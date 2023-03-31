@@ -94,68 +94,59 @@ export default function UpdatePassword({ user, signInProvider }) {
   if (user) return (
     <section>
       <button
-        className="flex justify-between items-center w-full h-16 px-6 hover:bg-[#2a2a2a] [&>div>p]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1]"
+        className="info-container info-container--hover"
         onClick={() => setIsPasswordModalOpen(true)}
       >
-        <div className="flex gap-4 items-center">
-          <FaKey size={18} color="#f1f1f1" />
-          <p className="font-semibold text-[#a9a9a9]">
-            {`${isPasswordProviderPresent() ? "Change" : "Add"} Password`}
-          </p>
+        <div>
+          <FaKey size={18} />
+          <p>{isPasswordProviderPresent() ? "Change" : "Add"} Password</p>
         </div>
         <FaChevronRight size={14} color="#a9a9a9" />
       </button>
       {isPasswordModalOpen && (
         <div
-          className="fixed inset-0 w-screen h-screen bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md flex justify-center items-center"
+          className="modal-bg"
           id="password-modal-bg"
           onClick={(event) => event.target.id === "password-modal-bg" && setIsPasswordModalOpen(false)}
         >
-          <div className="mx-6 p-8 rounded-md space-y-4 bg-[#1f1f1f]">
+          <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
             <div className="space-y-2">
-              <h3 className="inline-block mb-1 text-lg font-bold relative after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30]">
-                {`${isPasswordProviderPresent() ? "Update Your" : "Add"}`} Password
+              <h3 className="text-xl font-bold">
+                {isPasswordProviderPresent() ? "Update" : "Add"} Password
               </h3>
               {signInProvider === "google.com" ? (
-                <p className="text-[#a9a9a9] mb-4">
-                  After you press the {`${isPasswordProviderPresent() ? "update" : "add"}`} button, a pop-up will appear asking you to sign in with your email.
-                </p>
+                <p>After you press the "{isPasswordProviderPresent() ? "Update" : "Add"}" button, a pop-up will appear asking you to sign in with your email.</p>
               ) : (
-                <p className="text-[#a9a9a9] mb-4">
-                  Make sure that your new password is at least 6 characters long.
-                </p>
+                <p>Make sure that your new password is at least 6 characters long.</p>
               )}
             </div>
-            <form className="space-y-10" onSubmit={updateUserPassword}>
-              <div className="space-y-3">
+            <form className="space-y-8" onSubmit={updateUserPassword}>
+              <div className="space-y-4 [&>input]:typing-input">
                 {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
                   <input
-                    className="sign-in--input"
                     ref={firstPasswordRef}
                     type="password"
-                    placeholder={`${isPasswordProviderPresent() ? "Old password" : "Password"}`}
+                    placeholder={isPasswordProviderPresent() ? "Old password" : "Password"}
                     autoFocus
                   />
                 )}
                 <input
-                  className="sign-in--input"
                   ref={secondPasswordRef}
                   type="password"
-                  placeholder={`${isPasswordProviderPresent() ? "New password" : "Confirm password"}`}
+                  placeholder={isPasswordProviderPresent() ? "New password" : "Confirm password"}
+                  autoFocus={signInProvider === "google.com"}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="modal-btn-container">
                 <button
-                  className="w-full h-12 rounded-sm font-semibold text-[#1f1f1f] bg-[#f1f1f1]"
+                  className="secondary-btn"
                   type="button"
                   onClick={() => setIsPasswordModalOpen(false)}
                 >
                   Cancel
                 </button>
-                <button
-                  className="w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30]"
-                >
-                  {`${isPasswordProviderPresent() ? "Update" : "Add"}`}
+                <button className="primary-btn">
+                  {isPasswordProviderPresent() ? "Update" : "Add"}
                 </button>
               </div>
             </form>

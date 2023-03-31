@@ -1,18 +1,18 @@
+import Head from "next/head";
 import nookies from "nookies";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { getAuth } from "firebase-admin/auth";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth } from "firebase-admin/auth";
+import { toast } from "react-toastify";
+import { FaSignOutAlt } from "react-icons/fa";
 import { auth } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../contexts/auth";
 import { useLoading } from "../contexts/loading";
-import { toast } from "react-toastify";
-import { FaSignOutAlt } from "react-icons/fa";
 import UserProfile from "../components/account/userProfile";
 import UpdatePassword from "../components/account/updatePassword";
 import DeleteAccount from "../components/account/deleteAccount";
-import Head from "next/head";
 
 export default function Account({ signInProvider }) {
   const { user } = useAuth();
@@ -43,17 +43,17 @@ export default function Account({ signInProvider }) {
   }
 
   return (
-    <main className="max-w-full min-h-[calc(100vh_-_3.5rem)] flex flex-col divide-y-2 divide-[#2f2f2f]">
+    <main className="flex flex-col max-w-full min-h-[calc(100vh_-_3.5rem)] divide-y-2 divide-[#2f2f2f]">
       <Head>
-        <title>{`${user && `${user.displayName} |`} Game On`}</title>
+        <title>{user && `${user.displayName} | `}Game On</title>
       </Head>
       <UserProfile user={user} />
       <UpdatePassword user={user} signInProvider={signInProvider} />
       <DeleteAccount user={user} signInProvider={signInProvider} />
       {user && (
-        <div className="flex-grow p-6 bg-[#2a2a2a] flex items-center">
+        <div className="p-6 flex items-center">
           <button
-            className="flex justify-center items-center gap-2 w-full h-12 rounded-sm font-semibold text-[#f1f1f1] bg-[#e30e30] hover:text-[#e30e30] hover:bg-[#f1f1f1] [&>*]:hover:fill-[#e30e30]"
+            className="primary-btn primary-btn--hover w-full h-12"
             onClick={userSignOut}
           >
             <p>Sign Out</p>

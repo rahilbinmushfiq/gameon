@@ -15,64 +15,58 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
   return (
     <main>
       <Head>
-        <title>{`${`${tab === "overview" ? "Overview" : tab === "criticReviews" ? "Critic Reviews" : tab === "userReviews" ? "User Reviews" : "System Requirements"} - ${name}`} | Game On`}</title>
+        <title>
+          {`${(tab[0].toUpperCase() + tab.slice(1))
+            .split(/(?=[A-Z])/)
+            .join(" ")
+            } - ${name} | Game On`
+          }
+        </title>
       </Head>
       <div className="py-6">
-        <div className="relative max-w-full z-[-1] h-72">
-          <Image className="object-cover" src={coverImage} fill sizes="35rem" alt={`${name} cover`} />
-          <h2 className="absolute bottom-0 px-6 z-[1] text-2xl font-bold">
-            {name}
-          </h2>
-          <div className="absolute h-full inset-0">
+        <div className="relative max-w-full h-72 z-[-1]">
+          <Image className="object-cover" src={coverImage} fill alt={`${name} cover`} />
+          <div className="absolute bottom-0 px-6 z-[1]">
+            <h1 className="text-2xl">{name}</h1>
+          </div>
+          <div className="absolute inset-0 h-full">
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
             <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
           </div>
         </div>
       </div>
-      <section className="max-w-full px-6 py-4 rounded-md">
-        <div className="flex justify-between rounded-[4px] overflow-hidden">
+      <section className="px-6 py-4 rounded-md">
+        <div className="flex rounded-[4px] overflow-hidden [&>button]:game-tab">
           <button
-            className={`game--tab ${tab === 'overview' && "bg-[#e30e30]"}`}
+            className={tab === "overview" ? "bg-[#e30e30]" : ""}
             onClick={() => setTab("overview")}
           >
-            <FaInfoCircle
-              size={14}
-              color={`${tab === 'overview' && "#f1f1f1"}`}
-            />
+            <FaInfoCircle size={14} />
           </button>
           <button
-            className={`game--tab ${tab === 'criticReviews' && "bg-[#e30e30]"}`}
+            className={tab === "criticReviews" ? "bg-[#e30e30]" : ""}
             onClick={() => setTab("criticReviews")}
           >
-            <FaUserTie
-              size={14}
-              color={`${tab === 'criticReviews' && "#f1f1f1"}`}
-            />
+            <FaUserTie size={14} />
           </button>
           <button
-            className={`game--tab ${tab === 'userReviews' && "bg-[#e30e30]"}`}
+            className={tab === "userReviews" ? "bg-[#e30e30]" : ""}
             onClick={() => setTab("userReviews")}
           >
-            <FaUser
-              size={14}
-              color={`${tab === 'userReviews' && "#f1f1f1"}`}
-            />
+            <FaUser size={14} />
           </button>
           <button
-            className={`game--tab ${tab === 'systemRequirements' && "bg-[#e30e30]"}`}
+            className={tab === "systemRequirements" ? "bg-[#e30e30]" : ""}
             onClick={() => setTab("systemRequirements")}
           >
-            <FaDesktop
-              size={14}
-              color={`${tab === 'systemRequirements' && "#f1f1f1"}`}
-            />
+            <FaDesktop size={14} />
           </button>
         </div>
       </section>
-      {tab === 'overview' && <Overview overview={overview} />}
-      {tab === 'criticReviews' && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}
-      {tab === 'userReviews' && <UserReviews userReviews={userReviews} users={users} gameID={gameID} />}
-      {tab === 'systemRequirements' && <SystemRequirements systemRequirements={systemRequirements} />}
+      {tab === "overview" && <Overview overview={overview} />}
+      {tab === "criticReviews" && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}
+      {tab === "userReviews" && <UserReviews userReviews={userReviews} users={users} gameID={gameID} />}
+      {tab === "systemRequirements" && <SystemRequirements systemRequirements={systemRequirements} />}
     </main>
   );
 }

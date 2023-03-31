@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="px-6 py-3 h-14">
+    <header className="h-14 px-6 py-3">
       <nav>
         <button
           onClick={() => setIsNavbarOpen(prevState => !prevState)}
@@ -43,72 +43,47 @@ export default function Navbar() {
             id="navbar-bg"
             onClick={(event) => event.target.id === "navbar-bg" && setIsNavbarOpen(prevState => !prevState)}
           >
-            <div className="w-3/5 h-screen p-6 bg-[#1f1f1f] rounded-r-[1rem]">
-              <div className="inline-block mb-10">
+            <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f]">
+              <div className="inline-block">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                   <Image src={logo} alt="game-on-logo" width={125} />
                 </Link>
               </div>
               <ul className="flex flex-col gap-2">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
-                  <li className="nav--li">
-                    <IoHomeOutline
-                      size={20}
-                      color={`${asPath === "/" ? "#f1f1f1" : "#9f9f9f"}`}
-                    />
-                    <p className={`${asPath === "/" ? "font-bold text-[#f1f1f1]" : "font-semibold text-[#9f9f9f]"}`}>
-                      Home
-                    </p>
+                  <li className={`nav--li ${asPath === "/" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                    <IoHomeOutline size={20} />
+                    <p>Home</p>
                   </li>
                 </Link>
                 <Link href="/search-games" onClick={() => setIsNavbarOpen(false)}>
-                  <li className="nav--li">
-                    <IoGameControllerOutline
-                      size={20}
-                      color={`${asPath === "/search-games" ? "#f1f1f1" : "#9f9f9f"}`}
-                    />
-                    <p className={`${asPath === "/search-games" ? "font-bold text-[#f1f1f1]" : "font-semibold text-[#9f9f9f]"}`}>
-                      Games
-                    </p>
+                  <li className={`nav--li ${asPath === "/search-games" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                    <IoGameControllerOutline size={20} />
+                    <p>Games</p>
                   </li>
                 </Link>
                 {(!user || (user && !user.emailVerified)) && (
                   <Link href="/signin" onClick={() => setIsNavbarOpen(false)}>
-                    <li className="nav--li">
-                      <IoLogInOutline
-                        size={20}
-                        color={`${asPath === "/signin" ? "#f1f1f1" : "#9f9f9f"}`}
-                      />
-                      <p className={`${asPath === "/signin" ? "font-bold text-[#f1f1f1]" : "font-semibold text-[#9f9f9f]"}`}>
-                        Sign in
-                      </p>
+                    <li className={`nav--li ${asPath === "/signin" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                      <IoLogInOutline size={20} />
+                      <p>Sign in</p>
                     </li>
                   </Link>
                 )}
                 {user && user.emailVerified && (
                   <>
                     <Link href="/account" onClick={() => setIsNavbarOpen(false)}>
-                      <li className="nav--li">
-                        <IoPersonOutline
-                          size={20}
-                          color={`${asPath === "/account" ? "#f1f1f1" : "#9f9f9f"}`}
-                        />
-                        <p className={`${asPath === "/account" ? "font-bold text-[#f1f1f1]" : "font-semibold text-[#9f9f9f]"}`}>
-                          Account
-                        </p>
+                      <li className={`nav--li ${asPath === "/account" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                        <IoPersonOutline size={20} />
+                        <p>Account</p>
                       </li>
                     </Link>
                     <li
-                      className="nav--li cursor-pointer"
+                      className="nav--li cursor-pointer [&>*]:text-[#9f9f9f] [&>p]:font-semibold"
                       onClick={userSignOut}
                     >
-                      <IoLogOutOutline
-                        size={20}
-                        color="#9f9f9f"
-                      />
-                      <p className="font-semibold text-[#9f9f9f]">
-                        Sign out
-                      </p>
+                      <IoLogOutOutline size={20} />
+                      <p>Sign out</p>
                     </li>
                   </>
                 )}

@@ -32,3 +32,13 @@ export const timestampConversion = (timestamp) => {
 
     return date;
 }
+
+export const getRegistrationDate = (createdAt) => {
+    let date = new Date(parseInt(createdAt)).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: "numeric"
+    })
+
+    return date;
+}

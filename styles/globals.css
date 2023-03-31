@@ -7,9 +7,21 @@
     @apply bg-[#1f1f1f] text-[#f1f1f1] text-sm;
   }
 
+  h1 {
+    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30];
+  }
+
+  p {
+    @apply text-[#a9a9a9];
+  }
+
+  button {
+    @apply flex justify-center items-center gap-2 rounded-sm font-semibold;
+  }
+
   th,
   td {
-    @apply text-left align-text-top p-4 whitespace-nowrap;
+    @apply text-left align-text-top py-4 px-5 whitespace-nowrap;
   }
 
   td {
@@ -18,31 +30,88 @@
 }
 
 @layer components {
+  .heading {
+    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30];
+  }
+
+  .primary-btn {
+    @apply bg-[#e30e30] text-[#f1f1f1] [&>p]:text-[#f1f1f1];
+  }
+
+  .primary-btn--hover {
+    @apply hover:bg-[#f1f1f1] hover:text-[#e30e30] [&>p]:hover:text-[#e30e30] [&>*]:hover:fill-[#e30e30] [&>*]:hover:stroke-[#e30e30];
+  }
+
+  .secondary-btn {
+    @apply bg-[#f1f1f1] text-[#1f1f1f] [&>p]:text-[#1f1f1f];
+  }
+
   .nav--li {
     @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1];
   }
 
   .footer--li {
-    @apply w-fit rounded-sm cursor-pointer text-[#9f9f9f] hover:text-[#f1f1f1];
+    @apply w-fit cursor-pointer text-[#a9a9a9] hover:text-[#f1f1f1];
   }
 
-  .footer--a {
-    @apply flex justify-center items-center w-10 h-10 rounded-full cursor-pointer bg-[#f1f1f1] hover:bg-[#e30e30] [&>*]:hover:fill-[#f1f1f1];
+  .social-link {
+    @apply w-10 h-10 flex justify-center items-center rounded-full cursor-pointer bg-[#f1f1f1] hover:bg-[#e30e30] [&>*]:hover:fill-[#f1f1f1];
   }
 
-  .home--card {
-    @apply w-[45%] rounded-sm space-y-1;
+  .card-container {
+    @apply w-[45%] space-y-1 rounded-sm [&>p]:text-[#a9a9a9];
   }
 
-  .sign-in--input {
+  .card-container > h3 {
+    @apply text-base font-semibold pt-2;
+  }
+
+  .typing-input {
     @apply w-full h-12 px-3 rounded-sm bg-[#2f2f2f] caret-[#f1f1f1] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a];
   }
 
-  .search--label {
-    @apply flex gap-4 justify-center items-center;
+  .filter-container {
+    @apply grid grid-cols-4 gap-4 items-center [&>:nth-child(1)]:col-span-1 [&>:nth-child(2)]:col-span-3 [&>label]:font-semibold [&>label]:text-[#a9a9a9];
   }
 
-  .game--tab {
+  .filter-container > select {
+    @apply h-12 px-3 rounded-sm text-xs text-[#a9a9a9] bg-[#1f1f1f] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60;
+  }
+
+  .game-tab {
     @apply h-12 w-1/4 flex justify-center items-center;
+  }
+
+  .info-container {
+    @apply w-full h-16 flex justify-between items-center px-6;
+  }
+
+  .info-container--hover {
+    @apply hover:bg-[#2a2a2a] [&>div>p]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1];
+  }
+
+  .info-container > div {
+    @apply flex items-center gap-4 [&>p]:font-semibold;
+  }
+
+  .rating-container {
+    @apply relative inline-block overflow-hidden text-[#a9a9a9];
+  }
+
+  .empty-stars,
+  .filled-stars {
+    @apply before:content-['\2605\2605\2605\2605\2605'] before:text-[18pt];
+  }
+
+  .filled-stars {
+    @apply absolute inset-0 overflow-hidden text-[#e30e30];
+  }
+
+  .modal-bg {
+    @apply fixed inset-0 w-screen h-screen flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md;
+  }
+
+  .modal-btn-container {
+    @apply grid grid-cols-2 gap-4 [&>button]:h-12;
   }
 }

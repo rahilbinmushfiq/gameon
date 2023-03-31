@@ -41,14 +41,14 @@ export default function SearchGames({ gamesData }) {
 
   const games = gamesData.filter(gameData => {
     return gameData.name.toLowerCase().includes(search.toLowerCase())
-      && (filter.platform === '' || gameData.platforms.some(platform => platform.toLowerCase().includes(filter.platform)))
+      && (filter.platform === "" || gameData.platforms.some(platform => platform.toLowerCase().includes(filter.platform)))
       && (filter.releaseDates[getYear(gameData.releaseDate)] || Object.values(filter.releaseDates).every(val => val === false));
   }).sort((a, b) => {
-    if (filter.sort === 'releaseDate') {
+    if (filter.sort === "releaseDate") {
       return timestampConversion(b.releaseDate) - timestampConversion(a.releaseDate);
-    } else if (filter.sort === 'topRated') {
+    } else if (filter.sort === "topRated") {
       return b.averageRating - a.averageRating;
-    } else if (filter.sort === 'topScored') {
+    } else if (filter.sort === "topScored") {
       return b.averageScore - a.averageScore;
     } else {
       return 0;
@@ -58,14 +58,14 @@ export default function SearchGames({ gamesData }) {
   return (
     <main>
       <Head>
-        <title>Search Games | Games</title>
+        <title>Search Games | Game On</title>
       </Head>
-      <section className="max-w-full px-4 pb-8 space-y-3">
-        <div className="bg-[#2a2a2a] rounded-md py-8">
+      <section>
+        <div className="space-y-6 py-16 bg-[#2a2a2a]">
           <Search setSearch={setSearch} />
           <Filter filter={filter} setFilter={setFilter} />
         </div>
-        <div className="bg-[#2a2a2a] rounded-md py-1">
+        <div className="mx-6 py-16">
           {games.map(game => (
             <GameCard key={game.name} game={game} />
           ))}

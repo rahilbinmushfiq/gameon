@@ -23,7 +23,7 @@ export default function Layout({ children }) {
       {isUserLoading ? (
         <Loader isLoading={isUserLoading} />
       ) : (
-        <div className="max-w-screen">
+        <div>
           {isPageLoading && (
             <Loader isLoading={isPageLoading} />
           )}

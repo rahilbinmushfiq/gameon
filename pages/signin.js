@@ -1,21 +1,21 @@
 import nookies from "nookies";
-import { collection, getDocs } from "firebase/firestore";
-import { useState, useRef, useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { auth, db } from "../config/firebase";
-import Register from "../components/signIn/register";
-import Verification from "../components/signIn/verification";
-import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn";
-import GoogleSignIn from "../components/signIn/googleSignIn";
+import { useState, useRef, useEffect } from "react";
 import { getAuth } from "firebase-admin/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { IoChevronForward, IoChevronBack } from "react-icons/io5";
+import { auth, db } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../contexts/auth";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { IoChevronForward, IoChevronBack } from "react-icons/io5";
-import { toast } from "react-toastify";
 import { useLoading } from "../contexts/loading";
+import Verification from "../components/signIn/verification";
+import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn";
+import Register from "../components/signIn/register";
+import GoogleSignIn from "../components/signIn/googleSignIn";
 import createErrorMessage from "../utils/createErrorMessage";
-import Head from "next/head";
 
 export default function SignIn({ users }) {
   const { user } = useAuth();
@@ -86,86 +86,86 @@ export default function SignIn({ users }) {
       <Head>
         <title>{`${(email && users.every((user) => user.email !== email)) ? "Register" : "Sign in"} | Game On`}</title>
       </Head>
-      <section className="px-6 py-8 max-w-full">
-        {isUserNew && (
-          <div className="space-y-1 pb-12">
-            <h2 className="text-lg font-semibold text-[#f1f1f1]">Account Successfully Created!</h2>
-            <p className="text-[#a9a9a9] leading-6">
-              Your account creation is complete! Now, you can sign in to your new account.
-            </p>
-          </div>
-        )}
-        {!email ? (
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <h2 className="text-xl font-bold text-[#f1f1f1]">Sign in</h2>
-              <p className="text-[#a9a9a9]">
-                Provide your email address to continue.
-              </p>
+      <section className="px-6 pt-6 pb-14 space-y-20">
+        <div className="space-y-8">
+          {isUserNew && (!email || (email && users.some((user) => user.email === email))) && (
+            <div className="space-y-1">
+              <h2 className="text-lg font-semibold">Registration Complete!</h2>
+              <p className="leading-6">You have successfully created your account. Now, you can sign in to your new account using the credentials you provided.</p>
             </div>
-            <div className="space-y-8 pb-12">
-              <input
-                className="sign-in--input"
-                ref={emailRef}
-                type="text"
-                placeholder="Enter your email"
-                onKeyUp={(event) => event.key === "Enter" && emailValidation()}
-                autoFocus
-              />
-              <button
-                className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
-                type="button"
-                onClick={() => emailValidation()}
-              >
-                <p className="font-semibold">Next</p>
-                <IoChevronForward size={13} color="#1f1f1f" />
-              </button>
-            </div>
-          </div>
-        ) : (
-          users.every((user) => user.email !== email) ? (
-            <Register
-              email={email}
-              setEmail={setEmail}
-            />
-          ) : (
-            isProviderOnlyGoogle() ? (
-              <div className="space-y-6 pb-12">
-                <div className="space-y-3">
-                  <h2 className="text-xl font-bold text-[#f1f1f1]">Can't Sign in with Password</h2>
-                  <p className="text-[#a9a9a9] leading-6">
-                    The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google below.
-                  </p>
-                </div>
+          )}
+          {!email ? (
+            <div className="space-y-8">
+              <div className="space-y-2">
+                <h1>Sign in</h1>
+                <p>Provide your email address to continue.</p>
+              </div>
+              <div className="space-y-8">
+                <input
+                  className="typing-input"
+                  ref={emailRef}
+                  type="text"
+                  placeholder="Enter your email"
+                  onKeyUp={(event) => event.key === "Enter" && emailValidation()}
+                  autoFocus
+                />
                 <button
-                  className="flex gap-2 justify-center items-center w-full h-12 rounded-sm text-[#1f1f1f] bg-[#f1f1f1]"
+                  className="secondary-btn w-full h-12"
                   type="button"
-                  onClick={() => setEmail("")}
+                  onClick={() => emailValidation()}
                 >
-                  <IoChevronBack size={13} color="#1f1f1f" />
-                  <p className="font-semibold">Back</p>
+                  <p>Next</p>
+                  <IoChevronForward size={13} color="#1f1f1f" />
                 </button>
               </div>
-            ) : (
-              <EmailAndPasswordSignIn
+            </div>
+          ) : (
+            users.every((user) => user.email !== email) ? (
+              <Register
                 email={email}
                 setEmail={setEmail}
-                setIsUserLoaded={setIsUserLoaded}
               />
+            ) : (
+              isProviderOnlyGoogle() ? (
+                <div className="space-y-8">
+                  <div className="space-y-2">
+                    <h2 className="text-xl font-bold">Can't Sign in with Password</h2>
+                    <p className="leading-6">
+                      The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google.
+                    </p>
+                  </div>
+                  <button
+                    className="secondary-btn w-full h-12"
+                    type="button"
+                    onClick={() => setEmail("")}
+                  >
+                    <IoChevronBack size={13} color="#1f1f1f" />
+                    <p className="font-semibold">Back</p>
+                  </button>
+                </div>
+              ) : (
+                <EmailAndPasswordSignIn
+                  email={email}
+                  setEmail={setEmail}
+                  setIsUserLoaded={setIsUserLoaded}
+                />
+              )
             )
-          )
-        )}
-        <div className="grid grid-cols-7 items-center pb-6">
-          <hr className="col-span-3 border-[#a9a9a9]" />
-          <p className="col-span-1 text-base text-center text-[#a9a9a9]">
-            or
-          </p>
-          <hr className="col-span-3 border-[#a9a9a9]" />
+          )}
         </div>
-        <GoogleSignIn
-          users={users}
-          setIsUserLoaded={setIsUserLoaded}
-        />
+        <div className="space-y-8">
+          <div className="grid grid-cols-7 items-center">
+            <hr className="col-span-3 border-[#6f6f6f]" />
+            <p className="col-span-1 text-base text-center text-[#6f6f6f]">
+              or
+            </p>
+            <hr className="col-span-3 border-[#6f6f6f]" />
+          </div>
+          <GoogleSignIn
+            users={users}
+            setIsUserLoaded={setIsUserLoaded}
+          />
+        </div>
       </section>
     </main>
   );
@@ -174,7 +174,7 @@ export default function SignIn({ users }) {
       <Head>
         <title>Verfiy Email | Game On</title>
       </Head>
-      <section className="px-6 py-8 space-y-8 max-w-full">
+      <section className="px-6 pt-6 pb-14 space-y-10">
         <Verification user={user} />
       </section>
     </main>

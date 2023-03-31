@@ -1,10 +1,10 @@
-import { auth, db, googleProvider } from "../../config/firebase";
-import createErrorMessage from "../../utils/createErrorMessage";
 import { signInWithPopup, updateProfile } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
+import { auth, db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function GoogleSignIn({ users, setIsUserLoaded }) {
   const { setIsPageLoading } = useLoading();
@@ -44,9 +44,14 @@ export default function GoogleSignIn({ users, setIsUserLoaded }) {
   }
 
   return (
-    <button className="flex gap-3 justify-center items-center w-full h-12 rounded-sm bg-[#3a3a3a]" onClick={handleGoogleSignIn}>
+    <button
+      className="w-full h-12 gap-3 bg-[#3a3a3a] hover:bg-[#f1f1f1] [&>p]:hover:text-[#1f1f1f]"
+      onClick={handleGoogleSignIn}
+    >
       <FcGoogle size={20} />
-      <p className="font-semibold">Sign in with Google</p>
+      <p className="text-[#f1f1f1] font-semibold">
+        Sign in with Google
+      </p>
     </button>
   )
 }
