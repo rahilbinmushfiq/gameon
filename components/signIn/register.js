@@ -41,13 +41,13 @@ export default function Register({ email, setEmail }) {
 
       await updateProfile(userCredential?.user, {
         displayName: fullName,
-        photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png"
+        photoURL: "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599"
       });
 
       await setDoc(doc(db, "users", userCredential?.user?.uid), {
         email: email,
         fullName: fullName,
-        photoURL: "https://180dc.org/wp-content/uploads/2016/08/default-profile.png",
+        photoURL: "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599",
         registrationMethod: "password",
         linked: false
       });
