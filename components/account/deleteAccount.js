@@ -6,6 +6,7 @@ import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { FaTrashAlt, FaChevronRight } from "react-icons/fa";
+import Modal from "../modal";
 
 export default function DeleteAccount({ user, signInProvider }) {
   const { setIsPageLoading } = useLoading();
@@ -57,43 +58,24 @@ export default function DeleteAccount({ user, signInProvider }) {
         <FaChevronRight size={14} color="#a9a9a9" />
       </button>
       {isDeleteAccountModalOpen && (
-        <div
-          className="modal-bg"
+        <Modal
+          type="confirm"
           id="delete-account-modal-bg"
-          onClick={(event) => event.target.id === "delete-account-modal-bg" && setIsDeleteAccountModalOpen(false)}
+          heading="Delete Your Account"
+          description={`${signInProvider === "google" ? "After you press the confirm button, you" : "You"} need to be re-authenticated to make sure you're the owner of this account.`}
+          setIsModalOpen={setIsDeleteAccountModalOpen}
+          handleSubmission={deleteUserAccount}
         >
-          <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold">Delete Your Account</h3>
-              <p>
-                {signInProvider === "google" ? "After you press the confirm button, you" : "You"} need to be re-authenticated to make sure you're the owner of this account.
-              </p>
-            </div>
-            <form className="space-y-8" onSubmit={deleteUserAccount}>
-              {signInProvider === "password" && (
-                <input
-                  className="typing-input"
-                  ref={passwordRef}
-                  type="password"
-                  placeholder="Enter your password"
-                  autoFocus
-                />
-              )}
-              <div className="modal-btn-container">
-                <button
-                  className="secondary-btn"
-                  type="button"
-                  onClick={() => setIsDeleteAccountModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button className="primary-btn">
-                  Confirm
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+          {signInProvider === "password" && (
+            <input
+              className="typing-input"
+              ref={passwordRef}
+              type="password"
+              placeholder="Enter your password"
+              autoFocus
+            />
+          )}
+        </Modal>
       )}
     </section>
   )

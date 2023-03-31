@@ -6,6 +6,7 @@ import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { FaKey, FaChevronRight } from "react-icons/fa";
+import Modal from "../modal";
 
 export default function UpdatePassword({ user, signInProvider }) {
   const { setIsPageLoading } = useLoading();
@@ -104,54 +105,35 @@ export default function UpdatePassword({ user, signInProvider }) {
         <FaChevronRight size={14} color="#a9a9a9" />
       </button>
       {isPasswordModalOpen && (
-        <div
-          className="modal-bg"
-          id="password-modal-bg"
-          onClick={(event) => event.target.id === "password-modal-bg" && setIsPasswordModalOpen(false)}
+        <Modal
+          type="confirm"
+          id="update-password-modal-bg"
+          heading={`${isPasswordProviderPresent() ? "Update" : "Add"} Password`}
+          description={signInProvider === "google.com" ? (
+            `After you press the "Confirm" button, a pop-up will appear asking you to sign in with your email.`
+          ) : (
+            "Make sure that your new password is at least 6 characters long."
+          )}
+          setIsModalOpen={setIsPasswordModalOpen}
+          handleSubmission={updateUserPassword}
         >
-          <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold">
-                {isPasswordProviderPresent() ? "Update" : "Add"} Password
-              </h3>
-              {signInProvider === "google.com" ? (
-                <p>After you press the "{isPasswordProviderPresent() ? "Update" : "Add"}" button, a pop-up will appear asking you to sign in with your email.</p>
-              ) : (
-                <p>Make sure that your new password is at least 6 characters long.</p>
-              )}
-            </div>
-            <form className="space-y-8" onSubmit={updateUserPassword}>
-              <div className="space-y-4 [&>input]:typing-input">
-                {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
-                  <input
-                    ref={firstPasswordRef}
-                    type="password"
-                    placeholder={isPasswordProviderPresent() ? "Old password" : "Password"}
-                    autoFocus
-                  />
-                )}
-                <input
-                  ref={secondPasswordRef}
-                  type="password"
-                  placeholder={isPasswordProviderPresent() ? "New password" : "Confirm password"}
-                  autoFocus={signInProvider === "google.com"}
-                />
-              </div>
-              <div className="modal-btn-container">
-                <button
-                  className="secondary-btn"
-                  type="button"
-                  onClick={() => setIsPasswordModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button className="primary-btn">
-                  {isPasswordProviderPresent() ? "Update" : "Add"}
-                </button>
-              </div>
-            </form>
+          <div className="space-y-4 [&>input]:typing-input">
+            {!(signInProvider === "google.com" && isPasswordProviderPresent()) && (
+              <input
+                ref={firstPasswordRef}
+                type="password"
+                placeholder={isPasswordProviderPresent() ? "Old password" : "Password"}
+                autoFocus
+              />
+            )}
+            <input
+              ref={secondPasswordRef}
+              type="password"
+              placeholder={isPasswordProviderPresent() ? "New password" : "Confirm password"}
+              autoFocus={signInProvider === "google.com" && isPasswordProviderPresent()}
+            />
           </div>
-        </div>
+        </Modal>
       )}
     </section>
   )

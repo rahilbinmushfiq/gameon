@@ -106,12 +106,4 @@
   .filled-stars {
     @apply absolute inset-0 overflow-hidden text-[#e30e30];
   }
-
-  .modal-bg {
-    @apply fixed inset-0 w-screen h-screen flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md;
-  }
-
-  .modal-btn-container {
-    @apply grid grid-cols-2 gap-4 [&>button]:h-12;
-  }
 }

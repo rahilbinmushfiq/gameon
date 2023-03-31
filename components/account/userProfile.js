@@ -11,6 +11,7 @@ import { useLoading } from "../../contexts/loading";
 import { useRouter } from "next/router";
 import { FaEnvelope, FaHandshake, FaUser, FaChevronRight } from "react-icons/fa";
 import { getRegistrationDate } from "../../utils/convertTimestamp";
+import Modal from "../modal";
 
 export default function UserProfile({ user }) {
   const { setIsPageLoading } = useLoading();
@@ -121,40 +122,23 @@ export default function UserProfile({ user }) {
         </h2>
       </div>
       {isPhotoModalOpen && (
-        <div
-          className="modal-bg"
+        <Modal
+          type="confirm"
           id="update-photo-modal-bg"
-          onClick={(event) => event.target.id === "update-photo-modal-bg" && setIsPhotoModalOpen(false)}
+          heading="Update Display Picture"
+          description="Make sure to select a valid image file with a maximum size of 1 MB."
+          setIsModalOpen={setIsPhotoModalOpen}
+          handleSubmission={updateUserPhoto}
         >
-          <form className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]" onSubmit={updateUserPhoto}>
-            <div className="space-y-8">
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Update Display Picture</h3>
-                <p>Make sure to select a valid image file with a maximum size of 1 MB.</p>
-              </div>
-              <input
-                className="text-[#a9a9a9] text-xs w-full file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:bg-[#3a3a3a] file:text-[#f1f1f1] file:text-sm file:font-semibold file:cursor-pointer peer"
-                ref={photoRef}
-                type="file"
-                accept=".jpg, .jpeg, .png"
-                maxLength={1000000}
-                multiple={false}
-              />
-            </div>
-            <div className="modal-btn-container">
-              <button
-                className="secondary-btn"
-                type="button"
-                onClick={() => setIsPhotoModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button className="primary-btn">
-                Confirm
-              </button>
-            </div>
-          </form>
-        </div>
+          <input
+            className="text-[#a9a9a9] text-xs w-full file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:bg-[#3a3a3a] file:text-[#f1f1f1] file:text-sm file:font-semibold file:cursor-pointer peer"
+            ref={photoRef}
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            maxLength={1000000}
+            multiple={false}
+          />
+        </Modal>
       )}
       <div className="divide-y-2 divide-[#2f2f2f] [&>*]:info-container">
         <div>
@@ -178,39 +162,22 @@ export default function UserProfile({ user }) {
         </button>
       </div>
       {isNameModalOpen && (
-        <div
-          className="modal-bg"
+        <Modal
+          type="confirm"
           id="name-modal-bg"
-          onClick={(event) => event.target.id === "name-modal-bg" && setIsNameModalOpen(false)}
+          heading="Update Your Name"
+          description="As your display name is public, update your name to something appropriate."
+          setIsModalOpen={setIsNameModalOpen}
+          handleSubmission={updateUserDisplayName}
         >
-          <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold">Update Your Name</h3>
-              <p> As your display name is public, update your name to something appropriate.</p>
-            </div>
-            <form className="space-y-8" onSubmit={updateUserDisplayName}>
-              <input
-                className="typing-input"
-                type="text"
-                ref={fullNameRef}
-                defaultValue={user.displayName}
-                autoFocus
-              />
-              <div className="modal-btn-container">
-                <button
-                  className="secondary-btn"
-                  type="button"
-                  onClick={() => setIsNameModalOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button className="primary-btn">
-                  Update
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+          <input
+            className="typing-input"
+            type="text"
+            ref={fullNameRef}
+            defaultValue={user.displayName}
+            autoFocus
+          />
+        </Modal>
       )}
     </section>
   )
