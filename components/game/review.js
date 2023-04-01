@@ -39,7 +39,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
           )}
         </div>
       </div>
-      <p className="text-[#bfbfbf]">
+      <p className="text-[#bfbfbf] whitespace-pre-wrap">
         {comment}
       </p>
       {reviewType === "critic" && (
