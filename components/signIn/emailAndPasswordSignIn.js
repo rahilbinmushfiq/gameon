@@ -6,6 +6,7 @@ import { auth } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 import ForgotPassword from "./forgotPassword";
+import { HiLockClosed } from "react-icons/hi";
 
 export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoaded }) {
   const { setIsPageLoading } = useLoading();
@@ -41,13 +42,20 @@ export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoade
       </div>
       <form className="space-y-8 [&>div]:space-y-4" onSubmit={handleSignIn}>
         <div>
-          <input
-            className="typing-input"
-            ref={passwordRef}
-            type="password"
-            placeholder="Enter your password"
-            autoFocus
-          />
+          <div className="relative">
+            <input
+              className="typing-input pl-12 peer"
+              ref={passwordRef}
+              type="password"
+              placeholder="Enter your password"
+              autoFocus
+            />
+            <HiLockClosed
+              className="typing-input--icon"
+              size={48}
+              onClick={() => passwordRef.current.focus()}
+            />
+          </div>
           <ForgotPassword email={email} />
         </div>
         <div className="[&>button]:w-full [&>button]:h-12">

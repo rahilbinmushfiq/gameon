@@ -70,6 +70,10 @@
     @apply w-full h-12 px-3 rounded-sm bg-[#2f2f2f] caret-[#f1f1f1] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a];
   }
 
+  .typing-input--icon {
+    @apply absolute inset-0 p-3.5 peer-placeholder-shown:text-[#a9a9a9];
+  }
+
   .filter-container {
     @apply grid grid-cols-4 gap-4 items-center [&>:nth-child(1)]:col-span-1 [&>:nth-child(2)]:col-span-3 [&>label]:font-semibold [&>label]:text-[#a9a9a9];
   }

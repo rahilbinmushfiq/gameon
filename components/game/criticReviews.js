@@ -7,6 +7,7 @@ import { useLoading } from "../../contexts/loading";
 import Review from "./review";
 import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
+import { HiMail, HiUsers, HiClipboardCheck, HiGlobeAlt, HiChat } from "react-icons/hi";
 
 export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
   const { user } = useAuth();
@@ -90,40 +91,79 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
           <p>If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.</p>
         </div>
         <form className="mx-6 space-y-8" onSubmit={handleCriticReview}>
-          <div className="space-y-4 [&>input]:typing-input">
-            <input
-              ref={organizationNameRef}
-              type="text"
-              placeholder="Name of the organization"
-              required
-            />
-            <input
-              ref={organizationEmailRef}
-              type="email"
-              placeholder="Email of the organization"
-              required
-            />
-            <input
-              ref={scoreRef}
-              type="number"
-              min="0"
-              max="50"
-              placeholder="Score (0-50)"
-              required
-            />
-            <input
-              ref={articleLinkRef}
-              type="url"
-              placeholder="Article link"
-              required
-            />
-            <textarea
-              className="w-full py-4 px-3 rounded-sm border border-[#4f4f4f] bg-[#2f2f2f] caret-[#f1f1f1] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a]"
-              ref={commentRef}
-              rows="8"
-              placeholder="Comment"
-              required
-            />
+          <div className="space-y-4 [&>div]:relative [&>div>input]:typing-input [&>div>input]:pl-12">
+            <div>
+              <input
+                className="peer"
+                ref={organizationNameRef}
+                type="text"
+                placeholder="Name of the Organization"
+                required
+              />
+              <HiUsers
+                className="typing-input--icon"
+                size={48}
+                onClick={() => organizationNameRef.current.focus()}
+              />
+            </div>
+            <div>
+              <input
+                className="peer"
+                ref={organizationEmailRef}
+                type="email"
+                placeholder="Email of the Organization"
+                required
+              />
+              <HiMail
+                className="typing-input--icon"
+                size={48}
+                onClick={() => organizationEmailRef.current.focus()}
+              />
+            </div>
+            <div>
+              <input
+                className="peer"
+                ref={scoreRef}
+                type="number"
+                min="0"
+                max="50"
+                placeholder="Score (0-50)"
+                required
+              />
+              <HiClipboardCheck
+                className="typing-input--icon"
+                size={48}
+                onClick={() => scoreRef.current.focus()}
+              />
+            </div>
+            <div>
+              <input
+                className="peer"
+                ref={articleLinkRef}
+                type="url"
+                placeholder="Article Link"
+                required
+              />
+              <HiGlobeAlt
+                className="typing-input--icon"
+                size={48}
+                onClick={() => articleLinkRef.current.focus()}
+              />
+            </div>
+            <div>
+              <textarea
+                className="typing-input h-auto pl-12 py-3.5 peer"
+                ref={commentRef}
+                rows="8"
+                placeholder="Comment"
+                required
+              />
+              <HiChat
+                className="typing-input--icon"
+                size={48}
+                onClick={() => articleLinkRef.current.focus()}
+              />
+            </div>
           </div>
           <button className="primary-btn primary-btn--hover w-full h-12">
             Submit

@@ -6,6 +6,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { useRef } from "react";
 import { useLoading } from "../../contexts/loading";
+import { HiLockClosed, HiUser } from "react-icons/hi";
 
 export default function Register({ email, setEmail }) {
   const { setIsPageLoading } = useLoading();
@@ -69,22 +70,46 @@ export default function Register({ email, setEmail }) {
         <p>Fill up the form to create your account.</p>
       </div>
       <form className="space-y-8" onSubmit={handleRegister}>
-        <div className="space-y-4 [&>input]:typing-input">
-          <input
-            ref={fullNameRef}
-            type="text"
-            placeholder="Enter your full name" autoFocus
-          />
-          <input
-            ref={passwordRef}
-            type="password"
-            placeholder="Enter your password"
-          />
-          <input
-            ref={confirmPasswordRef}
-            type="password"
-            placeholder="Confirm your password"
-          />
+        <div className="space-y-4 [&>div>input]:typing-input [&>div>input]:pl-12">
+          <div className="relative">
+            <input
+              className="peer"
+              ref={fullNameRef}
+              type="text"
+              placeholder="Enter your full name" autoFocus
+            />
+            <HiUser
+              className="typing-input--icon"
+              size={48}
+              onClick={() => fullNameRef.current.focus()}
+            />
+          </div>
+          <div className="relative">
+            <input
+              className="peer"
+              ref={passwordRef}
+              type="password"
+              placeholder="Enter your password"
+            />
+            <HiLockClosed
+              className="typing-input--icon"
+              size={48}
+              onClick={() => passwordRef.current.focus()}
+            />
+          </div>
+          <div className="relative">
+            <input
+              className="peer"
+              ref={confirmPasswordRef}
+              type="password"
+              placeholder="Confirm your password"
+            />
+            <HiLockClosed
+              className="typing-input--icon"
+              size={48}
+              onClick={() => confirmPasswordRef.current.focus()}
+            />
+          </div>
         </div>
         <div className="space-y-4 [&>button]:w-full [&>button]:h-12">
           <button className="secondary-btn" type="button" onClick={() => setEmail("")}>

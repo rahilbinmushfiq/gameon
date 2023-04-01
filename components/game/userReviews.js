@@ -93,7 +93,7 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
               </div>
             </div>
             <textarea
-              className="w-full py-4 px-3 rounded-sm border border-[#4f4f4f] bg-[#2f2f2f] caret-[#f1f1f1] focus:outline-none focus:border focus:border-[#e30e30]/60 placeholder:text-[#9a9a9a]"
+              className="typing-input h-auto py-3"
               ref={commentRef}
               rows="4"
               placeholder="Comment"

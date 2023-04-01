@@ -16,6 +16,7 @@ import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn"
 import Register from "../components/signIn/register";
 import GoogleSignIn from "../components/signIn/googleSignIn";
 import createErrorMessage from "../utils/createErrorMessage";
+import { HiMail } from "react-icons/hi";
 
 export default function SignIn({ users }) {
   const { user } = useAuth();
@@ -101,14 +102,21 @@ export default function SignIn({ users }) {
                 <p>Provide your email address to continue.</p>
               </div>
               <div className="space-y-8">
-                <input
-                  className="typing-input"
-                  ref={emailRef}
-                  type="text"
-                  placeholder="Enter your email"
-                  onKeyUp={(event) => event.key === "Enter" && emailValidation()}
-                  autoFocus
-                />
+                <div className="relative">
+                  <input
+                    className="typing-input pl-12 peer"
+                    ref={emailRef}
+                    type="text"
+                    placeholder="Enter your email"
+                    onKeyUp={(event) => event.key === "Enter" && emailValidation()}
+                    autoFocus
+                  />
+                  <HiMail
+                    className="typing-input--icon"
+                    size={48}
+                    onClick={() => emailRef.current.focus()}
+                  />
+                </div>
                 <button
                   className="secondary-btn w-full h-12"
                   type="button"

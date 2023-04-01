@@ -14,14 +14,14 @@ export default function Search({ setSearch }) {
       </div>
       <div className="relative flex">
         <input
-          className="typing-input pl-12 bg-[#1f1f1f]"
+          className="typing-input pl-12 bg-[#1f1f1f] peer"
           ref={searchRef}
           type="text"
           placeholder="Search Games"
           onChange={(e) => setSearch(e.target.value)}
         />
         <IoSearchOutline
-          className="absolute inset-0 p-4"
+          className="typing-input--icon"
           size={48}
           onClick={() => searchRef.current.focus()}
         />
