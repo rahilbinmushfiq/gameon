@@ -107,6 +107,10 @@
     @apply before:content-['\2605\2605\2605\2605\2605'] before:text-[18pt];
   }
 
+  .score {
+    @apply p-3 bg-[#e30e30] text-[#f1f1f1] font-semibold inline-block;
+  }
+
   .filled-stars {
     @apply absolute inset-0 overflow-hidden text-[#e30e30];
   }

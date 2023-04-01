@@ -17,9 +17,9 @@ export default function Overview({ overview: { summary, genres, platforms, relea
       </div>
       <div>
         <h3>Reviews</h3>
-        <div className="space-y-4">
+        <div className="space-y-4 [&>div>h4]:font-bold [&>div>h4]:text-[#a9a9a9] [&>div>h4>span]:font-semibold">
           <div className="space-y-1">
-            <h4 className="font-bold">Average user rating <span className="font-semibold">(out of 5)</span>:</h4>
+            <h4>Average user rating <span>(out of 5)</span>:</h4>
             <div className="flex items-center gap-2">
               <div className="rating-container">
                 <div className="empty-stars" />
@@ -32,8 +32,8 @@ export default function Overview({ overview: { summary, genres, platforms, relea
             </div>
           </div>
           <div className="space-y-2">
-            <h4 className="font-bold">Average critic score <span className="font-semibold">(out of 50)</span>:</h4>
-            <div className="p-3 bg-[#e30e30] text-[#f1f1f1] font-semibold inline-block">
+            <h4>Average critic score <span>(out of 50)</span>:</h4>
+            <div className="score">
               {averageScore.toFixed(1)}
             </div>
           </div>

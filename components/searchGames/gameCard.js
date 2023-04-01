@@ -45,7 +45,7 @@ export default function GameCard({ game: { id, thumbnailURL, name, summary, plat
             </div>
             <div className="space-y-2">
               <h4>Average Critic Score:</h4>
-              <div className="p-3 bg-[#e30e30] text-[#f1f1f1] inline-block">
+              <div className="score">
                 {averageScore.toFixed(1)}
               </div>
             </div>
