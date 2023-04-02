@@ -171,23 +171,32 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
         </form>
       </section >
       <section className="space-y-4 py-8">
-        <h2 className="heading mx-6">Critic Reviews</h2>
-        <div className="space-y-2">
-          {scoresList && scoresList.map((review) => {
-            return (
-              <Review
-                key={review.userUID + review.comment + Math.random()}
-                reviewType="critic"
-                photoURL="https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_group.png?alt=media&token=f4b1d20b-f059-4781-bde2-a23e25dd366b"
-                name={review.organizationName}
-                postedOn={review.postedOn}
-                assessment={review.score}
-                comment={review.comment}
-                articleLink={review.articleLink}
-              />
-            )
-          })}
-        </div>
+        {scoresList.length ? (
+          <>
+            <h2 className="heading mx-6">Critic Reviews</h2>
+            <div className="space-y-2">
+              {scoresList.map((review) => {
+                return (
+                  <Review
+                    key={review.userUID + review.comment + Math.random()}
+                    reviewType="critic"
+                    photoURL="https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_group.png?alt=media&token=f4b1d20b-f059-4781-bde2-a23e25dd366b"
+                    name={review.organizationName}
+                    postedOn={review.postedOn}
+                    assessment={review.score}
+                    comment={review.comment}
+                    articleLink={review.articleLink}
+                  />
+                )
+              })}
+            </div>
+          </>
+        ) : (
+          <div className="space-y-1 py-24 text-center">
+            <h3 className="font-bold text-base text-[#a9a9a9]">No Reviews Available</h3>
+            <p>Be the first one to review this game.</p>
+          </div>
+        )}
       </section >
     </>
   );

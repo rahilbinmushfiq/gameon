@@ -65,11 +65,18 @@ export default function SearchGames({ gamesData }) {
           <Search setSearch={setSearch} />
           <Filter filter={filter} setFilter={setFilter} />
         </div>
-        <div className="mx-6 py-16">
-          {games.map(game => (
-            <GameCard key={game.name} game={game} />
-          ))}
-        </div>
+        {games.length ? (
+          <div className="mx-6 py-16">
+            {games.map(game => (
+              <GameCard key={game.name} game={game} />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-1 py-24 text-center">
+            <h3 className="font-bold text-base text-[#a9a9a9]">No Games Found</h3>
+            <p>We couldn't find what you searched for.</p>
+          </div>
+        )}
       </section>
     </main>
   );

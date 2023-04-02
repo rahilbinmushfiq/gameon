@@ -105,25 +105,34 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
           </button>
         </form>
       </section>
-      <section className="space-y-4 py-8">
-        <h2 className="heading mx-6">User Reviews</h2>
-        <div className="space-y-2">
-          {ratingsList && ratingsList.map((review) => {
-            let [{ photoURL, fullName }] = users.filter(user => user.uid === review.userUID);
+      <section className="space-y-4 py-8 bg-[#1a1a1a]">
+        {ratingsList.length ? (
+          <>
+            <h2 className="heading mx-6">User Reviews</h2>
+            <div className="space-y-2">
+              {ratingsList.map((review) => {
+                let [{ photoURL, fullName }] = users.filter(user => user.uid === review.userUID);
 
-            return (
-              <Review
-                key={review.userUID + review.comment + Math.random()}
-                reviewType="user"
-                photoURL={photoURL}
-                name={fullName}
-                postedOn={review.postedOn}
-                assessment={review.rating}
-                comment={review.comment}
-              />
-            )
-          })}
-        </div>
+                return (
+                  <Review
+                    key={review.userUID + review.comment + Math.random()}
+                    reviewType="user"
+                    photoURL={photoURL}
+                    name={fullName}
+                    postedOn={review.postedOn}
+                    assessment={review.rating}
+                    comment={review.comment}
+                  />
+                )
+              })}
+            </div>
+          </>
+        ) : (
+          <div className="space-y-1 py-24 text-center">
+            <h3 className="font-bold text-base text-[#a9a9a9]">No Reviews Available</h3>
+            <p>Be the first one to review this game.</p>
+          </div>
+        )}
       </section>
     </>
   )
