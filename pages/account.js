@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { getAuth } from "firebase-admin/auth";
 import { toast } from "react-toastify";
-import { FaSignOutAlt } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 import { auth } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../contexts/auth";
@@ -57,7 +57,7 @@ export default function Account({ signInProvider }) {
             onClick={userSignOut}
           >
             <p>Sign Out</p>
-            <FaSignOutAlt size={15} color="#f1f1f1" />
+            <MdLogout size={16} color="#f1f1f1" />
           </button>
         </div>
       )}

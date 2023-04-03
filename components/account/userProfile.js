@@ -5,11 +5,10 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { db, storage } from "../../config/firebase";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { MdAddAPhoto } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useLoading } from "../../contexts/loading";
 import { useRouter } from "next/router";
-import { FaEnvelope, FaHandshake, FaUser, FaChevronRight } from "react-icons/fa";
+import { MdAddAPhoto, MdVerified, MdEmail, MdPerson, MdChevronRight } from "react-icons/md";
 import { getRegistrationDate } from "../../utils/convertTimestamp";
 import Modal from "../modal";
 
@@ -144,22 +143,22 @@ export default function UserProfile({ user }) {
       <div className="divide-y-2 divide-[#2f2f2f] [&>*]:info-container">
         <div>
           <div>
-            <FaHandshake size={18} />
+            <MdVerified size={20} />
             <p>Joined {getRegistrationDate(user.metadata.createdAt)}</p>
           </div>
         </div>
         <div>
           <div>
-            <FaEnvelope size={18} />
+            <MdEmail size={20} />
             <p>{user.email}</p>
           </div>
         </div>
         <button className="info-container--hover" onClick={() => setIsNameModalOpen(true)}>
           <div>
-            <FaUser size={18} />
+            <MdPerson size={20} />
             <p>{user.displayName}</p>
           </div>
-          <FaChevronRight size={14} color="#a9a9a9" />
+          <MdChevronRight size={22} color="#a9a9a9" />
         </button>
       </div>
       {isNameModalOpen && (

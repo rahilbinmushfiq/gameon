@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { FaKey, FaChevronRight } from "react-icons/fa";
+import { MdKey, MdChevronRight } from "react-icons/md";
 import Modal from "../modal";
 
 export default function UpdatePassword({ user, signInProvider }) {
@@ -99,10 +99,10 @@ export default function UpdatePassword({ user, signInProvider }) {
         onClick={() => setIsPasswordModalOpen(true)}
       >
         <div>
-          <FaKey size={18} />
+          <MdKey size={20} />
           <p>{isPasswordProviderPresent() ? "Change" : "Add"} Password</p>
         </div>
-        <FaChevronRight size={14} color="#a9a9a9" />
+        <MdChevronRight size={22} color="#a9a9a9" />
       </button>
       {isPasswordModalOpen && (
         <Modal

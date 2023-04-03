@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { FaTrashAlt, FaChevronRight } from "react-icons/fa";
+import { MdDelete, MdChevronRight } from "react-icons/md";
 import Modal from "../modal";
 
 export default function DeleteAccount({ user, signInProvider }) {
@@ -52,10 +52,10 @@ export default function DeleteAccount({ user, signInProvider }) {
         onClick={() => setIsDeleteAccountModalOpen(true)}
       >
         <div>
-          <FaTrashAlt size={18} />
+          <MdDelete size={20} />
           <p>Delete Account</p>
         </div>
-        <FaChevronRight size={14} color="#a9a9a9" />
+        <MdChevronRight size={22} color="#a9a9a9" />
       </button>
       {isDeleteAccountModalOpen && (
         <Modal
