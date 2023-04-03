@@ -1,3 +1,5 @@
+import { MdClose } from "react-icons/md";
+
 export default function SystemRequirements({ systemRequirements }) {
   if (!systemRequirements) return (
     <section className="px-6 py-16 bg-[#2a2a2a]">
@@ -46,8 +48,8 @@ export default function SystemRequirements({ systemRequirements }) {
             </tr>
             <tr>
               <th>VRAM:</th>
-              <td>{minimum.vram}</td>
-              <td>{recommended.vram}</td>
+              <td>{!minimum.vram ? <MdClose size={20} color="#a9a9a9" /> : minimum.vram}</td>
+              <td>{!recommended.vram ? <MdClose size={20} color="#a9a9a9" /> : recommended.vram}</td>
             </tr>
             <tr>
               <th>OS:</th>

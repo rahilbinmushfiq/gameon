@@ -21,7 +21,7 @@
 
   th,
   td {
-    @apply text-left align-text-top py-4 px-5 whitespace-nowrap;
+    @apply text-left align-middle py-4 px-5 whitespace-nowrap;
   }
 
   td {
