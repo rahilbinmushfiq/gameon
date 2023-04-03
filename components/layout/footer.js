@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="space-y-2">
             <div className="inline-block">
               <Link href="/">
-                <Image src={logo} width={150} alt="game-on-logo" />
+                <Image src={logo} alt="game-on-logo" width={150} />
               </Link>
             </div>
             <p className="leading-6">With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.</p>

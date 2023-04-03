@@ -67,8 +67,8 @@ export default function SearchGames({ gamesData }) {
         </div>
         {games.length ? (
           <div className="mx-6 py-16">
-            {games.map(game => (
-              <GameCard key={game.name} game={game} />
+            {games.map((game, index) => (
+              <GameCard key={index} index={index} game={game} />
             ))}
           </div>
         ) : (

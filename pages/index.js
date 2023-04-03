@@ -24,6 +24,7 @@ export default function Home() {
             src={hero}
             alt="hero-image"
             fill
+            priority
           />
           <div className="absolute inset-0 h-full">
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />

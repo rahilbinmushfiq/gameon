@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getYear } from "../../utils/convertTimestamp";
 import { sliceParagraph } from "../../utils/slice";
 
-export default function GameCard({ game: { id, thumbnailURL, name, summary, platforms, releaseDate, averageRating, averageScore } }) {
+export default function GameCard({ index, game: { id, thumbnailURL, name, summary, platforms, releaseDate, averageRating, averageScore } }) {
   return (
     <Link href={`/game/${id}`}>
       <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f]">
@@ -11,8 +11,10 @@ export default function GameCard({ game: { id, thumbnailURL, name, summary, plat
           <Image
             className="object-cover"
             src={thumbnailURL}
-            fill
             alt={`${name} thumbnail`}
+            fill
+            sizes="50vh"
+            priority={index === 0}
           />
         </div>
         <div className="divide-y-2 divide-[#4a4a4a]">

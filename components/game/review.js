@@ -12,8 +12,9 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
             <Image
               className="object-cover"
               src={photoURL}
-              fill
               alt={reviewType}
+              fill
+              sizes="25vw"
             />
           </div>
           <div>

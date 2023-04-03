@@ -25,7 +25,14 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
       </Head>
       <div className="py-6">
         <div className="relative max-w-full h-72 z-[-1]">
-          <Image className="object-cover" src={coverImage} fill alt={`${name} cover`} />
+          <Image
+            className="object-cover"
+            src={coverImage}
+            alt={`${name} cover`}
+            fill
+            sizes="100vh"
+            priority
+          />
           <div className="absolute bottom-0 px-6 z-[1]">
             <h1 className="text-2xl">{name}</h1>
           </div>
