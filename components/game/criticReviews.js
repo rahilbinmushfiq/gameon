@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { HiMail, HiUsers, HiClipboardCheck, HiGlobeAlt, HiChat } from "react-icons/hi";
 
-export default function CriticReviews({ criticReviews: { scoresList }, gameID }) {
+export default function CriticReviews({ criticReviews: { scores }, gameID }) {
   const { user } = useAuth();
   const { setIsPageLoading } = useLoading();
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
 
     try {
       await updateDoc(doc(db, "games", gameID), {
-        "reviews.scores.scoresList": arrayUnion({
+        "reviews.scores": arrayUnion({
           organizationName,
           organizationEmail,
           score,
@@ -171,11 +171,11 @@ export default function CriticReviews({ criticReviews: { scoresList }, gameID })
         </form>
       </section >
       <section className="space-y-4 py-8">
-        {scoresList.length ? (
+        {scores.length ? (
           <>
             <h2 className="heading mx-6">Critic Reviews</h2>
             <div className="space-y-2">
-              {scoresList.map((review) => {
+              {scores.map((review) => {
                 return (
                   <Review
                     key={review.userUID + review.comment + Math.random()}

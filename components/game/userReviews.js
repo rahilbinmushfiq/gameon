@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
 import { useLoading } from "../../contexts/loading";
 
-export default function UserReviews({ userReviews: { ratingsList }, users, gameID }) {
+export default function UserReviews({ userReviews: { ratings }, users, gameID }) {
   const { user } = useAuth();
   const { setIsPageLoading } = useLoading();
   const router = useRouter();
@@ -41,7 +41,7 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
 
     try {
       await updateDoc(doc(db, "games", gameID), {
-        "reviews.ratings.ratingsList": arrayUnion({
+        "reviews.ratings": arrayUnion({
           comment,
           rating,
           postedOn: Timestamp.now(),
@@ -106,11 +106,11 @@ export default function UserReviews({ userReviews: { ratingsList }, users, gameI
         </form>
       </section>
       <section className="space-y-4 py-8 bg-[#1a1a1a]">
-        {ratingsList.length ? (
+        {ratings.length ? (
           <>
             <h2 className="heading mx-6">User Reviews</h2>
             <div className="space-y-2">
-              {ratingsList.map((review) => {
+              {ratings.map((review) => {
                 let [{ photoURL, fullName }] = users.filter(user => user.uid === review.userUID);
 
                 return (

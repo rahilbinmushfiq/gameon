@@ -97,16 +97,16 @@ export async function getServerSideProps(context) {
     }
   }
 
-  let averageRating = game.reviews.ratings.ratingsList ? (
-    game.reviews.ratings.ratingsList.reduce((accumulator, review) => {
+  let averageRating = game.reviews.ratings ? (
+    game.reviews.ratings.reduce((accumulator, review) => {
       return accumulator + review.rating
-    }, 0) / game.reviews.ratings.ratingsList.length
+    }, 0) / game.reviews.ratings.length
   ) : 0;
 
-  let averageScore = game.reviews.scores.scoresList ? (
-    game.reviews.scores.scoresList.reduce((accumulator, review) => {
+  let averageScore = game.reviews.scores ? (
+    game.reviews.scores.reduce((accumulator, review) => {
       return accumulator + review.score
-    }, 0) / game.reviews.scores.scoresList.length
+    }, 0) / game.reviews.scores.length
   ) : 0;
 
   return {
@@ -123,14 +123,14 @@ export async function getServerSideProps(context) {
       },
       criticReviews: {
         averageScore,
-        scoresList: game.reviews.scores.scoresList ? game.reviews.scores.scoresList.map((userScore) => {
-          return { ...userScore, postedOn: JSON.parse(JSON.stringify(userScore.postedOn)) }
+        scores: game.reviews.scores ? game.reviews.scores.map((score) => {
+          return { ...score, postedOn: JSON.parse(JSON.stringify(score.postedOn)) }
         }) : null
       },
       userReviews: {
         averageRating,
-        ratingsList: game.reviews.ratings.ratingsList ? game.reviews.ratings.ratingsList.map((userRating) => {
-          return { ...userRating, postedOn: JSON.parse(JSON.stringify(userRating.postedOn)) }
+        ratings: game.reviews.ratings ? game.reviews.ratings.map((rating) => {
+          return { ...rating, postedOn: JSON.parse(JSON.stringify(rating.postedOn)) }
         }) : null
       },
       systemRequirements: game.systemRequirements || null,

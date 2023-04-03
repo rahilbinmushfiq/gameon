@@ -89,16 +89,16 @@ export async function getServerSideProps() {
     const gamesSnapshot = await getDocs(collection(db, "games"));
 
     gamesData = gamesSnapshot.docs.map((doc) => {
-      let averageRating = doc.data().reviews.ratings.ratingsList ? (
-        doc.data().reviews.ratings.ratingsList.reduce((accumulator, review) => {
+      let averageRating = doc.data().reviews.ratings ? (
+        doc.data().reviews.ratings.reduce((accumulator, review) => {
           return accumulator + review.rating
-        }, 0) / doc.data().reviews.ratings.ratingsList.length
+        }, 0) / doc.data().reviews.ratings.length
       ) : 0;
 
-      let averageScore = doc.data().reviews.scores.scoresList ? (
-        doc.data().reviews.scores.scoresList.reduce((accumulator, review) => {
+      let averageScore = doc.data().reviews.scores ? (
+        doc.data().reviews.scores.reduce((accumulator, review) => {
           return accumulator + review.score
-        }, 0) / doc.data().reviews.scores.scoresList.length
+        }, 0) / doc.data().reviews.scores.length
       ) : 0;
 
       return {
