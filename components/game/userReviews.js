@@ -106,7 +106,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
         </form>
       </section>
       <section className="space-y-4 py-8 bg-[#1a1a1a]">
-        {ratings.length ? (
+        {ratings ? (
           <>
             <h2 className="heading mx-6">User Reviews</h2>
             <div className="space-y-2">

@@ -8,7 +8,7 @@ import Filter from "../components/searchGames/filter";
 import GameCard from "../components/searchGames/gameCard";
 import Head from "next/head";
 
-export default function SearchGames({ gamesData }) {
+export default function SearchGames({ games }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState({
@@ -39,10 +39,10 @@ export default function SearchGames({ gamesData }) {
     }
   }, [router?.query]);
 
-  const games = gamesData.filter(gameData => {
-    return gameData.name.toLowerCase().includes(search.toLowerCase())
-      && (filter.platform === "" || gameData.platforms.some(platform => platform.toLowerCase().includes(filter.platform)))
-      && (filter.releaseDates[getYear(gameData.releaseDate)] || Object.values(filter.releaseDates).every(val => val === false));
+  const filteredGames = games.filter(game => {
+    return game.name.toLowerCase().includes(search.toLowerCase())
+      && (filter.platform === "" || game.platforms.some(platform => platform.toLowerCase().includes(filter.platform)))
+      && (filter.releaseDates[getYear(game.releaseDate)] || Object.values(filter.releaseDates).every(val => val === false));
   }).sort((a, b) => {
     if (filter.sort === "releaseDate") {
       return timestampConversion(b.releaseDate) - timestampConversion(a.releaseDate);
@@ -65,10 +65,10 @@ export default function SearchGames({ gamesData }) {
           <Search setSearch={setSearch} />
           <Filter filter={filter} setFilter={setFilter} />
         </div>
-        {games.length ? (
+        {filteredGames.length ? (
           <div className="mx-6 py-16">
-            {games.map((game, index) => (
-              <GameCard key={index} index={index} game={game} />
+            {filteredGames.map((filteredGame, index) => (
+              <GameCard key={index} index={index} game={filteredGame} />
             ))}
           </div>
         ) : (
@@ -83,19 +83,19 @@ export default function SearchGames({ gamesData }) {
 }
 
 export async function getServerSideProps() {
-  let gamesData = null;
+  let games = null;
 
   try {
     const gamesSnapshot = await getDocs(collection(db, "games"));
 
-    gamesData = gamesSnapshot.docs.map((doc) => {
-      let averageRating = doc.data().reviews.ratings ? (
+    games = gamesSnapshot.docs.map((doc) => {
+      let averageRating = doc.data().reviews.ratings.length ? (
         doc.data().reviews.ratings.reduce((accumulator, review) => {
           return accumulator + review.rating
         }, 0) / doc.data().reviews.ratings.length
       ) : 0;
 
-      let averageScore = doc.data().reviews.scores ? (
+      let averageScore = doc.data().reviews.scores.length ? (
         doc.data().reviews.scores.reduce((accumulator, review) => {
           return accumulator + review.score
         }, 0) / doc.data().reviews.scores.length
@@ -113,11 +113,18 @@ export async function getServerSideProps() {
     })
   } catch (error) {
     console.log(error);
+
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false
+      }
+    };
   }
 
   return {
     props: {
-      gamesData
+      games
     }
   }
 }

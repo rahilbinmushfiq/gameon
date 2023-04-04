@@ -66,18 +66,18 @@ export default function Account({ signInProvider }) {
 }
 
 export async function getServerSideProps(context) {
-  const cookies = nookies.get(context);
-
-  if (!cookies.token) {
-    return {
-      redirect: {
-        destination: "/signin",
-        permanent: false,
-      },
-    };
-  }
-
   try {
+    const cookies = nookies.get(context);
+
+    if (!cookies.token) {
+      return {
+        redirect: {
+          destination: "/signin",
+          permanent: false,
+        },
+      };
+    }
+
     const adminAuth = getAuth(adminApp);
     const token = await adminAuth.verifyIdToken(cookies.token);
 
@@ -98,6 +98,8 @@ export async function getServerSideProps(context) {
       }
     };
   } catch (error) {
+    console.log(error);
+
     return {
       redirect: {
         destination: "/signin",

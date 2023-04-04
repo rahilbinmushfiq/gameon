@@ -24,7 +24,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
         </title>
       </Head>
       <div className="py-6">
-        <div className="relative max-w-full h-72 z-[-1]">
+        <div className="relative w-full h-72 z-[-1]">
           <Image
             className="object-cover"
             src={coverImage}
@@ -81,21 +81,21 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
 export async function getServerSideProps(context) {
   const { params: { gameID } } = context;
   let game;
-  let usersList;
+  let users;
 
   try {
     const gameSnapshot = await getDoc(doc(db, "games", gameID));
     game = gameSnapshot.data();
 
     const usersSnapshot = await getDocs(collection(db, "users"));
-    usersList = usersSnapshot.docs.map((doc) => {
+    users = usersSnapshot.docs.map((doc) => {
       return { ...doc.data(), uid: doc.id }
     });
   } catch (error) {
     console.log(error);
   }
 
-  if (!game || !usersList) {
+  if (!game || !users) {
     return {
       redirect: {
         destination: "/search-games",
@@ -104,13 +104,13 @@ export async function getServerSideProps(context) {
     }
   }
 
-  let averageRating = game.reviews.ratings ? (
+  let averageRating = game.reviews.ratings.length ? (
     game.reviews.ratings.reduce((accumulator, review) => {
       return accumulator + review.rating
     }, 0) / game.reviews.ratings.length
   ) : 0;
 
-  let averageScore = game.reviews.scores ? (
+  let averageScore = game.reviews.scores.length ? (
     game.reviews.scores.reduce((accumulator, review) => {
       return accumulator + review.score
     }, 0) / game.reviews.scores.length
@@ -119,7 +119,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       gameID,
-      users: usersList,
+      users,
       coverImage: game.images.cover,
       name: game.name,
       overview: {
@@ -130,13 +130,13 @@ export async function getServerSideProps(context) {
       },
       criticReviews: {
         averageScore,
-        scores: game.reviews.scores ? game.reviews.scores.map((score) => {
+        scores: game.reviews.scores.length ? game.reviews.scores.map((score) => {
           return { ...score, postedOn: JSON.parse(JSON.stringify(score.postedOn)) }
         }) : null
       },
       userReviews: {
         averageRating,
-        ratings: game.reviews.ratings ? game.reviews.ratings.map((rating) => {
+        ratings: game.reviews.ratings.length ? game.reviews.ratings.map((rating) => {
           return { ...rating, postedOn: JSON.parse(JSON.stringify(rating.postedOn)) }
         }) : null
       },

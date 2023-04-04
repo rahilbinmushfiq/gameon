@@ -205,22 +205,29 @@ export async function getServerSideProps(context) {
             destination: "/account",
             permanent: false
           }
-        }
+        };
+      }
+    }
+
+    const usersSnapshot = await getDocs(collection(db, "users"));
+
+    const users = usersSnapshot.docs.map((doc) => {
+      return { ...doc.data() }
+    });
+
+    return {
+      props: {
+        users
       }
     }
   } catch (error) {
     console.log(error);
-  }
 
-  const querySnapshot = await getDocs(collection(db, "users"));
-
-  const users = querySnapshot.docs.map((doc) => {
-    return { ...doc.data() }
-  });
-
-  return {
-    props: {
-      users
-    }
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false
+      }
+    };
   }
 }

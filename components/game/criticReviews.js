@@ -171,7 +171,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
         </form>
       </section >
       <section className="space-y-4 py-8">
-        {scores.length ? (
+        {scores ? (
           <>
             <h2 className="heading mx-6">Critic Reviews</h2>
             <div className="space-y-2">
