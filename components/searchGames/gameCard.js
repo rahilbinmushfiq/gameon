@@ -9,10 +9,11 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
       <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f]">
         <div className="relative rounded-sm overflow-hidden">
           <Image
-            className="object-cover"
+            className="absolute w-full h-full object-cover"
             src={thumbnailURL}
             alt={`${name} thumbnail`}
-            fill
+            width={0}
+            height={0}
             sizes="50vh"
             priority={index === 0}
           />
