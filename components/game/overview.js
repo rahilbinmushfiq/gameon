@@ -3,7 +3,7 @@ import { getDate } from "../../utils/convertTimestamp";
 
 export default function Overview({ overview: { summary, genres, platforms, releaseDate, averageRating, averageScore } }) {
   return (
-    <section className="px-6 space-y-2 [&>div]:space-y-2 [&>div]:p-4 [&>div]:bg-[#2a2a2a] [&>div>h3]:text-lg [&>div>h3]:font-bold">
+    <section className="px-6 pt-8 pb-20 space-y-2 [&>div]:space-y-2 [&>div]:p-4 [&>div]:bg-[#2f2f2f] [&>div>h3]:text-lg [&>div>h3]:font-bold">
       <div>
         <h3>Summary</h3>
         <p>{summary}</p>

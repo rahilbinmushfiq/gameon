@@ -85,7 +85,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
 
   return (
     <>
-      <section className="space-y-8 py-8 bg-[#2a2a2a]">
+      <section className="space-y-8 py-8">
         <div className="space-y-2 mx-6">
           <h2 className="text-lg font-bold">Submit Your Review</h2>
           <p>If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.</p>
@@ -170,10 +170,13 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
           </button>
         </form>
       </section >
-      <section className="space-y-4 py-8">
+      <hr className="w-1/2 mx-auto my-6 border-[1.5px] border-[#3f3f3f]" />
+      <section className="space-y-4 pt-8 pb-20">
         {scores ? (
           <>
-            <h2 className="heading mx-6">Critic Reviews</h2>
+            <h2 className="mx-6 font-bold text-lg">
+              {`Read Reviews (${scores.length})`}
+            </h2>
             <div className="space-y-2">
               {scores.map((review) => {
                 return (

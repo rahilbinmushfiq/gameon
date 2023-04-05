@@ -63,7 +63,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
 
   return (
     <>
-      <section className="space-y-8 py-8 bg-[#2a2a2a]">
+      <section className="space-y-8 py-8">
         <div className="space-y-2 mx-6">
           <h2 className="text-lg font-bold">Submit Your Review</h2>
           <p>Have anything to say about this game? Don't feel shy. Share your thoughts and experience on this game.</p>
@@ -105,10 +105,13 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
           </button>
         </form>
       </section>
-      <section className="space-y-4 py-8 bg-[#1a1a1a]">
+      <hr className="w-1/2 mx-auto my-6 border-[1.5px] border-[#3f3f3f]" />
+      <section className="space-y-4 pt-8 pb-20">
         {ratings ? (
           <>
-            <h2 className="heading mx-6">User Reviews</h2>
+            <h2 className="mx-6 font-bold text-lg">
+              {`Read Reviews (${ratings.length})`}
+            </h2>
             <div className="space-y-2">
               {ratings.map((review) => {
                 let [{ photoURL, fullName }] = users.filter(user => user.uid === review.userUID);

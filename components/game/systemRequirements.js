@@ -2,7 +2,7 @@ import { MdClose } from "react-icons/md";
 
 export default function SystemRequirements({ systemRequirements }) {
   if (!systemRequirements) return (
-    <section className="px-6 py-16 bg-[#2a2a2a]">
+    <section className="px-6 pt-8 pb-20">
       <div className="space-y-2">
         <h2 className="font-bold text-lg">Not Available on PC</h2>
         <p>Unfortunately, this game is not available on PC. Check the overview section to get an idea of the platforms this game is available on.</p>
@@ -13,9 +13,8 @@ export default function SystemRequirements({ systemRequirements }) {
   const { minimum, recommended } = systemRequirements;
 
   return (
-    <section className="px-6 py-8 bg-[#2a2a2a]">
-      <h1 className="heading mb-8">System Requirements</h1>
-      <div className="rounded-md bg-[#3a3a3a] overflow-auto">
+    <section className="px-6 pt-8 pb-20">
+      <div className="rounded-sm bg-[#2f2f2f] overflow-auto">
         <table>
           <tbody className="first-of-type:[&>tr>th]:sticky first-of-type:[&>tr>th]:inset-0 first-of-type:[&>tr>th]:bg-[#3a3a3a]">
             <tr>
@@ -28,18 +27,18 @@ export default function SystemRequirements({ systemRequirements }) {
               <td>{minimum.processors[0]}</td>
               <td>{recommended.processors[0]}</td>
             </tr>
-            <tr>
-              <td className="pt-0">{minimum.processors[1]}</td>
-              <td className="pt-0">{recommended.processors[1]}</td>
+            <tr className="[&>td]:pt-0">
+              <td>{minimum.processors[1]}</td>
+              <td>{recommended.processors[1]}</td>
             </tr>
             <tr>
               <th rowSpan="2">Graphics Card:</th>
               <td>{minimum.graphicsCards[0]}</td>
               <td>{recommended.graphicsCards[0]}</td>
             </tr>
-            <tr>
-              <td className="pt-0">{minimum.graphicsCards[1]}</td>
-              <td className="pt-0">{recommended.graphicsCards[1]}</td>
+            <tr className="[&>td]:pt-0">
+              <td>{minimum.graphicsCards[1]}</td>
+              <td>{recommended.graphicsCards[1]}</td>
             </tr>
             <tr>
               <th>RAM:</th>
