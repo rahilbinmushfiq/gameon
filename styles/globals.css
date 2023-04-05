@@ -19,6 +19,14 @@
     @apply flex justify-center items-center gap-2 rounded-sm font-semibold;
   }
 
+  button,
+  li,
+  a,
+  p,
+  svg {
+    @apply transition-all ease-in-out duration-300;
+  }
+
   th,
   td {
     @apply text-left align-middle py-4 px-5 whitespace-nowrap;

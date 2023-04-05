@@ -18,7 +18,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
           {children}
           <div className="grid grid-cols-2 gap-4 [&>button]:h-12">
             <button
-              className="secondary-btn"
+              className="secondary-btn hover:bg-[#ffffff]"
               type="button"
               onClick={() => setIsModalOpen(false)}
             >
@@ -26,7 +26,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
               <p>Cancel</p>
             </button>
             <button
-              className="primary-btn"
+              className="primary-btn hover:bg-[#fe0303]"
               type={type === "send" ? "button" : "submit"}
               onClick={handleButtonClick}
             >

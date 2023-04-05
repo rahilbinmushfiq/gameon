@@ -118,7 +118,7 @@ export default function SignIn({ users }) {
                   />
                 </div>
                 <button
-                  className="secondary-btn w-full h-12"
+                  className="secondary-btn w-full h-12 hover:bg-[#ffffff]"
                   type="button"
                   onClick={() => emailValidation()}
                 >
@@ -143,7 +143,7 @@ export default function SignIn({ users }) {
                     </p>
                   </div>
                   <button
-                    className="secondary-btn w-full h-12"
+                    className="secondary-btn w-full h-12 hover:bg-[#ffffff]"
                     type="button"
                     onClick={() => setEmail("")}
                   >

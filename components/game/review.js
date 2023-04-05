@@ -44,7 +44,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
         {comment}
       </p>
       {reviewType === "critic" && (
-        <div>
+        <button>
           <a
             className="font-bold text-xs text-[#f1f1f1]/[0.8] hover:text-[#f1f1f1]"
             href={articleLink}
@@ -53,7 +53,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
           >
             View Blog Post
           </a>
-        </div>
+        </button>
       )}
     </div>
   )

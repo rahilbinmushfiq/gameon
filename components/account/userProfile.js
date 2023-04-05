@@ -106,7 +106,7 @@ export default function UserProfile({ user }) {
             sizes="75vh"
           />
           <button
-            className="absolute bottom-1 -right-1 w-8 h-8 flex justify-center items-center rounded-full cursor-pointer bg-[#f1f1f1]"
+            className="absolute bottom-1 -right-1 w-8 h-8 flex justify-center items-center rounded-full cursor-pointer bg-[#f1f1f1] hover:bg-[#ffffff]"
             id="update-photo-button"
             onClick={(event) => event.target.id === "update-photo-button" && setIsPhotoModalOpen(true)}
           >

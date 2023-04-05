@@ -112,11 +112,11 @@ export default function Register({ email, setEmail }) {
           </div>
         </div>
         <div className="space-y-4 [&>button]:w-full [&>button]:h-12">
-          <button className="secondary-btn" type="button" onClick={() => setEmail("")}>
+          <button className="secondary-btn hover:bg-[#ffffff]" type="button" onClick={() => setEmail("")}>
             <IoChevronBack size={13} color="#1f1f1f" />
             <p>Back</p>
           </button>
-          <button className="primary-btn">
+          <button className="primary-btn hover:bg-[#fe0303]">
             Create account
           </button>
         </div>
