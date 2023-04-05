@@ -23,7 +23,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
           }
         </title>
       </Head>
-      <div className="py-6">
+      <div>
         <div className="relative w-full h-72 z-[-1]">
           <Image
             className="object-cover"
@@ -38,37 +38,39 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
           </div>
           <div className="absolute inset-0 h-full">
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
-            <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
+            <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1a1a1a]" />
           </div>
         </div>
       </div>
-      <section className="px-6 py-4 rounded-md">
-        <div className="flex rounded-[4px] overflow-hidden [&>button]:game-tab">
-          <button
-            className={tab === "overview" ? "bg-[#e30e30]" : ""}
-            onClick={() => setTab("overview")}
-          >
-            <FaInfoCircle size={14} />
-          </button>
-          <button
-            className={tab === "criticReviews" ? "bg-[#e30e30]" : ""}
-            onClick={() => setTab("criticReviews")}
-          >
-            <FaUserTie size={14} />
-          </button>
-          <button
-            className={tab === "userReviews" ? "bg-[#e30e30]" : ""}
-            onClick={() => setTab("userReviews")}
-          >
-            <FaUser size={14} />
-          </button>
-          <button
-            className={tab === "systemRequirements" ? "bg-[#e30e30]" : ""}
-            onClick={() => setTab("systemRequirements")}
-          >
-            <FaDesktop size={14} />
-          </button>
-        </div>
+      <section className="px-6 py-12 flex gap-2 overflow-auto bg-[#1a1a1a] [&>button]:game-tab">
+        <button
+          className={tab === "overview" ? "active" : "inactive"}
+          onClick={() => setTab("overview")}
+        >
+          <FaInfoCircle size={14} />
+          <p>Overview</p>
+        </button>
+        <button
+          className={tab === "criticReviews" ? "active" : "inactive"}
+          onClick={() => setTab("criticReviews")}
+        >
+          <FaUserTie size={14} />
+          <p>Critic Reviews</p>
+        </button>
+        <button
+          className={tab === "userReviews" ? "active" : "inactive"}
+          onClick={() => setTab("userReviews")}
+        >
+          <FaUser size={14} />
+          <p>User Reviews</p>
+        </button>
+        <button
+          className={tab === "systemRequirements" ? "active" : "inactive"}
+          onClick={() => setTab("systemRequirements")}
+        >
+          <FaDesktop size={14} />
+          <p>System Requirements</p>
+        </button>
       </section>
       {tab === "overview" && <Overview overview={overview} />}
       {tab === "criticReviews" && <CriticReviews criticReviews={criticReviews} gameID={gameID} />}

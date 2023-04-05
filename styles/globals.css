@@ -8,7 +8,7 @@
   }
 
   h1 {
-    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30];
+    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-6 after:-bottom-1 after:left-0 after:bg-[#e30e30];
   }
 
   p {
@@ -83,7 +83,15 @@
   }
 
   .game-tab {
-    @apply h-12 w-1/4 flex justify-center items-center;
+    @apply flex justify-center items-center gap-3 p-4 rounded-sm [&>p]:whitespace-nowrap;
+  }
+
+  .active {
+    @apply bg-[#e30e30] hover:bg-[#fe0e0e] [&>*]:text-[#f1f1f1];
+  }
+
+  .inactive {
+    @apply bg-[#2f2f2f] hover:bg-[#3f3f3f] [&>*]:text-[#a9a9a9] [&>*]:hover:text-[#f1f1f1];
   }
 
   .info-container {
