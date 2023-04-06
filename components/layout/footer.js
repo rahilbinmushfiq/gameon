@@ -26,7 +26,7 @@ export default function Footer() {
                 <Image src={logo} alt="game-on-logo" width={150} />
               </Link>
             </div>
-            <p className="leading-6">With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.</p>
+            <p>With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.</p>
           </div>
           <div className="flex gap-4 [&>a]:social-link">
             <a href="https://www.discord.com" target="_blank" rel="noopener noreferrer">
@@ -40,7 +40,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="space-y-12 [&>div]:space-y-1 [&>div>h2]:text-base [&>div>h2]:font-bold [&>div>h2]:tracking-wider">
+        <div className="space-y-12 [&>div]:space-y-1 [&>div>h2]:text-lg [&>div>h2]:font-bold [&>div>h2]:tracking-wider">
           <div>
             <h2>SEARCH GAMES</h2>
             <ul className="space-y-1 [&>li]:footer--li">
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="py-6">
-        <p className="text-[#dfdfdf] text-center text-xs">Copyright &copy; <span className="text-[#e30e30] font-bold">Game On</span> - 2023. All Rights Reserved</p>
+        <p className="text-[#dfdfdf] text-center text-sm">Copyright &copy; <span className="text-[#e30e30] font-bold">Game On</span> - 2023. All Rights Reserved</p>
       </div>
     </footer>
   )

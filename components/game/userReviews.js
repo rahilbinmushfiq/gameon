@@ -65,7 +65,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
     <>
       <section className="space-y-8 py-8">
         <div className="space-y-2 mx-6">
-          <h2 className="text-lg font-bold">Submit Your Review</h2>
+          <h2 className="text-xl font-bold">Submit Your Review</h2>
           <p>Have anything to say about this game? Don't feel shy. Share your thoughts and experience on this game.</p>
         </div>
         <form className="mx-6 space-y-8" onSubmit={handleUserReview}>
@@ -109,7 +109,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
       <section className="space-y-4 pt-8 pb-20">
         {ratings ? (
           <>
-            <h2 className="mx-6 font-bold text-lg">
+            <h2 className="mx-6 font-bold text-xl">
               {`Read Reviews (${ratings.length})`}
             </h2>
             <div className="space-y-2">
@@ -132,7 +132,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
           </>
         ) : (
           <div className="space-y-1 py-24 text-center">
-            <h3 className="font-bold text-base text-[#a9a9a9]">No Reviews Available</h3>
+            <h3 className="font-bold text-lg text-[#a9a9a9]">No Reviews Available</h3>
             <p>Be the first one to review this game.</p>
           </div>
         )}

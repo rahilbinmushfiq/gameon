@@ -11,7 +11,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
     >
       <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">{heading}</h3>
+          <h3 className="text-2xl font-bold">{heading}</h3>
           <p>{description}</p>
         </div>
         <Tag className="space-y-8" onSubmit={handleSubmission}>

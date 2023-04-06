@@ -1,14 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply font-gemunu-libre;
+  }
+
   body {
-    @apply bg-[#1f1f1f] text-[#f1f1f1] text-sm;
+    @apply bg-[#1f1f1f] text-[#f1f1f1];
   }
 
   h1 {
-    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-6 after:-bottom-1 after:left-0 after:bg-[#e30e30];
+    @apply relative inline-block mb-1 text-2xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-6 after:-bottom-1 after:left-0 after:bg-[#e30e30];
   }
 
   p {
@@ -39,7 +44,7 @@
 
 @layer components {
   .heading {
-    @apply relative inline-block mb-1 text-xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30];
+    @apply relative inline-block mb-1 text-2xl font-bold after:content-[''] after:absolute after:h-[3px] after:w-1/4 after:-bottom-1 after:left-0 after:bg-[#e30e30];
   }
 
   .primary-btn {
@@ -71,7 +76,7 @@
   }
 
   .card-container > h3 {
-    @apply text-base font-semibold pt-2;
+    @apply text-lg font-semibold pt-2;
   }
 
   .typing-input {
@@ -87,7 +92,7 @@
   }
 
   .filter-container > select {
-    @apply h-12 px-3 rounded-sm text-xs text-[#a9a9a9] bg-[#1f1f1f] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60;
+    @apply h-12 px-3 rounded-sm text-sm text-[#a9a9a9] bg-[#1f1f1f] border border-[#4f4f4f] focus:outline-none focus:border focus:border-[#e30e30]/60;
   }
 
   .game-tab {
@@ -115,7 +120,7 @@
   }
 
   .rating-container {
-    @apply relative inline-block overflow-hidden text-[#a9a9a9];
+    @apply relative inline-block leading-none overflow-hidden text-[#a9a9a9];
   }
 
   .empty-stars,

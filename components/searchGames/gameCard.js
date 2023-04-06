@@ -21,12 +21,12 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
         <div className="divide-y-2 divide-[#4a4a4a]">
           <div className="space-y-4 pb-6">
             <div className="space-y-1">
-              <h3 className="text-xl font-bold text-[#f1f1f1]">
+              <h3 className="text-2xl font-bold text-[#f1f1f1]">
                 {name} <span className="text-[#a9a9a9]">({getYear(releaseDate)})</span>
               </h3>
               <div className="flex flex-wrap gap-1">
                 {platforms.map(platform => (
-                  <p key={platform} className="p-2 rounded-sm font-semibold text-xs text-[#cfcfcf] bg-[#4a4a4a]">
+                  <p key={platform} className="p-2 rounded-sm font-semibold text-sm text-[#cfcfcf] bg-[#4a4a4a]">
                     {platform}
                   </p>
                 )

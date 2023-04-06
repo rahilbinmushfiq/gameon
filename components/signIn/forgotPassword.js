@@ -28,7 +28,7 @@ export default function ForgotPassword({ email }) {
   return (
     <div>
       <div className="flex justify-end">
-        <p className="cursor-pointer font-bold text-xs text-[#cfcfcf]" onClick={() => setIsForgotPasswordModalOpen(true)}>
+        <p className="cursor-pointer font-bold text-sm text-[#cfcfcf]" onClick={() => setIsForgotPasswordModalOpen(true)}>
           Forgot password?
         </p>
       </div>

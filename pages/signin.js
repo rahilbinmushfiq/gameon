@@ -91,8 +91,8 @@ export default function SignIn({ users }) {
         <div className="space-y-8">
           {isUserNew && (!email || (email && users.some((user) => user.email === email))) && (
             <div className="space-y-1">
-              <h2 className="text-lg font-semibold">Registration Complete!</h2>
-              <p className="leading-6">You have successfully created your account. Now, you can sign in to your new account using the credentials you provided.</p>
+              <h2 className="text-xl font-semibold">Registration Complete!</h2>
+              <p>You have successfully created your account. Now, you can sign in to your new account using the credentials you provided.</p>
             </div>
           )}
           {!email ? (
@@ -137,10 +137,10 @@ export default function SignIn({ users }) {
               isProviderOnlyGoogle() ? (
                 <div className="space-y-8">
                   <div className="space-y-2">
-                    <h2 className="text-xl font-bold">Can't Sign in with Password</h2>
-                    <p className="leading-6">
-                      The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google.
-                    </p>
+                    <h2 className="text-2xl font-bold">
+                      Can't Sign in with Password
+                    </h2>
+                    <p>The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google.</p>
                   </div>
                   <button
                     className="secondary-btn w-full h-12 hover:bg-[#ffffff]"

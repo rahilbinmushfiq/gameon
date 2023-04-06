@@ -8,9 +8,7 @@ export default function Search({ setSearch }) {
     <div className="px-6 space-y-12">
       <div className="space-y-2">
         <h1>Search Games</h1>
-        <p className="leading-6">
-          Find your next favorite game with our easy-to-use search tool. Browse through our extensive library and filter by platform, release date and more.
-        </p>
+        <p>Find your next favorite game with our easy-to-use search tool. Browse through our extensive library and filter by platform, release date and more.</p>
       </div>
       <div className="relative flex">
         <input

@@ -19,7 +19,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
           </div>
           <div className="space-y-1">
             <p className="text-[#dfdfdf] font-bold leading-none">{name}</p>
-            <p className="text-xs text-[#9f9f9f]">{getDateAndTime(postedOn)}</p>
+            <p className="text-sm text-[#9f9f9f]">{getDateAndTime(postedOn)}</p>
           </div>
         </div>
         <div>
@@ -46,7 +46,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
       {reviewType === "critic" && (
         <button>
           <a
-            className="font-bold text-xs text-[#f1f1f1]/[0.8] hover:text-[#f1f1f1]"
+            className="font-bold text-sm text-[#f1f1f1]/[0.8] hover:text-[#f1f1f1]"
             href={articleLink}
             target="_blank"
             rel="noopener noreferrer"

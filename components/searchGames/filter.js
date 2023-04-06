@@ -5,7 +5,7 @@ export default function Filter({ filter, setFilter }) {
     <div className="space-y-6 mx-6 p-4 bg-[#1f1f1f]">
       <div className="flex items-center gap-2">
         <IoFilterOutline size={18} />
-        <h2 className="text-base font-semibold text-[#bfbfbf]">
+        <h2 className="text-lg font-semibold text-[#bfbfbf]">
           Filter Results
         </h2>
       </div>
@@ -52,7 +52,7 @@ export default function Filter({ filter, setFilter }) {
                   releaseDates: { ...filter.releaseDates, [year]: !checked }
                 }))}
               />
-              <label className="text-xs text-[#a9a9a9]">{year}</label>
+              <label className="text-sm text-[#a9a9a9]">{year}</label>
             </div>
           ))}
         </div>

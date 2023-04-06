@@ -39,9 +39,7 @@ export default function Verification({ user }) {
     <>
       <div className="space-y-2">
         <h1>Verify Email</h1>
-        <p className="leading-6">
-          You're almost there! A verification email has been sent to <span className="font-bold">{user.email}</span>. Just click on the link provided in the email to complete your signup process.
-        </p>
+        <p>You're almost there! A verification email has been sent to <span className="font-bold">{user.email}</span>. Just click on the link provided in the email to complete your signup process.</p>
       </div>
       <div className="space-y-4">
         <p>If you don't see it, you may check your spam folder. Still can't find our email?</p>

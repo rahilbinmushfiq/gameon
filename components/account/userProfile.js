@@ -117,7 +117,7 @@ export default function UserProfile({ user }) {
             />
           </button>
         </div>
-        <h2 className="font-semibold text-base text-center text-[#cfcfcf]">
+        <h2 className="font-semibold text-lg text-center text-[#cfcfcf]">
           {user.displayName}
         </h2>
       </div>
@@ -131,7 +131,7 @@ export default function UserProfile({ user }) {
           handleSubmission={updateUserPhoto}
         >
           <input
-            className="text-[#a9a9a9] text-xs w-full file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:bg-[#3a3a3a] file:text-[#f1f1f1] file:text-sm file:font-semibold file:cursor-pointer peer"
+            className="text-[#a9a9a9] text-sm w-full file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:bg-[#3a3a3a] file:text-[#f1f1f1] file:text-sm file:font-semibold file:cursor-pointer peer"
             ref={photoRef}
             type="file"
             accept=".jpg, .jpeg, .png"

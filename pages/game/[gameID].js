@@ -34,7 +34,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
             priority
           />
           <div className="absolute bottom-0 px-6 z-[1]">
-            <h1 className="text-2xl">{name}</h1>
+            <h1 className="text-3xl">{name}</h1>
           </div>
           <div className="absolute inset-0 h-full">
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />

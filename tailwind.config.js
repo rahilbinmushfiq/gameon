@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'gemunu-libre': ['Gemunu Libre', 'sans-serif']
+      }
+    },
   },
   plugins: [],
 }

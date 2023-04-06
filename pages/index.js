@@ -33,12 +33,10 @@ export default function Home() {
         </div>
         <div className="px-6 py-16 space-y-16">
           <div className="space-y-6">
-            <h1 className="text-4xl font-semibold leading-[3rem] after:content-none m-0">
+            <h1 className="text-[44px] font-semibold leading-[52px] after:content-none m-0">
               Get the <span className="text-[#e30e30] font-bold">Ultimate</span> Gaming Experience
             </h1>
-            <p className="leading-6">
-              Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.
-            </p>
+            <p>Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.</p>
           </div>
           <div className="flex gap-6 [&>*>button]:font-bold [&>*>button]:w-32 [&>*>button]:h-12">
             <Link href="/search-games">
@@ -82,12 +80,10 @@ export default function Home() {
       </section>
       <section className="px-6 py-32 space-y-12">
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-3xl font-bold">
             Join Our Community
           </h2>
-          <p className="leading-6">
-            Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.
-          </p>
+          <p>Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.</p>
         </div>
         <div className="inline-block">
           <Link href="/signin">
@@ -100,7 +96,7 @@ export default function Home() {
         <div className="flex gap-12">
           {Object.entries(socialProofs).map(([number, topic]) => (
             <div key={number}>
-              <h4 className="text-2xl">{number}</h4>
+              <h4 className="text-3xl">{number}</h4>
               <p>{topic}</p>
             </div>
           ))}

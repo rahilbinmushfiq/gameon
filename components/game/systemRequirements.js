@@ -4,7 +4,7 @@ export default function SystemRequirements({ systemRequirements }) {
   if (!systemRequirements) return (
     <section className="px-6 pt-8 pb-20">
       <div className="space-y-2">
-        <h2 className="font-bold text-lg">Not Available on PC</h2>
+        <h2 className="font-bold text-xl">Not Available on PC</h2>
         <p>Unfortunately, this game is not available on PC. Check the overview section to get an idea of the platforms this game is available on.</p>
       </div>
     </section>
