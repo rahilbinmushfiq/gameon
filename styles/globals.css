@@ -40,6 +40,27 @@
   td {
     @apply text-[#a9a9a9];
   }
+
+  *::-webkit-scrollbar {
+    @apply w-[10px] rounded-[8px] bg-[#3f3f3f];
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-[8px] bg-[#5a5a5a];
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#6a6a6a];
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply rounded-[8px] bg-[#3f3f3f];
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #5a5a5a #3f3f3f;
+  }
 }
 
 @layer components {
