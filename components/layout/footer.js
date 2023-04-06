@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaDiscord, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
-import logo from "../../public/logo.png";
+import logo from "../../public/logo.svg";
 
 export default function Footer() {
   const router = useRouter();
@@ -23,7 +23,13 @@ export default function Footer() {
           <div className="space-y-2">
             <div className="inline-block">
               <Link href="/">
-                <Image src={logo} alt="game-on-logo" width={150} />
+                <div className="relative w-36 h-10">
+                  <Image
+                    className="absolute w-full h-full"
+                    src={logo}
+                    alt="game-on-logo"
+                  />
+                </div>
               </Link>
             </div>
             <p>With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.</p>

@@ -8,7 +8,7 @@ import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline,
 import { auth } from "../../config/firebase";
 import { useAuth } from "../../contexts/auth";
 import { useLoading } from "../../contexts/loading";
-import logo from "../../public/logo.png";
+import logo from "../../public/logo.svg";
 
 export default function Navbar() {
   const { user } = useAuth();
@@ -46,7 +46,13 @@ export default function Navbar() {
             <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f]">
               <div className="inline-block">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
-                  <Image src={logo} alt="game-on-logo" width={125} />
+                  <div className="relative w-32 h-9">
+                    <Image
+                      className="absolute w-full h-full"
+                      src={logo}
+                      alt="game-on-logo"
+                    />
+                  </div>
                 </Link>
               </div>
               <ul className="flex flex-col gap-2">
