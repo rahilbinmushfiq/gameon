@@ -24,7 +24,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
         </title>
       </Head>
       <div>
-        <div className="relative w-full h-72 z-[-1]">
+        <div className="relative w-full h-[33.33vh] z-[-1]">
           <Image
             className="object-cover"
             src={coverImage}
@@ -33,7 +33,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
             sizes="100vh"
             priority
           />
-          <div className="absolute bottom-0 px-6 z-[1]">
+          <div className="absolute bottom-0 px-6 z-[1] sm:px-10">
             <h1 className="text-3xl">{name}</h1>
           </div>
           <div className="absolute inset-0 h-full">
@@ -42,7 +42,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
           </div>
         </div>
       </div>
-      <section className="px-6 py-12 flex gap-2 overflow-auto bg-[#1a1a1a] [&>button]:game-tab">
+      <section className="px-6 py-12 flex gap-2 overflow-auto bg-[#1a1a1a] [&>button]:game-tab sm:px-10">
         <button
           className={tab === "overview" ? "active" : "inactive"}
           onClick={() => setTab("overview")}

@@ -17,7 +17,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f]">
+    <footer className="px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f] sm:px-10">
       <div className="py-24 space-y-16">
         <div className="space-y-10">
           <div className="space-y-2">

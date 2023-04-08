@@ -30,12 +30,12 @@ export default function Navbar() {
   }
 
   return (
-    <header className="h-14 px-6 py-3">
+    <header className="px-6 py-3 sm:px-10 sm:py-5">
       <nav>
         <button
           onClick={() => setIsNavbarOpen(prevState => !prevState)}
         >
-          <IoMenuOutline size={30} color="#f1f1f1" />
+          <IoMenuOutline className="text-[30px] sm:text-[36px]" color="#f1f1f1" />
         </button>
         {isNavbarOpen && (
           <div
@@ -43,7 +43,7 @@ export default function Navbar() {
             id="navbar-bg"
             onClick={(event) => event.target.id === "navbar-bg" && setIsNavbarOpen(prevState => !prevState)}
           >
-            <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f]">
+            <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f] sm:w-2/5">
               <div className="inline-block">
                 <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                   <div className="relative w-32 h-9">

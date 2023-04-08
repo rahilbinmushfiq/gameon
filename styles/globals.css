@@ -93,7 +93,7 @@
   }
 
   .card-container {
-    @apply w-[45%] space-y-1 rounded-sm [&>p]:text-[#a9a9a9];
+    @apply w-[45%] space-y-1 rounded-sm [&>p]:text-[#a9a9a9] sm:w-[40%];
   }
 
   .card-container > h3 {
@@ -129,7 +129,7 @@
   }
 
   .info-container {
-    @apply w-full h-16 flex justify-between items-center px-6;
+    @apply w-full h-16 flex justify-between items-center px-6 sm:px-10;
   }
 
   .info-container--hover {
@@ -155,5 +155,15 @@
 
   .filled-stars {
     @apply absolute inset-0 overflow-hidden text-[#e30e30];
+  }
+
+  .bg-signin {
+    background-image: linear-gradient(
+        rgba(227, 14, 48, 0.85),
+        rgba(227, 14, 48, 0.85)
+      ),
+      url("../public/signin.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }

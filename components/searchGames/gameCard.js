@@ -6,7 +6,7 @@ import { sliceParagraph } from "../../utils/slice";
 export default function GameCard({ index, game: { id, thumbnailURL, name, summary, platforms, releaseDate, averageRating, averageScore } }) {
   return (
     <Link href={`/game/${id}`}>
-      <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f]">
+      <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f] sm:p-6 sm:grid-rows-none sm:grid-cols-2">
         <div className="relative rounded-sm overflow-hidden">
           <Image
             className="absolute w-full h-full object-cover"

@@ -66,7 +66,7 @@ export default function SearchGames({ games }) {
           <Filter filter={filter} setFilter={setFilter} />
         </div>
         {filteredGames.length ? (
-          <div className="mx-6 py-16">
+          <div className="mx-6 py-16 sm:mx-10">
             {filteredGames.map((filteredGame, index) => (
               <GameCard key={index} index={index} game={filteredGame} />
             ))}

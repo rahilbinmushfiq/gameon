@@ -4,7 +4,7 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 
 export default function Review({ reviewType, photoURL, name, postedOn, assessment, comment, articleLink }) {
   return (
-    <div className="mx-6 p-4 rounded-sm space-y-6 bg-[#2f2f2f]">
+    <div className="mx-6 p-4 rounded-sm space-y-6 bg-[#2f2f2f] sm:mx-10 sm:p-8">
       <div className="flex justify-between">
         <div className="flex gap-3">
           <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#3f3f3f] ring-[3px] ring-[#a9a9a9]">
@@ -18,7 +18,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
             />
           </div>
           <div className="space-y-1">
-            <p className="text-[#dfdfdf] font-bold leading-none">{name}</p>
+            <p className="text-[#dfdfdf] font-semibold leading-none sm:text-lg sm:leading-none">{name}</p>
             <p className="text-sm text-[#9f9f9f]">{getDateAndTime(postedOn)}</p>
           </div>
         </div>
@@ -28,12 +28,12 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
               <p className="text-[#f1f1f1] font-semibold">{assessment}</p>
             </div>
           ) : (
-            <div className="flex gap-[1px]">
+            <div className="flex gap-[1px] [&>svg]:text-[15px] sm:[&>svg]:text-[18px]">
               {[1, 2, 3, 4, 5].map((value) => (
                 assessment >= value ? (
-                  <FaStar key={value} size={15} color="#e30e30" />
+                  <FaStar key={value} color="#e30e30" />
                 ) : (
-                  <FaRegStar key={value} size={15} color="#e30e30" />
+                  <FaRegStar key={value} color="#e30e30" />
                 )
               ))}
             </div>

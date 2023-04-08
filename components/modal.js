@@ -9,7 +9,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
       id={id}
       onClick={(event) => event.target.id === id && setIsModalOpen(false)}
     >
-      <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f]">
+      <div className="mx-6 p-8 space-y-8 rounded-md bg-[#1f1f1f] sm:mx-40 sm:p-10">
         <div className="space-y-2">
           <h3 className="text-2xl font-bold">{heading}</h3>
           <p>{description}</p>

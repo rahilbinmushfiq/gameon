@@ -17,7 +17,7 @@ export default function Home() {
       <Head>
         <title>Game On</title>
       </Head>
-      <section className="min-h-[calc(100vh_-_3.5rem)] flex flex-col">
+      <section className="min-h-[calc(100vh_-_54px)] flex flex-col sm:min-h-[calc(100vh_-_76px)]">
         <div className="relative flex-grow bg-[#e30e30]/[.8]">
           <Image
             className="object-cover mix-blend-hard-light"
@@ -31,9 +31,9 @@ export default function Home() {
             <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
           </div>
         </div>
-        <div className="px-6 py-16 space-y-16">
+        <div className="px-6 py-16 space-y-16 sm:px-10">
           <div className="space-y-6">
-            <h1 className="text-[44px] font-semibold leading-[52px] after:content-none m-0">
+            <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none">
               Get the <span className="text-[#e30e30] font-bold">Ultimate</span> Gaming Experience
             </h1>
             <p>Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.</p>
@@ -52,7 +52,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="px-6 py-32 space-y-16 bg-[#2a2a2a] [&>div]:flex [&>div]:justify-between [&>div>div]:card-container">
+      <section className="px-6 py-32 space-y-16 bg-[#2a2a2a] [&>div]:flex [&>div]:justify-between [&>div>div]:card-container sm:px-10">
         <div>
           <div>
             <IoStopwatchSharp size={30} color="#e30e30" />
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="px-6 py-32 space-y-12">
+      <section className="px-6 py-32 space-y-12 sm:px-10">
         <div className="space-y-2">
           <h2 className="text-3xl font-bold">
             Join Our Community
@@ -96,7 +96,7 @@ export default function Home() {
         <div className="flex gap-12">
           {Object.entries(socialProofs).map(([number, topic]) => (
             <div key={number}>
-              <h4 className="text-3xl">{number}</h4>
+              <h4 className="text-3xl sm:text-4xl">{number}</h4>
               <p>{topic}</p>
             </div>
           ))}

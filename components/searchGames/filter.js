@@ -2,7 +2,7 @@ import { IoFilterOutline } from "react-icons/io5";
 
 export default function Filter({ filter, setFilter }) {
   return (
-    <div className="space-y-6 mx-6 p-4 bg-[#1f1f1f]">
+    <div className="space-y-6 mx-6 p-4 bg-[#1f1f1f]  sm:mx-10 sm:p-6">
       <div className="flex items-center gap-2">
         <IoFilterOutline size={18} />
         <h2 className="text-lg font-semibold text-[#bfbfbf]">
@@ -40,9 +40,9 @@ export default function Filter({ filter, setFilter }) {
       </div>
       <div className="filter-container">
         <label>Release Date:</label>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-y-3 sm:grid-cols-none sm:grid-flow-col sm:auto-cols-max sm:gap-x-6">
           {Object.entries(filter.releaseDates).map(([year, checked]) => (
-            <div key={year} className="flex gap-[6px] items-center">
+            <div key={year} className="flex items-center gap-[6px] sm:gap-1">
               <input
                 className="h-4 w-4 accent-[#f1f1f1]"
                 type="checkbox"

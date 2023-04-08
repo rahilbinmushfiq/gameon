@@ -43,7 +43,7 @@ export default function Account({ signInProvider }) {
   }
 
   return (
-    <main className="flex flex-col max-w-full min-h-[calc(100vh_-_3.5rem)] divide-y-2 divide-[#2f2f2f]">
+    <main className="flex flex-col min-h-[calc(100vh_-_54px)] divide-y-2 divide-[#2f2f2f] sm:min-h-[calc(100vh_-_76px)]">
       <Head>
         <title>{user && `${user.displayName} | `}Game On</title>
       </Head>
@@ -51,7 +51,7 @@ export default function Account({ signInProvider }) {
       <UpdatePassword user={user} signInProvider={signInProvider} />
       <DeleteAccount user={user} signInProvider={signInProvider} />
       {user && (
-        <div className="p-6 flex items-center">
+        <div className="p-6 flex items-center sm:p-10">
           <button
             className="primary-btn primary-btn--hover w-full h-12"
             onClick={userSignOut}
