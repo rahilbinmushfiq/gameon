@@ -3,12 +3,12 @@ import { getDate } from "../../utils/convertTimestamp";
 
 export default function Overview({ overview: { summary, genres, platforms, releaseDate, averageRating, averageScore } }) {
   return (
-    <section className="px-6 pt-8 pb-20 space-y-2 [&>div]:space-y-2 [&>div]:p-4 [&>div]:bg-[#2f2f2f] [&>div>h3]:text-xl [&>div>h3]:font-bold sm:px-10">
-      <div>
+    <section className="px-6 pt-8 pb-20 space-y-2 [&>div]:space-y-2 [&>div]:p-4 [&>div]:bg-[#2f2f2f] [&>div>h3]:text-xl [&>div>h3]:font-bold sm:px-10 sm:[&>div]:p-6 md:px-14 md:grid md:grid-cols-2 md:space-y-0 md:gap-2">
+      <div className="col-span-2">
         <h3>Summary</h3>
         <p>{summary}</p>
       </div>
-      <div>
+      <div className="col-span-1">
         <h3>About</h3>
         <div className="space-y-2 [&>p>span]:font-bold">
           <p><span>Genres:</span> {genres.join(", ")}</p>
@@ -16,7 +16,7 @@ export default function Overview({ overview: { summary, genres, platforms, relea
           <p><span>Release date:</span> {getDate(releaseDate)}</p>
         </div>
       </div>
-      <div>
+      <div className="col-span-1">
         <h3>Reviews</h3>
         <div className="space-y-4 [&>div>h4]:font-bold [&>div>h4]:text-[#a9a9a9] [&>div>h4>span]:font-semibold">
           {averageRating ? (

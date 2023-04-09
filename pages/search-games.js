@@ -60,13 +60,17 @@ export default function SearchGames({ games }) {
       <Head>
         <title>Search Games | Game On</title>
       </Head>
-      <section>
+      <section className="relative">
+        <div className="absolute inset-0 h-28 bg-transparent">
+          <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
+          <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
+        </div>
         <div className="space-y-6 py-16 bg-[#2a2a2a]">
           <Search setSearch={setSearch} />
           <Filter filter={filter} setFilter={setFilter} />
         </div>
         {filteredGames.length ? (
-          <div className="mx-6 py-16 sm:mx-10">
+          <div className="mx-6 py-16 sm:mx-10 md:mx-14">
             {filteredGames.map((filteredGame, index) => (
               <GameCard key={index} index={index} game={filteredGame} />
             ))}

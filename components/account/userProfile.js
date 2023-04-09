@@ -92,12 +92,12 @@ export default function UserProfile({ user }) {
 
   if (user) return (
     <section className="flex-grow flex flex-col">
-      <div className="space-y-2 px-6 pt-4 pb-8 sm:px-10">
+      <div className="space-y-2 px-6 pt-4 pb-8 sm:px-10 md:px-14">
         <h1>User Profile</h1>
         <p>This is your profile section. You can see your personal information, as well as, update your display picture, display name, and password here.</p>
       </div>
       <div className="flex-grow flex flex-col justify-center space-y-4 py-8 bg-[#2a2a2a]">
-        <div className="relative w-24 h-24 rounded-full mx-auto ring-4 ring-[#3f3f3f]">
+        <div className="relative w-24 h-24 rounded-full mx-auto ring-4 ring-[#3f3f3f] md:w-32 md:h-32">
           <Image
             className="object-cover rounded-full"
             src={user.photoURL}

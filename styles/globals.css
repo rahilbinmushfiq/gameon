@@ -81,11 +81,15 @@
   }
 
   .nav--li {
-    @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1];
+    @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1] md:justify-center md:gap-3 md:px-3 md:hover:bg-transparent md:rounded-none md:border-b-2 md:border-transparent md:hover:border-[#f1f1f1] md:[&>svg]:hidden;
   }
 
   .footer--li {
     @apply w-fit cursor-pointer text-[#a9a9a9] hover:text-[#f1f1f1];
+  }
+
+  .footer--sub-section {
+    @apply space-y-1 [&>h2]:text-lg [&>h2]:font-bold [&>h2]:tracking-wider;
   }
 
   .social-link {
@@ -109,7 +113,7 @@
   }
 
   .filter-container {
-    @apply grid grid-cols-4 gap-4 items-center [&>:nth-child(1)]:col-span-1 [&>:nth-child(2)]:col-span-3 [&>label]:font-semibold [&>label]:text-[#a9a9a9];
+    @apply grid grid-cols-4 gap-4 items-center [&>:nth-child(1)]:col-span-1 [&>:nth-child(2)]:col-span-3 [&>label]:font-semibold [&>label]:text-[#a9a9a9] md:flex md:[&>:nth-child(1)]:w-14 md:[&>:nth-child(2)]:grow;
   }
 
   .filter-container > select {
@@ -129,7 +133,7 @@
   }
 
   .info-container {
-    @apply w-full h-16 flex justify-between items-center px-6 sm:px-10;
+    @apply w-full h-16 flex justify-between items-center px-6 sm:px-10 md:px-14;
   }
 
   .info-container--hover {

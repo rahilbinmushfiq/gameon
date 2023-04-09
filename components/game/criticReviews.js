@@ -86,11 +86,11 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
   return (
     <>
       <section className="space-y-8 py-8">
-        <div className="space-y-2 mx-6 sm:mx-10">
+        <div className="space-y-2 mx-6 sm:mx-10 md:mx-14">
           <h2 className="text-xl font-bold">Submit Your Review</h2>
           <p>If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.</p>
         </div>
-        <form className="mx-6 space-y-8 sm:mx-10 sm:w-3/5" onSubmit={handleCriticReview}>
+        <form className="mx-6 space-y-8 sm:mx-10 sm:w-3/5 md:mx-14" onSubmit={handleCriticReview}>
           <div className="space-y-4 [&>div]:relative [&>div>input]:typing-input [&>div>input]:pl-12">
             <div>
               <input
@@ -174,7 +174,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
       <section className="space-y-4 pt-8 pb-20">
         {scores ? (
           <>
-            <h2 className="mx-6 font-bold text-xl sm:mx-10">
+            <h2 className="mx-6 font-bold text-xl sm:mx-10 md:mx-14">
               {`Read Reviews (${scores.length})`}
             </h2>
             <div className="space-y-2">

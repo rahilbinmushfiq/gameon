@@ -6,8 +6,8 @@ import { sliceParagraph } from "../../utils/slice";
 export default function GameCard({ index, game: { id, thumbnailURL, name, summary, platforms, releaseDate, averageRating, averageScore } }) {
   return (
     <Link href={`/game/${id}`}>
-      <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f] sm:p-6 sm:grid-rows-none sm:grid-cols-2">
-        <div className="relative rounded-sm overflow-hidden">
+      <div className="grid grid-rows-2 gap-4 my-6 p-4 bg-[#2f2f2f] hover:bg-[#363636] transition-colors ease-in-out duration-300 sm:p-6 sm:grid-rows-none sm:grid-cols-2 sm:gap-6 md:grid-cols-5">
+        <div className="relative rounded-sm overflow-hidden md:col-span-2">
           <Image
             className="absolute w-full h-full object-cover"
             src={thumbnailURL}
@@ -18,7 +18,7 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
             priority={index === 0}
           />
         </div>
-        <div className="divide-y-2 divide-[#4a4a4a]">
+        <div className="divide-y-2 divide-[#4a4a4a] md:col-span-3">
           <div className="space-y-4 pb-6">
             <div className="space-y-1">
               <h3 className="text-2xl font-bold text-[#f1f1f1]">
