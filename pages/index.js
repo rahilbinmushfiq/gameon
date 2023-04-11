@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaUserTie, FaCommentDots, FaArrowRight } from "react-icons/fa";
 import { IoStopwatchSharp, IoGameController } from "react-icons/io5";
 import hero from "../public/hero.jpg";
+import community from "../public/signin.jpg";
 
 export default function Home() {
   const socialProofs = {
@@ -17,8 +18,8 @@ export default function Home() {
       <Head>
         <title>Game On</title>
       </Head>
-      <section className="min-h-[calc(100vh_-_54px)] flex flex-col sm:min-h-[calc(100vh_-_76px)] md:min-h-[calc(100vh_-_7rem)]">
-        <div className="relative flex-grow bg-[#e30e30]/[.8]">
+      <section className="min-h-[calc(100vh_-_54px)] flex flex-col sm:min-h-[calc(100vh_-_76px)] md:min-h-[calc(100vh_-_6.5rem)] lg:grid lg:grid-cols-7">
+        <div className="relative grow bg-[#e30e30]/[.8] lg:order-2 lg:col-span-4">
           <Image
             className="object-cover mix-blend-hard-light"
             src={hero}
@@ -30,11 +31,15 @@ export default function Home() {
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
             <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
           </div>
+          <div className="hidden absolute inset-0 h-full lg:block">
+            <div className="absolute inset-0 h-full w-1/3 bg-gradient-to-r from-[#1f1f1f] via-transparent to-transparent" />
+            <div className="h-full w-1/2 bg-gradient-to-r from-[#1f1f1f] via-transparent to-transparent" />
+          </div>
         </div>
-        <div className="px-6 py-16 space-y-16 sm:px-10 md:px-14">
+        <div className="px-6 py-16 space-y-16 sm:px-10 md:px-14 lg:order-1 lg:col-span-3 lg:flex lg:flex-col lg:justify-center lg:pr-0">
           <div className="space-y-6">
-            <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none">
-              Get the <span className="text-[#e30e30] font-bold">Ultimate</span> Gaming Experience
+            <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none min-[1111px]:text-6xl min-[1111px]:leading-[64px]">
+              Get the <span className="text-[#e30e30] font-bold">Ultimate</span> <br className="hidden lg:inline" />Gaming Experience
             </h1>
             <p>Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.</p>
           </div>
@@ -52,54 +57,69 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="px-6 py-32 space-y-16 bg-[#2a2a2a] [&>div]:flex [&>div]:justify-between [&>div>div]:card-container sm:px-10 md:px-14">
+      <section className="grid grid-cols-2 gap-y-24 gap-x-12 px-6 py-32 bg-[#2a2a2a] [&>div]:card-container sm:px-10 sm:gap-x-20 md:px-14 md:gap-x-24 lg:grid-cols-4">
         <div>
-          <div>
-            <IoStopwatchSharp size={30} color="#e30e30" />
-            <h3>Time Saver</h3>
-            <p>Save time and find the best games with ease by using our efficient filtering tools.</p>
-          </div>
-          <div>
-            <FaUserTie size={30} color="#e30e30" />
-            <h3>Expert Analysis</h3>
-            <p>Get the in-depth analysis of each game from expert critics before you buy any game.</p>
-          </div>
+          <IoStopwatchSharp size={30} color="#e30e30" />
+          <h3>Time Saver</h3>
+          <p>Save time and find the best games with ease by using our efficient filtering tools.</p>
         </div>
         <div>
-          <div>
-            <FaCommentDots size={30} color="#e30e30" />
-            <h3>User Feedbacks</h3>
-            <p>Our user feedbacks section offers insights from real gamers to help you choose the right game.</p>
-          </div>
-          <div>
-            <IoGameController size={30} color="#e30e30" />
-            <h3>Diverse Games</h3>
-            <p>Brwose through the diverse range of games to suit all interests and preferences.</p>
-          </div>
+          <FaUserTie size={30} color="#e30e30" />
+          <h3>Expert Analysis</h3>
+          <p>Get the in-depth analysis of each game from expert critics before you buy any game.</p>
+        </div>
+        <div>
+          <FaCommentDots size={30} color="#e30e30" />
+          <h3>User Feedbacks</h3>
+          <p>Our user feedbacks section offers insights from real gamers to help you choose the right game.</p>
+        </div>
+        <div>
+          <IoGameController size={30} color="#e30e30" />
+          <h3>Diverse Games</h3>
+          <p>Brwose through the diverse range of games to suit all interests and preferences.</p>
         </div>
       </section>
-      <section className="px-6 py-32 space-y-12 sm:px-10 md:px-14">
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold">
-            Join Our Community
-          </h2>
-          <p>Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.</p>
+      <section className="px-6 py-32 sm:px-10 md:px-14 md:grid md:grid-cols-2 md:gap-x-20">
+        <div className="space-y-12">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold">
+              Join Our Community
+            </h2>
+            <p>Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.</p>
+          </div>
+          <div className="inline-block">
+            <Link href="/signin">
+              <button className="primary-btn primary-btn--hover w-40 h-12">
+                <p>Join for free</p>
+                <FaArrowRight size={14} color="#f1f1f1" />
+              </button>
+            </Link>
+          </div>
+          <div className="flex gap-12 lg:gap-16">
+            {Object.entries(socialProofs).map(([number, topic]) => (
+              <div key={number}>
+                <h4 className="text-3xl sm:text-4xl">{number}</h4>
+                <p>{topic}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="inline-block">
-          <Link href="/signin">
-            <button className="primary-btn primary-btn--hover w-40 h-12">
-              <p>Join for free</p>
-              <FaArrowRight size={14} color="#f1f1f1" />
-            </button>
-          </Link>
-        </div>
-        <div className="flex gap-12 md:gap-16">
-          {Object.entries(socialProofs).map(([number, topic]) => (
-            <div key={number}>
-              <h4 className="text-3xl sm:text-4xl">{number}</h4>
-              <p>{topic}</p>
-            </div>
-          ))}
+        <div className="hidden relative h-full bg-[#e30e30]/[.9] md:block">
+          <Image
+            className="object-cover mix-blend-darken"
+            src={community}
+            alt="community-alt"
+            fill
+            priority
+          />
+          <div className="absolute inset-0">
+            <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
+            <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#1f1f1f]" />
+          </div>
+          <div className="absolute inset-0 flex">
+            <div className="w-1/2 bg-gradient-to-r from-[#1f1f1f] via-transparent to-transparent" />
+            <div className="w-1/2 bg-gradient-to-r from-transparent via-transparent to-[#1f1f1f]" />
+          </div>
         </div>
       </section>
     </main >

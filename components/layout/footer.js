@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f] sm:px-10 md:px-14">
       <div className="py-24 space-y-12 md:space-y-0 md:flex md:justify-between">
-        <div className="space-y-10 md:basis-2/5">
+        <div className="space-y-10 md:basis-2/5 lg:basis-[27.5%]">
           <div className="space-y-2">
             <div className="inline-block">
               <Link href="/">
@@ -46,7 +46,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="footer--sub-section">
+        <div className="footer--sub-section lg:basis-1/6">
           <h2>SEARCH GAMES</h2>
           <ul className="space-y-1 [&>li]:footer--li">
             <li onClick={() => handleSearchGames("pc")}>
@@ -60,15 +60,13 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="space-y-12 [&>div]:footer--sub-section md:basis-1/5 md:space-y-8">
-          <div>
-            <h2>OUR OFFICE</h2>
-            <p>458 West Green Hill St., NC 27540</p>
-          </div>
-          <div>
-            <h2>CONTACT US</h2>
-            <p>game.on.official@gmail.com</p>
-          </div>
+        <div className="footer--sub-section lg:basis-1/6">
+          <h2>OUR OFFICE</h2>
+          <p>458 West Green Hill St., NC 27540</p>
+        </div>
+        <div className="footer--sub-section lg:basis-0">
+          <h2>CONTACT US</h2>
+          <p>game.on.official@gmail.com</p>
         </div>
       </div>
       <div className="py-6">

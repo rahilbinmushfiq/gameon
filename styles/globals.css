@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-[#1f1f1f] text-[#f1f1f1];
+    @apply bg-[#1f1f1f] text-[#f1f1f1] xl:bg-white;
   }
 
   h1 {
@@ -97,7 +97,7 @@
   }
 
   .card-container {
-    @apply w-[45%] space-y-1 rounded-sm [&>p]:text-[#a9a9a9] sm:w-[40%];
+    @apply col-span-1 space-y-1 rounded-sm;
   }
 
   .card-container > h3 {

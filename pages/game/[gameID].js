@@ -24,7 +24,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
         </title>
       </Head>
       <div>
-        <div className="relative w-full h-[33.33vh] z-[-1]">
+        <div className="relative w-full h-[33.33vh] z-[-1] lg:h-[60vh]">
           <Image
             className="object-cover"
             src={coverImage}

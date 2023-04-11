@@ -10,8 +10,7 @@ import Head from "next/head";
 
 export default function SearchGames({ games }) {
   const router = useRouter();
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState({
+  const emptyFilter = {
     sort: "",
     platform: "",
     releaseDates: {
@@ -21,20 +20,15 @@ export default function SearchGames({ games }) {
       "2022": false,
       "2023": false
     }
-  });
+  };
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(emptyFilter);
 
   useEffect(() => {
     if (router?.query?.platform) {
       setFilter({
-        sort: "",
-        platform: router.query.platform,
-        releaseDates: {
-          "2019": false,
-          "2020": false,
-          "2021": false,
-          "2022": false,
-          "2023": false
-        }
+        ...emptyFilter,
+        platform: router.query.platform
       });
     }
   }, [router?.query]);
@@ -65,15 +59,57 @@ export default function SearchGames({ games }) {
           <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
           <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
         </div>
-        <div className="space-y-6 py-16 bg-[#2a2a2a]">
-          <Search setSearch={setSearch} />
-          <Filter filter={filter} setFilter={setFilter} />
+        <div className="py-16 bg-[#2a2a2a]">
+          <div className="space-y-2 pb-12 px-6 sm:px-10 md:px-14">
+            <h1>Search Games</h1>
+            <p>Find your next favorite game with our easy-to-use search tool. Browse through our extensive library and filter by platform, release date and more.</p>
+          </div>
+          <div className="lg:grid lg:grid-cols-4">
+            <div className="space-y-6 lg:col-span-3 lg:pr-6">
+              <Search setSearch={setSearch} />
+              <Filter filter={filter} setFilter={setFilter} />
+            </div>
+            <div className="hidden p-6 mr-14 bg-[#1f1f1f] z-[1] lg:col-span-1 lg:flex lg:flex-col lg:items-end lg:gap-y-2">
+              <h2 className="font-bold text-xl">Quick Search</h2>
+              <ul className="flex flex-col items-end gap-y-1 [&>li]:footer--li">
+                <li
+                  onClick={() => setFilter({
+                    ...emptyFilter,
+                    releaseDates: {
+                      ...emptyFilter.releaseDates,
+                      "2023": true
+                    }
+                  })}
+                >
+                  Recent Games
+                </li>
+                <li onClick={() => setFilter({ ...emptyFilter, sort: "topRated" })}>
+                  Top Rated by Users
+                </li>
+                <li onClick={() => setFilter({ ...emptyFilter, sort: "topScored" })}>
+                  Top Scored by Critics
+                </li>
+                <li onClick={() => setFilter({ ...emptyFilter, platform: "pc" })}>
+                  Available on PC
+                </li>
+                <li onClick={() => setFilter({ ...emptyFilter, platform: "playstation" })}>
+                  Available on PlayStation
+                </li>
+                <li onClick={() => setFilter({ ...emptyFilter, platform: "xbox" })}>
+                  Available on Xbox
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         {filteredGames.length ? (
           <div className="mx-6 py-16 sm:mx-10 md:mx-14">
-            {filteredGames.map((filteredGame, index) => (
-              <GameCard key={index} index={index} game={filteredGame} />
-            ))}
+            <h3 className={`font-bold text-xl text-[#a9a9a9] ${!search && JSON.stringify(filter) === JSON.stringify(emptyFilter) ? "hidden" : ""}`}>Showing {filteredGames.length} Results</h3>
+            <div>
+              {filteredGames.map((filteredGame, index) => (
+                <GameCard key={index} index={index} game={filteredGame} />
+              ))}
+            </div>
           </div>
         ) : (
           <div className="space-y-1 py-24 text-center">
