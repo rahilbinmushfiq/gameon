@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-[#1f1f1f] text-[#f1f1f1] xl:bg-white;
+    @apply bg-[#1f1f1f] text-[#f1f1f1];
   }
 
   h1 {
@@ -113,7 +113,15 @@
   }
 
   .filter-container {
-    @apply grid grid-cols-4 gap-4 items-center [&>:nth-child(1)]:col-span-1 [&>:nth-child(2)]:col-span-3 [&>label]:font-semibold [&>label]:text-[#a9a9a9] md:flex md:[&>:nth-child(1)]:w-14 md:[&>:nth-child(2)]:grow;
+    @apply grid grid-cols-4 gap-4 items-center [&>label]:font-semibold [&>label]:text-[#a9a9a9] md:flex xl:flex-col xl:items-start xl:gap-y-2;
+  }
+
+  .filter-container > :nth-child(1) {
+    @apply col-span-1 md:w-14 xl:w-fit xl:whitespace-nowrap;
+  }
+
+  .filter-container > :nth-child(2) {
+    @apply col-span-3 md:grow xl:grow-0 xl:w-full;
   }
 
   .filter-container > select {
@@ -133,7 +141,7 @@
   }
 
   .info-container {
-    @apply w-full h-16 flex justify-between items-center px-6 sm:px-10 md:px-14;
+    @apply w-full h-16 flex justify-between items-center px-6 sm:px-10 md:px-14 xl:px-24;
   }
 
   .info-container--hover {

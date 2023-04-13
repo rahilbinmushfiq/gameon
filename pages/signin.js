@@ -83,15 +83,17 @@ export default function SignIn({ users }) {
   }
 
   if (!user) return (
-    <main className="sm:min-h-[66.66vh] sm:grid sm:grid-cols-5 md:min-h-[82vh] lg:min-h-[calc(100vh_-_6.5rem)] lg:grid-cols-2">
+    <main className="sm:min-h-[66.66vh] sm:grid sm:grid-cols-5 md:min-h-[82vh] lg:min-h-[calc(100vh_-_6.5rem)] xl:min-h-[95vh] lg:grid-cols-2 xl:grid-cols-5">
       <Head>
         <title>{`${(email && users.every((user) => user.email !== email)) ? "Register" : "Sign in"} | Game On`}</title>
       </Head>
-      <section className="hidden p-10 bg-signin sm:flex sm:flex-col sm:gap-y-3 sm:justify-center sm:col-span-2 md:p-14 lg:col-span-1">
-        <p className="relative text-[#cfcfcf]"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878]">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
-        <h2 className="font-semibold text-2xl text-right text-[#f1f1f1]">- Game On</h2>
+      <section className="hidden p-10 bg-signin sm:flex sm:flex-col sm:justify-center sm:col-span-2 md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2">
+        <div className="space-y-3 xl:w-[60%] xl:mx-auto xl:space-y-4">
+          <p className="relative text-[#cfcfcf] xl:text-lg"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878] xl:text-[10rem] xl:-top-16 xl:-left-7">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
+          <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
+        </div>
       </section>
-      <section className="px-6 pt-6 pb-14 space-y-20 sm:px-10 md:px-14 sm:col-span-3 sm:flex sm:flex-col sm:justify-between lg:col-span-1">
+      <section className="px-6 pt-6 pb-14 space-y-20 sm:px-10 md:px-14 sm:col-span-3 sm:flex sm:flex-col sm:justify-between lg:col-span-1 xl:col-span-2 xl:pl-24">
         <div className="space-y-8">
           {isUserNew && (!email || (email && users.some((user) => user.email === email))) && (
             <div className="space-y-1">
@@ -182,15 +184,17 @@ export default function SignIn({ users }) {
     </main>
   );
   if (user && !user.emailVerified) return (
-    <main className="sm:min-h-[60vh] sm:grid sm:grid-cols-5">
+    <main className="sm:min-h-[66.66vh] sm:grid sm:grid-cols-5 md:min-h-[82vh] lg:min-h-[calc(100vh_-_6.5rem)] xl:min-h-[95vh] lg:grid-cols-2 xl:grid-cols-5">
       <Head>
         <title>Verfiy Email | Game On</title>
       </Head>
-      <section className="hidden p-10 bg-signin sm:flex sm:flex-col sm:gap-y-3 sm:justify-center sm:col-span-2">
-        <p className="relative text-[#cfcfcf]"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878]">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
-        <h2 className="font-semibold text-2xl text-right text-[#f1f1f1]">- Game On</h2>
+      <section className="hidden p-10 bg-signin sm:flex sm:flex-col sm:justify-center sm:col-span-2 md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2">
+        <div className="space-y-3 xl:w-[60%] xl:mx-auto xl:space-y-4">
+          <p className="relative text-[#cfcfcf] xl:text-lg"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878] xl:text-[10rem] xl:-top-16 xl:-left-7">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
+          <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
+        </div>
       </section>
-      <section className="px-6 pt-6 pb-14 space-y-10 sm:px-10 md:px-14 sm:col-span-3">
+      <section className="px-6 pt-6 pb-14 space-y-10 sm:px-10 md:px-14 sm:col-span-3 lg:col-span-1 xl:col-span-2 xl:pl-24">
         <Verification user={user} />
       </section>
     </main>

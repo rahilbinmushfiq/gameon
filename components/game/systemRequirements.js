@@ -2,7 +2,7 @@ import { MdClose } from "react-icons/md";
 
 export default function SystemRequirements({ systemRequirements }) {
   if (!systemRequirements) return (
-    <section className="px-6 pt-8 pb-20 sm:px-10 md:px-14">
+    <section className="px-6 pt-8 pb-20 sm:px-10 md:px-14 xl:px-24">
       <div className="space-y-2">
         <h2 className="font-bold text-xl">Not Available on PC</h2>
         <p>Unfortunately, this game is not available on PC. Check the overview section to get an idea of the platforms this game is available on.</p>
@@ -13,7 +13,7 @@ export default function SystemRequirements({ systemRequirements }) {
   const { minimum, recommended } = systemRequirements;
 
   return (
-    <section className="px-6 pt-8 pb-20 sm:px-10 md:px-14">
+    <section className="px-6 pt-8 pb-20 sm:px-10 md:px-14 xl:px-24">
       <div className="min-w-full rounded-sm bg-[#2f2f2f] overflow-auto">
         <table className="w-full">
           <tbody className="first-of-type:[&>tr>th]:sticky first-of-type:[&>tr>th]:inset-0 first-of-type:[&>tr>th]:bg-[#3a3a3a]">

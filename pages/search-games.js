@@ -54,22 +54,20 @@ export default function SearchGames({ games }) {
       <Head>
         <title>Search Games | Game On</title>
       </Head>
-      <section className="relative">
+      <section className="relative ">
         <div className="absolute inset-0 h-28 bg-transparent">
           <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
           <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
         </div>
-        <div className="py-16 bg-[#2a2a2a]">
-          <div className="space-y-2 pb-12 px-6 sm:px-10 md:px-14">
-            <h1>Search Games</h1>
-            <p>Find your next favorite game with our easy-to-use search tool. Browse through our extensive library and filter by platform, release date and more.</p>
-          </div>
-          <div className="lg:grid lg:grid-cols-4">
-            <div className="space-y-6 lg:col-span-3 lg:pr-6">
+        <div className="py-16 bg-[#2a2a2a] xl:py-24">
+          <div className="lg:grid lg:grid-cols-4 xl:grid-cols-6">
+            <div className="space-y-6 lg:col-span-3 lg:pr-6 xl:col-span-4">
               <Search setSearch={setSearch} />
-              <Filter filter={filter} setFilter={setFilter} />
+              <div className="xl:hidden">
+                <Filter filter={filter} setFilter={setFilter} />
+              </div>
             </div>
-            <div className="hidden p-6 mr-14 bg-[#1f1f1f] z-[1] lg:col-span-1 lg:flex lg:flex-col lg:items-end lg:gap-y-2">
+            <div className="hidden mr-14 z-[1] lg:col-span-1 lg:flex lg:flex-col lg:items-end lg:gap-y-2 xl:mr-24 xl:col-span-2">
               <h2 className="font-bold text-xl">Quick Search</h2>
               <ul className="flex flex-col items-end gap-y-1 [&>li]:footer--li">
                 <li
@@ -103,12 +101,17 @@ export default function SearchGames({ games }) {
           </div>
         </div>
         {filteredGames.length ? (
-          <div className="mx-6 py-16 sm:mx-10 md:mx-14">
-            <h3 className={`font-bold text-xl text-[#a9a9a9] ${!search && JSON.stringify(filter) === JSON.stringify(emptyFilter) ? "hidden" : ""}`}>Showing {filteredGames.length} Results</h3>
-            <div>
-              {filteredGames.map((filteredGame, index) => (
-                <GameCard key={index} index={index} game={filteredGame} />
-              ))}
+          <div className="mx-6 py-16 sm:mx-10 md:mx-14 xl:mx-24 xl:grid xl:grid-cols-4 xl:gap-x-4">
+            <div className="hidden xl:block xl:col-span-1">
+              <Filter filter={filter} setFilter={setFilter} />
+            </div>
+            <div className="xl:col-span-3">
+              <h3 className={`font-bold text-xl text-[#a9a9a9] ${!search && JSON.stringify(filter) === JSON.stringify(emptyFilter) ? "hidden" : "pb-4"}`}>Showing {filteredGames.length} Result{filteredGames.length !== 1 && "s"}</h3>
+              <div>
+                {filteredGames.map((filteredGame, index) => (
+                  <GameCard key={index} index={index} game={filteredGame} />
+                ))}
+              </div>
             </div>
           </div>
         ) : (

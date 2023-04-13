@@ -64,11 +64,11 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
   return (
     <>
       <section className="space-y-8 py-8">
-        <div className="space-y-2 mx-6 sm:mx-10 md:mx-14">
+        <div className="space-y-2 mx-6 sm:mx-10 md:mx-14 xl:mx-24">
           <h2 className="text-xl font-bold">Submit Your Review</h2>
           <p>Have anything to say about this game? Don't feel shy. Share your thoughts and experience on this game.</p>
         </div>
-        <form className="mx-6 space-y-8 sm:mx-10 sm:w-3/5 md:mx-14" onSubmit={handleUserReview}>
+        <form className="mx-6 space-y-8 sm:mx-10 sm:w-3/5 md:mx-14 xl:mx-24 xl:w-1/3" onSubmit={handleUserReview}>
           <div className="space-y-4">
             <div className="flex gap-2">
               <p className="font-bold">Rating:</p>
@@ -109,7 +109,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
       <section className="space-y-4 pt-8 pb-20">
         {ratings ? (
           <>
-            <h2 className="mx-6 font-bold text-xl sm:mx-10 md:mx-14">
+            <h2 className="mx-6 font-bold text-xl sm:mx-10 md:mx-14 xl:mx-24">
               {`Read Reviews (${ratings.length})`}
             </h2>
             <div className="space-y-2">

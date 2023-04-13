@@ -36,9 +36,9 @@ export default function Home() {
             <div className="h-full w-1/2 bg-gradient-to-r from-[#1f1f1f] via-transparent to-transparent" />
           </div>
         </div>
-        <div className="px-6 py-16 space-y-16 sm:px-10 md:px-14 lg:order-1 lg:col-span-3 lg:flex lg:flex-col lg:justify-center lg:pr-0">
+        <div className="px-6 py-16 space-y-16 sm:px-10 md:px-14 lg:order-1 lg:col-span-3 lg:flex lg:flex-col lg:justify-center lg:pr-0 xl:px-24">
           <div className="space-y-6">
-            <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none min-[1111px]:text-6xl min-[1111px]:leading-[64px]">
+            <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none min-[1111px]:text-5xl min-[1111px]:leading-[56px] min-[1325px]:text-[54px] min-[1325px]:leading-[58px]">
               Get the <span className="text-[#e30e30] font-bold">Ultimate</span> <br className="hidden lg:inline" />Gaming Experience
             </h1>
             <p>Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.</p>
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="grid grid-cols-2 gap-y-24 gap-x-12 px-6 py-32 bg-[#2a2a2a] [&>div]:card-container sm:px-10 sm:gap-x-20 md:px-14 md:gap-x-24 lg:grid-cols-4">
+      <section className="grid grid-cols-2 gap-y-24 gap-x-12 px-6 py-32 bg-[#2a2a2a] [&>div]:card-container sm:px-10 sm:gap-x-20 md:px-14 md:gap-x-24 lg:grid-cols-4 xl:px-24 xl:py-44">
         <div>
           <IoStopwatchSharp size={30} color="#e30e30" />
           <h3>Time Saver</h3>
@@ -79,7 +79,7 @@ export default function Home() {
           <p>Brwose through the diverse range of games to suit all interests and preferences.</p>
         </div>
       </section>
-      <section className="px-6 py-32 sm:px-10 md:px-14 md:grid md:grid-cols-2 md:gap-x-20">
+      <section className="px-6 py-32 sm:px-10 md:px-14 md:grid md:grid-cols-2 md:gap-x-20 xl:px-24 xl:py-44">
         <div className="space-y-12">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold">

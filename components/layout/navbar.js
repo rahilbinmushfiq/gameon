@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="px-6 py-3 sm:px-10 sm:py-5 md:px-14 md:py-7">
+    <header className="px-6 py-3 sm:px-10 sm:py-5 md:px-14 md:py-7 xl:px-24">
       <nav>
         <button
           className="md:hidden"
@@ -55,7 +55,7 @@ export default function Navbar() {
                 </div>
               </Link>
             </div>
-            <ul className="flex flex-col gap-2 md:flex-row md:gap-10">
+            <ul className="flex flex-col gap-2 md:flex-row md:gap-x-10 xl:gap-x-12">
               <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                 <li className={`nav--li ${asPath === "/" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold md:border-[#e30e30]" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
                   <IoHomeOutline size={20} />
