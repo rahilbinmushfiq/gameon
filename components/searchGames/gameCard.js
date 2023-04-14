@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getYear } from "../../utils/convertTimestamp";
-import { sliceParagraph } from "../../utils/slice";
 
 export default function GameCard({ index, game: { id, thumbnailURL, name, summary, platforms, releaseDate, averageRating, averageScore } }) {
   return (
@@ -33,7 +32,7 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
                 )}
               </div>
             </div>
-            <p>{sliceParagraph(summary)}</p>
+            <p className="line-clamp-3">{summary}</p>
           </div>
           <div className="space-y-3 pt-6 font-semibold text-[#cfcfcf]">
             <div className="space-y-1">
