@@ -54,7 +54,7 @@ export default function SearchGames({ games }) {
       <Head>
         <title>Search Games | Game On</title>
       </Head>
-      <section className="relative ">
+      <section className="relative">
         <div className="absolute inset-0 h-28 bg-transparent">
           <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
           <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
@@ -67,7 +67,7 @@ export default function SearchGames({ games }) {
                 <Filter filter={filter} setFilter={setFilter} />
               </div>
             </div>
-            <div className="hidden mr-14 z-[1] lg:col-span-1 lg:flex lg:flex-col lg:items-end lg:gap-y-2 xl:mr-24 xl:col-span-2">
+            <div className="hidden mr-14 z-[1] lg:col-span-1 lg:flex lg:flex-col lg:items-end lg:gap-y-2 xl:mr-24 xl:col-span-2 2xl:mr-32">
               <h2 className="font-bold text-xl">Quick Search</h2>
               <ul className="flex flex-col items-end gap-y-1 [&>li]:footer--li">
                 <li
@@ -101,7 +101,7 @@ export default function SearchGames({ games }) {
           </div>
         </div>
         {filteredGames.length ? (
-          <div className="mx-6 py-16 sm:mx-10 md:mx-14 xl:mx-24 xl:grid xl:grid-cols-4 xl:gap-x-4">
+          <div className="mx-6 py-16 sm:mx-10 md:mx-14 xl:mx-24 xl:grid xl:grid-cols-4 xl:gap-x-4 2xl:mx-32">
             <div className="hidden xl:block xl:col-span-1">
               <Filter filter={filter} setFilter={setFilter} />
             </div>

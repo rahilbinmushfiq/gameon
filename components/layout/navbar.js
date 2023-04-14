@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="px-6 py-3 sm:px-10 sm:py-5 md:px-14 md:py-7 xl:px-24">
+    <header className="px-6 py-3 sm:px-10 sm:py-5 md:px-14 md:py-7 xl:px-24 2xl:px-32">
       <nav>
         <button
           className="md:hidden"
