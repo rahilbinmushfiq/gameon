@@ -18,7 +18,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
             />
           </div>
           <div className="space-y-1">
-            <p className="text-[#dfdfdf] font-semibold leading-none sm:text-xl sm:leading-none">{name}</p>
+            <p className={`text-[#dfdfdf] ${name === "Deleted User" ? "italic" : "font-semibold"} leading-none sm:text-xl sm:leading-none`}>{name}</p>
             <p className="text-sm text-[#9f9f9f]">{getDateAndTime(postedOn)}</p>
           </div>
         </div>

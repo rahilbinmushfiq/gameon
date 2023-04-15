@@ -114,7 +114,10 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
             </h2>
             <div className="space-y-2">
               {ratings.map((review) => {
-                let [{ photoURL, fullName }] = users.filter(user => user.uid === review.userUID);
+                let user = users.find(user => user.uid === review.userUID);
+
+                let fullName = user?.fullName || "Deleted User";
+                let photoURL = user?.photoURL || "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599";
 
                 return (
                   <Review
