@@ -61,6 +61,12 @@
     scrollbar-width: thin;
     scrollbar-color: #5a5a5a #3f3f3f;
   }
+
+  @media (max-width: 767px) {
+    *::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 @layer components {
