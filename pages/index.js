@@ -79,7 +79,7 @@ export default function Home() {
           <p>Brwose through the diverse range of games to suit all interests and preferences.</p>
         </div>
       </section>
-      <section className="px-6 py-32 sm:px-10 md:px-14 md:grid md:grid-cols-2 md:gap-x-20 xl:px-24 xl:py-44 2xl:px-32 2xl:py-60">
+      <section className="px-6 py-32 sm:px-10 md:px-14 lg:grid lg:grid-cols-2 lg:gap-x-20 xl:px-24 xl:py-44 2xl:px-32 2xl:py-60">
         <div className="space-y-12">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold">
@@ -104,7 +104,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="hidden relative h-full bg-[#e30e30]/[.9] md:block">
+        <div className="hidden relative h-full bg-[#e30e30]/[.9] lg:block">
           <Image
             className="object-cover mix-blend-darken"
             src={community}
