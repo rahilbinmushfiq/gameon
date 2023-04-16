@@ -5,7 +5,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
 
   return (
     <div
-      className="fixed inset-0 w-screen h-screen flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md"
+      className="fixed inset-0 z-[1] w-screen h-screen flex justify-center items-center bg-[#3f3f3f] bg-opacity-50 backdrop-blur-md"
       id={id}
       onClick={(event) => event.target.id === id && setIsModalOpen(false)}
     >
