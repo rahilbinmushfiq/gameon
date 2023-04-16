@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f] sm:px-10 md:px-14 xl:px-24 2xl:px-32">
       <div className="py-24 space-y-12 md:space-y-0 md:flex md:justify-between 2xl:pt-36">
-        <div className="space-y-10 md:basis-2/5 lg:basis-[27.5%]">
+        <div className="space-y-10 md:basis-0 lg:basis-[27.5%]">
           <div className="space-y-2">
             <div className="inline-block">
               <Link href="/">
@@ -46,7 +46,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div className="footer--sub-section lg:basis-1/6">
+        <div className="footer--sub-section lg:basis-0 lg:whitespace-nowrap">
           <h2>SEARCH GAMES</h2>
           <ul className="space-y-1 [&>li]:footer--li">
             <li onClick={() => handleSearchGames("pc")}>
@@ -60,7 +60,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="footer--sub-section lg:basis-1/6">
+        <div className="footer--sub-section md:basis-1/6">
           <h2>OUR OFFICE</h2>
           <p>458 West Green Hill St., NC 27540</p>
         </div>
