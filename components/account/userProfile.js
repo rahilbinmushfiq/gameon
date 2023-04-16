@@ -92,7 +92,7 @@ export default function UserProfile({ user }) {
 
   if (user) return (
     <section className="flex-grow flex flex-col">
-      <div className="space-y-2 px-6 pt-4 pb-8 sm:px-10 md:px-14 xl:px-24 2xl:px-32">
+      <div className="space-y-2 px-6 pt-7 pb-8 sm:px-10 md:px-14 xl:px-24 2xl:px-32">
         <h1>User Profile</h1>
         <p>This is your profile section. You can see your personal information, as well as, update your display picture, display name, and password here.</p>
       </div>

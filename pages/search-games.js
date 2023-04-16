@@ -59,7 +59,7 @@ export default function SearchGames({ games }) {
           <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
           <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
         </div>
-        <div className="py-16 bg-[#2a2a2a] xl:py-24">
+        <div className="pt-7 pb-12 bg-[#2a2a2a] xl:py-24">
           <div className="lg:grid lg:grid-cols-4 xl:grid-cols-6">
             <div className="space-y-6 lg:col-span-3 lg:pr-6 xl:col-span-4">
               <Search setSearch={setSearch} />

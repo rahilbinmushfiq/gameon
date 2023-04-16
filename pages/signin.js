@@ -93,7 +93,7 @@ export default function SignIn({ users }) {
           <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
         </div>
       </section>
-      <section className="px-6 pt-6 pb-14 space-y-20 sm:px-10 md:px-14 sm:col-span-3 sm:flex sm:flex-col sm:justify-between lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
+      <section className="px-6 pt-7 pb-14 space-y-20 sm:px-10 md:px-14 sm:col-span-3 sm:flex sm:flex-col sm:justify-between lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
         <div className="space-y-8">
           {isUserNew && (!email || (email && users.some((user) => user.email === email))) && (
             <div className="space-y-1">
@@ -194,7 +194,7 @@ export default function SignIn({ users }) {
           <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
         </div>
       </section>
-      <section className="px-6 pt-6 pb-14 space-y-10 sm:px-10 md:px-14 sm:col-span-3 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
+      <section className="px-6 pt-7 pb-14 space-y-10 sm:px-10 md:px-14 sm:col-span-3 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
         <Verification user={user} />
       </section>
     </main>
