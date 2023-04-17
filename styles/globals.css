@@ -174,14 +174,4 @@
   .filled-stars {
     @apply absolute inset-0 overflow-hidden text-[#e30e30];
   }
-
-  .bg-signin {
-    background-image: linear-gradient(
-        rgba(227, 14, 48, 0.85),
-        rgba(227, 14, 48, 0.85)
-      ),
-      url("../public/signin.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 }
