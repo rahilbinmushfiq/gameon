@@ -20,6 +20,10 @@
     @apply text-[#a9a9a9];
   }
 
+  textarea {
+    @apply resize-none;
+  }
+
   button {
     @apply flex justify-center items-center gap-2 rounded-sm font-semibold;
   }
