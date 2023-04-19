@@ -45,7 +45,7 @@ export default function Verification({ user }) {
         <p>If you don't see it, you may check your spam folder. Still can't find our email?</p>
         <div className="flex gap-6 items-center">
           <button
-            className={`secondary-btn w-40 h-12 hover:bg-[#ffffff] ${countdown > 0 ? "cursor-not-allowed hover:bg-[#a9a9a9]" : ""}`}
+            className={`secondary-btn w-40 h-12 ${countdown > 0 ? "cursor-not-allowed hover:bg-[#a9a9a9]" : ""}`}
             type="button"
             disabled={countdown > 0}
             onClick={handleLinkResend}

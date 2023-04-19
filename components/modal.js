@@ -18,7 +18,7 @@ export default function Modal({ type, id, heading, description, setIsModalOpen, 
           {children}
           <div className="grid grid-cols-2 gap-4 [&>button]:h-12">
             <button
-              className="secondary-btn hover:bg-[#ffffff]"
+              className="secondary-btn"
               type="button"
               onClick={() => setIsModalOpen(false)}
             >

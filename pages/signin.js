@@ -131,7 +131,7 @@ export default function SignIn({ users }) {
                     />
                   </div>
                   <button
-                    className="secondary-btn w-full h-12 hover:bg-[#ffffff]"
+                    className="secondary-btn w-full h-12"
                     type="button"
                     onClick={() => emailValidation()}
                   >
@@ -156,7 +156,7 @@ export default function SignIn({ users }) {
                       <p>The email address you provided was used to sign in with Google provider last time. In case you provided the wrong email address, you can go back and provide the correct one, otherwise, sign in with Google.</p>
                     </div>
                     <button
-                      className="secondary-btn w-full h-12 hover:bg-[#ffffff]"
+                      className="secondary-btn w-full h-12"
                       type="button"
                       onClick={() => setEmail("")}
                     >
