@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaUserTie, FaCommentDots, FaArrowRight } from "react-icons/fa";
 import { IoStopwatchSharp, IoGameController } from "react-icons/io5";
 import hero from "../public/hero.jpg";
-import community from "../public/signin.jpg";
+import community from "../public/community-controller.jpg";
 
 export default function Home() {
   const socialProofs = {
@@ -25,6 +25,7 @@ export default function Home() {
             src={hero}
             alt="hero-image"
             fill
+            sizes="3072px"
             priority
           />
           <div className="absolute inset-0 h-full">
@@ -110,7 +111,7 @@ export default function Home() {
             src={community}
             alt="community-alt"
             fill
-            priority
+            sizes="2048px"
           />
           <div className="absolute inset-0">
             <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />

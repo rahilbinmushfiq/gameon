@@ -104,6 +104,7 @@ export default function UserProfile({ user }) {
             alt="user"
             fill
             sizes="75vh"
+            priority
           />
           <button
             className="absolute bottom-1 -right-1 w-8 h-8 flex justify-center items-center rounded-full cursor-pointer bg-[#f1f1f1] hover:bg-[#ffffff]"
