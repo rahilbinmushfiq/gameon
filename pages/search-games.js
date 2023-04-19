@@ -55,9 +55,8 @@ export default function SearchGames({ games }) {
         <title>Search Games | Game On</title>
       </Head>
       <section className="relative">
-        <div className="absolute inset-0 h-28 bg-transparent">
-          <div className="h-1/2 bg-gradient-to-b from-[#1f1f1f] via-transparent to-transparent" />
-          <div className="h-1/2 bg-gradient-to-b from-transparent via-transparent to-[#2a2a2a]" />
+        <div className="absolute inset-0 h-[0.75rem] sm:h-[1.25rem] md:h-[1.75rem]">
+          <div className="h-full bg-gradient-to-b from-[#1f1f1f]" />
         </div>
         <div className="pt-7 pb-12 bg-[#2a2a2a] xl:py-24">
           <div className="lg:grid lg:grid-cols-4 xl:grid-cols-6">
