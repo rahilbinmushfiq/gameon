@@ -42,7 +42,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
           </div>
         </div>
       </div>
-      <section className="px-6 py-12 flex gap-2 overflow-auto bg-[#1a1a1a] [&>button]:game-tab sm:px-10 md:p xl:px-24 2xl:px-32">
+      <section className="px-6 py-12 flex gap-2 overflow-auto bg-[#1a1a1a] [&>button]:game-tab sm:px-10 md:px-14 xl:px-24 2xl:px-32">
         <button
           className={tab === "overview" ? "active" : "inactive"}
           onClick={() => setTab("overview")}
