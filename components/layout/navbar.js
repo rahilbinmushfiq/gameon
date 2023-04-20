@@ -57,20 +57,20 @@ export default function Navbar() {
             </div>
             <ul className="flex flex-col gap-2 md:flex-row md:gap-x-10 xl:gap-x-12">
               <Link href="/" onClick={() => setIsNavbarOpen(false)}>
-                <li className={`nav--li ${asPath === "/" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold md:border-[#e30e30]" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                <li className={`nav--li ${asPath === "/" ? "active-nav" : "inactive-nav"}`}>
                   <IoHomeOutline size={20} />
                   <p>Home</p>
                 </li>
               </Link>
               <Link href="/search-games" onClick={() => setIsNavbarOpen(false)}>
-                <li className={`nav--li ${asPath === "/search-games" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold md:border-[#e30e30]" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                <li className={`nav--li ${asPath === "/search-games" ? "active-nav" : "inactive-nav"}`}>
                   <IoGameControllerOutline size={20} />
                   <p>Games</p>
                 </li>
               </Link>
               {(!user || (user && !user.emailVerified)) && (
                 <Link href="/signin" onClick={() => setIsNavbarOpen(false)}>
-                  <li className={`nav--li ${asPath === "/signin" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold md:border-[#e30e30]" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                  <li className={`nav--li ${asPath === "/signin" ? "active-nav" : "inactive-nav"}`}>
                     <IoLogInOutline size={20} />
                     <p>Sign in</p>
                   </li>
@@ -79,7 +79,7 @@ export default function Navbar() {
               {user && user.emailVerified && (
                 <>
                   <Link href="/account" onClick={() => setIsNavbarOpen(false)}>
-                    <li className={`nav--li ${asPath === "/account" ? "[&>*]:text-[#f1f1f1] [&>p]:font-bold md:border-[#e30e30]" : "[&>*]:text-[#9f9f9f] [&>p]:font-semibold"}`}>
+                    <li className={`nav--li ${asPath === "/account" ? "active-nav" : "inactive-nav"}`}>
                       <IoPersonOutline size={20} />
                       <p>Account</p>
                     </li>

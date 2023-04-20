@@ -94,6 +94,14 @@
     @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1] md:justify-center md:gap-3 md:px-3 md:hover:bg-transparent md:rounded-none md:border-b-2 md:border-transparent md:hover:border-[#f1f1f1] md:[&>svg]:hidden;
   }
 
+  .active-nav {
+    @apply [&>p]:font-bold [&>*]:text-[#f1f1f1] md:border-[#e30e30];
+  }
+
+  .inactive-nav {
+    @apply [&>p]:font-semibold [&>*]:text-[#9f9f9f];
+  }
+
   .footer--li {
     @apply w-fit cursor-pointer text-[#a9a9a9] hover:text-[#f1f1f1];
   }
