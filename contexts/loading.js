@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const LoadingContext = createContext({
   isPageLoading: false,
@@ -7,8 +7,8 @@ const LoadingContext = createContext({
 });
 
 export const LoadingProvider = ({ children }) => {
-  const [isPageLoading, setIsPageLoading] = useState(false);
   const router = useRouter();
+  const [isPageLoading, setIsPageLoading] = useState(false);
 
   useEffect(() => {
     router.events.on("routeChangeStart", () => setIsPageLoading(true));
@@ -17,7 +17,7 @@ export const LoadingProvider = ({ children }) => {
     return () => {
       router.events.off("routeChangeStart", () => setIsPageLoading(true));
       router.events.off("routeChangeComplete", () => setIsPageLoading(false));
-    }
+    };
   }, []);
 
   return (

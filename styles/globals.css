@@ -91,7 +91,7 @@
   }
 
   .nav--li {
-    @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1] md:justify-center md:gap-3 md:px-3 md:hover:bg-transparent md:rounded-none md:border-b-2 md:border-transparent md:hover:border-[#f1f1f1] md:[&>svg]:hidden;
+    @apply flex items-center gap-6 py-2 px-6 rounded-md hover:bg-[#2f2f2f] [&>*]:hover:text-[#f1f1f1] [&>*]:hover:fill-[#f1f1f1] [&>*]:hover:stroke-[#f1f1f1] md:justify-center md:gap-3 md:px-3 md:rounded-none md:border-b-2 md:border-transparent md:hover:bg-transparent md:hover:border-[#f1f1f1] md:[&>svg]:hidden;
   }
 
   .active-nav {
@@ -115,11 +115,11 @@
   }
 
   .card-container {
-    @apply col-span-1 space-y-1 rounded-sm;
+    @apply col-span-1 space-y-1;
   }
 
   .card-container > h3 {
-    @apply text-lg font-semibold pt-2;
+    @apply pt-2 text-lg font-semibold;
   }
 
   .typing-input {
@@ -180,7 +180,7 @@
   }
 
   .score {
-    @apply p-3 bg-[#e30e30] text-[#f1f1f1] font-semibold inline-block;
+    @apply inline-block p-3 font-semibold text-[#f1f1f1] bg-[#e30e30];
   }
 
   .filled-stars {

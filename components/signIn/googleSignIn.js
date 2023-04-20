@@ -41,7 +41,7 @@ export default function GoogleSignIn({ users, setIsUserLoaded }) {
 
     setIsUserLoaded(true);
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <button
@@ -53,5 +53,5 @@ export default function GoogleSignIn({ users, setIsUserLoaded }) {
         Sign in with Google
       </p>
     </button>
-  )
+  );
 }

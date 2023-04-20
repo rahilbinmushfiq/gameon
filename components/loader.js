@@ -10,5 +10,5 @@ export default function Loader({ isLoading }) {
         speedMultiplier={2}
       />
     </div>
-  )
+  );
 }

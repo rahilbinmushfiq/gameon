@@ -1,12 +1,12 @@
-import { db } from "../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
 import { getYear, timestampConversion } from "../utils/convertTimestamp";
 import Search from "../components/searchGames/search";
 import Filter from "../components/searchGames/filter";
 import GameCard from "../components/searchGames/gameCard";
-import Head from "next/head";
 
 export default function SearchGames({ games }) {
   const router = useRouter();
@@ -151,8 +151,8 @@ export async function getServerSideProps() {
         releaseDate: JSON.parse(JSON.stringify(doc.data().overview.releaseDate)),
         averageRating,
         averageScore
-      }
-    })
+      };
+    });
   } catch (error) {
     console.log(error);
 
@@ -168,5 +168,5 @@ export async function getServerSideProps() {
     props: {
       games
     }
-  }
+  };
 }

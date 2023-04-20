@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { getDateAndTime } from "../../utils/convertTimestamp";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { getDateAndTime } from "../../utils/convertTimestamp";
 
 export default function Review({ reviewType, photoURL, name, postedOn, assessment, comment, articleLink }) {
   return (
-    <div className="mx-6 p-4 rounded-sm space-y-6 bg-[#2f2f2f] sm:mx-10 sm:p-6 md:mx-14 xl:mx-24 2xl:mx-32">
+    <div className="space-y-6 p-4 mx-6 rounded-sm bg-[#2f2f2f] sm:mx-10 sm:p-6 md:mx-14 xl:mx-24 2xl:mx-32">
       <div className="flex justify-between">
         <div className="flex gap-3">
           <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#3f3f3f] ring-[3px] ring-[#a9a9a9]">
@@ -18,14 +18,14 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
             />
           </div>
           <div className="space-y-1">
-            <p className={`text-[#dfdfdf] ${name === "Deleted User" ? "italic" : "font-semibold"} leading-none sm:text-xl sm:leading-none`}>{name}</p>
+            <p className={`${name === "Deleted User" ? "italic" : "font-semibold"} leading-none text-[#dfdfdf] sm:text-xl sm:leading-none`}>{name}</p>
             <p className="text-sm text-[#9f9f9f]">{getDateAndTime(postedOn)}</p>
           </div>
         </div>
         <div>
           {reviewType === "critic" ? (
             <div className="h-9 w-14 flex justify-center items-center bg-[#e30e30]">
-              <p className="text-[#f1f1f1] font-semibold">{assessment}</p>
+              <p className="font-semibold text-[#f1f1f1]">{assessment}</p>
             </div>
           ) : (
             <div className="flex gap-[1px] [&>svg]:text-[15px] sm:[&>svg]:text-[18px]">
@@ -40,7 +40,7 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
           )}
         </div>
       </div>
-      <p className="text-[#bfbfbf] whitespace-pre-wrap">
+      <p className="whitespace-pre-wrap text-[#bfbfbf]">
         {comment}
       </p>
       {reviewType === "critic" && (
@@ -56,5 +56,5 @@ export default function Review({ reviewType, photoURL, name, postedOn, assessmen
         </button>
       )}
     </div>
-  )
+  );
 }

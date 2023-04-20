@@ -1,15 +1,15 @@
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { useRouter } from "next/router";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import Image from "next/image";
-import { useRef, useState } from "react";
-import { db, storage } from "../../config/firebase";
-import createErrorMessage from "../../utils/createErrorMessage";
 import { toast } from "react-toastify";
-import { useLoading } from "../../contexts/loading";
-import { useRouter } from "next/router";
 import { MdAddAPhoto, MdVerified, MdEmail, MdPerson, MdChevronRight } from "react-icons/md";
+import { db, storage } from "../../config/firebase";
+import { useLoading } from "../../contexts/loading";
 import { getRegistrationDate } from "../../utils/convertTimestamp";
+import createErrorMessage from "../../utils/createErrorMessage";
 import Modal from "../modal";
 
 export default function UserProfile({ user }) {
@@ -55,7 +55,7 @@ export default function UserProfile({ user }) {
 
     setIsPageLoading(false);
     router.push(router.asPath, undefined, { scroll: false });
-  }
+  };
 
   const updateUserPhoto = async (event) => {
     event.preventDefault();
@@ -88,15 +88,15 @@ export default function UserProfile({ user }) {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   if (user) return (
-    <section className="flex-grow flex flex-col">
+    <section className="grow flex flex-col">
       <div className="space-y-2 px-6 pt-7 pb-8 sm:px-10 md:px-14 xl:px-24 2xl:px-32">
         <h1>User Profile</h1>
         <p>This is your profile section. You can see your personal information, as well as, update your display picture, display name, and password here.</p>
       </div>
-      <div className="flex-grow flex flex-col justify-center space-y-4 py-8 bg-[#2a2a2a] lg:py-16 xl:py-20 2xl:py-28">
+      <div className="grow flex flex-col justify-center space-y-4 py-8 bg-[#2a2a2a] lg:py-16 xl:py-20 2xl:py-28">
         <div className="relative w-24 h-24 rounded-full mx-auto ring-4 ring-[#3f3f3f] md:w-32 md:h-32">
           <Image
             className="object-cover rounded-full"
@@ -132,7 +132,7 @@ export default function UserProfile({ user }) {
           handleSubmission={updateUserPhoto}
         >
           <input
-            className="text-[#a9a9a9] text-sm w-full file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:bg-[#3a3a3a] file:text-[#f1f1f1] file:text-sm file:font-semibold file:cursor-pointer hover:file:bg-[#4a4a4a] file:transition-all file:ease-in-out file:duration-300 peer"
+            className="w-full text-sm text-[#a9a9a9] file:border-none file:py-3 file:px-5 file:mr-3 file:rounded-sm file:text-sm file:font-semibold file:cursor-pointer file:text-[#f1f1f1] file:bg-[#3a3a3a] hover:file:bg-[#4a4a4a] file:transition-all file:ease-in-out file:duration-300 peer"
             ref={photoRef}
             type="file"
             accept=".jpg, .jpeg, .png"
@@ -181,5 +181,5 @@ export default function UserProfile({ user }) {
         </Modal>
       )}
     </section>
-  )
+  );
 }

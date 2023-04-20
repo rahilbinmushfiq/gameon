@@ -16,7 +16,7 @@ export default function UpdatePassword({ user, signInProvider }) {
 
   const isPasswordProviderPresent = () => {
     return user?.providerData.some(provider => provider.providerId.includes("password"));
-  }
+  };
 
   const updateUserPassword = async (event) => {
     event.preventDefault();
@@ -90,7 +90,7 @@ export default function UpdatePassword({ user, signInProvider }) {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   if (user) return (
     <section>
@@ -136,5 +136,5 @@ export default function UpdatePassword({ user, signInProvider }) {
         </Modal>
       )}
     </section>
-  )
+  );
 }

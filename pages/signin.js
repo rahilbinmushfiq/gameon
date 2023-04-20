@@ -1,12 +1,13 @@
-import nookies from "nookies";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import nookies from "nookies";
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
 import { getAuth } from "firebase-admin/auth";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
+import { HiMail } from "react-icons/hi";
 import { auth, db } from "../config/firebase";
 import { adminApp } from "../config/firebaseAdmin";
 import { useAuth } from "../contexts/auth";
@@ -16,7 +17,6 @@ import EmailAndPasswordSignIn from "../components/signIn/emailAndPasswordSignIn"
 import Register from "../components/signIn/register";
 import GoogleSignIn from "../components/signIn/googleSignIn";
 import createErrorMessage from "../utils/createErrorMessage";
-import { HiMail } from "react-icons/hi";
 
 export default function SignIn({ users }) {
   const { user } = useAuth();
@@ -70,7 +70,7 @@ export default function SignIn({ users }) {
     }
 
     setEmail(emailRef?.current?.value);
-  }
+  };
 
   const isProviderOnlyGoogle = () => {
     const [user] = users.filter((user) => user.email === email);
@@ -80,7 +80,7 @@ export default function SignIn({ users }) {
     } else {
       return false;
     }
-  }
+  };
 
   return (
     <main className="sm:min-h-[66.66vh] sm:grid sm:grid-cols-5 md:min-h-[82vh] lg:min-h-[calc(100vh_-_6.5rem)] xl:min-h-[95vh] lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-3">
@@ -93,14 +93,14 @@ export default function SignIn({ users }) {
           )}
         </title>
       </Head>
-      <div className="hidden p-10 bg-[linear-gradient(rgba(227,14,48,0.85),rgba(227,14,48,0.85)),url('../public/community-controller.jpg')] bg-no-repeat bg-cover bg-center sm:flex sm:flex-col sm:justify-center sm:col-span-2 md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2 2xl:col-span-2">
+      <div className="hidden p-10 bg-[linear-gradient(rgba(227,14,48,0.85),rgba(227,14,48,0.85)),url('../public/community-controller.jpg')] bg-no-repeat bg-cover bg-center sm:col-span-2 sm:flex sm:flex-col sm:justify-center md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2 2xl:col-span-2">
         <div className="space-y-3 xl:w-[60%] xl:mx-auto xl:space-y-4 2xl:w-1/3">
-          <p className="relative text-[#cfcfcf] xl:text-lg"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878] xl:text-[10rem] xl:-top-16 xl:-left-7">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
+          <p className="relative text-[#cfcfcf] xl:text-lg"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878] xl:-top-16 xl:-left-7 xl:text-[10rem]">"</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
           <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
         </div>
       </div>
       {!user ? (
-        <section className="px-6 pt-7 pb-14 space-y-20 sm:px-10 md:px-14 sm:col-span-3 sm:flex sm:flex-col sm:justify-between lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
+        <section className="px-6 pt-7 pb-14 space-y-20 sm:col-span-3 sm:flex sm:flex-col sm:justify-between sm:px-10 md:px-14 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:col-span-1 2xl:pl-32">
           <div className="space-y-8">
             {isUserNew && (!email || (email && users.some((user) => user.email === email))) && (
               <div className="space-y-1">
@@ -190,7 +190,7 @@ export default function SignIn({ users }) {
         </section>
       ) : (
         !user.emailVerified && (
-          <section className="px-6 pt-7 pb-14 space-y-10 sm:px-10 md:px-14 sm:col-span-3 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:pl-32 2xl:col-span-1">
+          <section className="px-6 pt-7 pb-14 space-y-10 sm:col-span-3 sm:px-10 md:px-14 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:col-span-1 2xl:pl-32">
             <Verification user={user} />
           </section>
         )

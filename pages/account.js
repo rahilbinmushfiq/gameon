@@ -40,7 +40,7 @@ export default function Account({ signInProvider }) {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <main className="flex flex-col min-h-[calc(100vh_-_54px)] divide-y-2 divide-[#2f2f2f] sm:min-h-[calc(100vh_-_76px)] md:min-h-[calc(100vh_-_6.5rem)]">
@@ -62,7 +62,7 @@ export default function Account({ signInProvider }) {
         </div>
       )}
     </main>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -73,8 +73,8 @@ export async function getServerSideProps(context) {
       return {
         redirect: {
           destination: "/signin",
-          permanent: false,
-        },
+          permanent: false
+        }
       };
     }
 
@@ -87,8 +87,8 @@ export async function getServerSideProps(context) {
       return {
         redirect: {
           destination: "/signin",
-          permanent: false,
-        },
+          permanent: false
+        }
       };
     }
 
@@ -103,8 +103,8 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: "/signin",
-        permanent: false,
-      },
+        permanent: false
+      }
     };
   }
 }

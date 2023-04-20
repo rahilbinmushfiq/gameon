@@ -55,5 +55,5 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
         </div>
       </div>
     </Link>
-  )
+  );
 }

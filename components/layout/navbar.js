@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { IoMenuOutline, IoHomeOutline, IoGameControllerOutline, IoPersonOutline, IoLogInOutline, IoLogOutOutline } from "react-icons/io5"
@@ -13,8 +13,8 @@ import logo from "../../public/logo.svg";
 export default function Navbar() {
   const { user } = useAuth();
   const { setIsPageLoading } = useLoading();
-  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const { asPath } = useRouter();
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const userSignOut = async () => {
     setIsPageLoading(true);
@@ -27,7 +27,7 @@ export default function Navbar() {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <header className="px-6 py-3 sm:px-10 sm:py-5 md:px-14 md:py-7 xl:px-24 2xl:px-32">
@@ -43,7 +43,7 @@ export default function Navbar() {
           id="navbar-bg"
           onClick={(event) => event.target.id === "navbar-bg" && setIsNavbarOpen(prevState => !prevState)}
         >
-          <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f] sm:w-2/5 md:visible md:w-full md:h-12 md:p-0 md:flex md:justify-between md:items-center md:space-y-0">
+          <div className="w-3/5 h-screen space-y-10 p-6 rounded-r-[1rem] bg-[#1f1f1f] sm:w-2/5 md:w-full md:h-12 md:p-0 md:flex md:justify-between md:items-center md:space-y-0 md:rounded-r-none">
             <div className="inline-block">
               <Link href="/" onClick={() => setIsNavbarOpen(false)}>
                 <div className="relative w-32 h-9">
@@ -85,7 +85,7 @@ export default function Navbar() {
                     </li>
                   </Link>
                   <li
-                    className="nav--li cursor-pointer [&>*]:text-[#9f9f9f] [&>p]:font-semibold md:primary-btn md:primary-btn--hover md:border-none md:rounded-sm md:px-5"
+                    className="nav--li cursor-pointer [&>p]:font-semibold [&>*]:text-[#9f9f9f] md:primary-btn md:primary-btn--hover md:px-5 md:border-none md:rounded-sm"
                     onClick={userSignOut}
                   >
                     <IoLogOutOutline size={20} />
@@ -98,5 +98,5 @@ export default function Navbar() {
         </div>
       </nav>
     </header>
-  )
+  );
 }

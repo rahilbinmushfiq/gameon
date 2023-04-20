@@ -2,7 +2,7 @@ import { MdFilterAlt, MdLoop } from "react-icons/md";
 
 export default function Filter({ filter, setFilter }) {
   return (
-    <div className="space-y-6 mx-6 p-4 bg-[#1f1f1f] sm:mx-10 sm:p-6 md:mx-14 md:space-y-10 lg:mr-0 xl:ml-0 xl:bg-[#2f2f2f] xl:divide-y-2 xl:divide-[#3f3f3f] xl:space-y-0 xl:sticky">
+    <div className="space-y-6 p-4 mx-6 bg-[#1f1f1f] sm:p-6 sm:mx-10 md:space-y-10 md:mx-14 lg:mr-0 xl:ml-0 xl:bg-[#2f2f2f] xl:divide-y-2 xl:divide-[#3f3f3f] xl:space-y-0">
       <div className="flex items-center gap-2 [&>*]:text-[#bfbfbf] xl:pb-4">
         <MdFilterAlt size={18} />
         <h2 className="text-lg font-semibold">
@@ -61,7 +61,7 @@ export default function Filter({ filter, setFilter }) {
         </div>
         <div className="pt-6 md:pt-0 flex justify-end md:col-span-2 xl:col-span-1">
           <button
-            className="border border-[#a9a9a9] text-[#a9a9a9] [&>*]:hover:text-[#1f1f1f] hover:bg-[#f1f1f1] hover:border-[#f1f1f1] h-12 w-full"
+            className="w-full h-12 border border-[#a9a9a9] text-[#a9a9a9] [&>*]:hover:text-[#1f1f1f] hover:bg-[#f1f1f1] hover:border-[#f1f1f1]"
             onClick={() => setFilter({
               sort: "",
               platform: "",
@@ -80,5 +80,5 @@ export default function Filter({ filter, setFilter }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

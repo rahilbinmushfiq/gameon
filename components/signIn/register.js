@@ -1,12 +1,12 @@
-import createErrorMessage from "../../utils/createErrorMessage";
-import { auth, db } from "../../config/firebase";
+import { useRef } from "react";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { IoChevronBack } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { useRef } from "react";
-import { useLoading } from "../../contexts/loading";
 import { HiLockClosed, HiUser } from "react-icons/hi";
+import { IoChevronBack } from "react-icons/io5";
+import { auth, db } from "../../config/firebase";
+import { useLoading } from "../../contexts/loading";
+import createErrorMessage from "../../utils/createErrorMessage";
 
 export default function Register({ email, setEmail }) {
   const { setIsPageLoading } = useLoading();
@@ -61,7 +61,7 @@ export default function Register({ email, setEmail }) {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <div className="space-y-8">
@@ -122,5 +122,5 @@ export default function Register({ email, setEmail }) {
         </div>
       </form>
     </div>
-  )
+  );
 }

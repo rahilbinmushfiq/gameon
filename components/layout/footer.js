@@ -13,8 +13,8 @@ export default function Footer() {
       query: {
         platform: platform
       }
-    }, "/search-games")
-  }
+    }, "/search-games");
+  };
 
   return (
     <footer className="px-6 bg-[#2a2a2a] divide-y divide-[#4f4f4f] sm:px-10 md:px-14 xl:px-24 2xl:px-32">
@@ -70,8 +70,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="py-6">
-        <p className="text-[#dfdfdf] text-center text-sm">Copyright &copy; <span className="text-[#e30e30] font-bold">Game On</span> - 2023. All Rights Reserved</p>
+        <p className="text-sm text-center text-[#dfdfdf]">Copyright &copy; <span className="font-bold text-[#e30e30]">Game On</span> - 2023. All Rights Reserved</p>
       </div>
     </footer>
-  )
+  );
 }

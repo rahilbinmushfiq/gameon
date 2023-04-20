@@ -14,7 +14,7 @@ export default function SystemRequirements({ systemRequirements }) {
 
   return (
     <section className="px-6 pt-8 pb-20 sm:px-10 md:px-14 xl:px-24 2xl:px-32">
-      <div className="min-w-full rounded-sm bg-[#2f2f2f] overflow-auto">
+      <div className="rounded-sm overflow-auto bg-[#2f2f2f]">
         <table className="w-full">
           <tbody className="first-of-type:[&>tr>th]:sticky first-of-type:[&>tr>th]:inset-0 first-of-type:[&>tr>th]:bg-[#3a3a3a]">
             <tr>

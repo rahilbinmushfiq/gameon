@@ -1,13 +1,13 @@
+import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { FaInfoCircle, FaUser, FaUserTie, FaDesktop } from "react-icons/fa";
+import { db } from "../../config/firebase";
 import Overview from "../../components/game/overview";
 import CriticReviews from "../../components/game/criticReviews";
 import UserReviews from "../../components/game/userReviews";
 import SystemRequirements from "../../components/game/systemRequirements";
-import { db } from "../../config/firebase";
-import { useState } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import Image from "next/image";
-import { FaInfoCircle, FaUser, FaUserTie, FaDesktop } from "react-icons/fa";
-import Head from "next/head";
 
 export default function GameDetails({ gameID, coverImage, name, overview, criticReviews, userReviews, systemRequirements, users }) {
   const [tab, setTab] = useState("overview");
@@ -103,7 +103,7 @@ export async function getServerSideProps(context) {
         destination: "/search-games",
         permanent: false
       }
-    }
+    };
   }
 
   let averageRating = game.reviews.ratings.length ? (
@@ -142,7 +142,7 @@ export async function getServerSideProps(context) {
           return { ...rating, postedOn: JSON.parse(JSON.stringify(rating.postedOn)) }
         }) : null
       },
-      systemRequirements: game.systemRequirements || null,
+      systemRequirements: game.systemRequirements || null
     }
-  }
+  };
 }

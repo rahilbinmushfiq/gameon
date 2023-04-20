@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
 import { useRef } from "react";
-import { db } from "../../config/firebase";
+import { useRouter } from "next/router";
 import { doc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
+import { HiMail, HiUsers, HiClipboardCheck, HiGlobeAlt, HiChat } from "react-icons/hi";
+import { db } from "../../config/firebase";
 import { useAuth } from "../../contexts/auth";
 import { useLoading } from "../../contexts/loading";
-import Review from "./review";
-import { toast } from "react-toastify";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { HiMail, HiUsers, HiClipboardCheck, HiGlobeAlt, HiChat } from "react-icons/hi";
+import Review from "./review";
 
 export default function CriticReviews({ criticReviews: { scores }, gameID }) {
   const { user } = useAuth();
@@ -81,7 +81,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
       toast.error(createErrorMessage(error));
       setIsPageLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -90,7 +90,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
           <h2 className="text-xl font-bold">Submit Your Review</h2>
           <p>If you want to submit the article of your blog on this game, you have come to the right place! Fill the the following form and help your fellow gamers with your informative review.</p>
         </div>
-        <form className="mx-6 space-y-8 sm:mx-10 sm:w-3/5 md:mx-14 xl:mx-24 xl:w-1/3 2xl:mx-32 2xl:w-1/4" onSubmit={handleCriticReview}>
+        <form className="space-y-8 mx-6 sm:mx-10 sm:w-3/5 md:mx-14 xl:mx-24 xl:w-1/3 2xl:mx-32 2xl:w-1/4" onSubmit={handleCriticReview}>
           <div className="space-y-4 [&>div]:relative [&>div>input]:typing-input [&>div>input]:pl-12">
             <div>
               <input

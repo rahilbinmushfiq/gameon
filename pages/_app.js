@@ -1,9 +1,9 @@
-import Layout from '../components/layout/layout'
-import { AuthProvider } from '../contexts/auth'
-import '../styles/globals.css'
-import { LoadingProvider } from '../contexts/loading';
+import { AuthProvider } from "../contexts/auth";
+import { LoadingProvider } from "../contexts/loading";
+import Layout from "../components/layout/layout";
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <LoadingProvider>
@@ -12,7 +12,5 @@ function MyApp({ Component, pageProps }) {
         </Layout>
       </LoadingProvider>
     </AuthProvider>
-  )
+  );
 }
-
-export default MyApp

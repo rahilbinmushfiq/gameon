@@ -1,11 +1,11 @@
+import { useRef, useState } from "react";
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential, reauthenticateWithPopup } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { MdDelete, MdChevronRight } from "react-icons/md";
 import { db, googleProvider } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
-import { MdDelete, MdChevronRight } from "react-icons/md";
 import Modal from "../modal";
 
 export default function DeleteAccount({ user, signInProvider }) {
@@ -43,7 +43,7 @@ export default function DeleteAccount({ user, signInProvider }) {
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   if (user) return (
     <section>
@@ -78,5 +78,5 @@ export default function DeleteAccount({ user, signInProvider }) {
         </Modal>
       )}
     </section>
-  )
+  );
 }

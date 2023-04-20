@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import { HiLockClosed } from "react-icons/hi";
 import { IoChevronBack } from "react-icons/io5";
 import { auth } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import createErrorMessage from "../../utils/createErrorMessage";
 import ForgotPassword from "./forgotPassword";
-import { HiLockClosed } from "react-icons/hi";
 
 export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoaded }) {
   const { setIsPageLoading } = useLoading();
@@ -32,7 +32,7 @@ export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoade
 
     setIsUserLoaded(true);
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <div className="space-y-8">
@@ -69,5 +69,5 @@ export default function EmailAndPasswordSignIn({ email, setEmail, setIsUserLoade
         </div>
       </form>
     </div>
-  )
+  );
 }

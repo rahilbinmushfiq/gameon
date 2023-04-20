@@ -33,7 +33,7 @@ export default function Verification({ user }) {
 
     setIsPageLoading(false);
     setCountdown(60);
-  }
+  };
 
   return (
     <>
@@ -54,7 +54,7 @@ export default function Verification({ user }) {
             <BsFillSendFill size={15} color="#1f1f1f" />
           </button>
           {countdown > 0 && (
-            <div className="flex gap-2 justify-center items-center">
+            <div className="flex justify-center items-center gap-2">
               <BsStopwatchFill size={15} color="#a9a9a9" />
               <p className="font-bold">
                 after {countdown >= 60 ? "01:00" : `00:${countdown < 10 ? `0${countdown}` : countdown}`}
@@ -64,5 +64,5 @@ export default function Verification({ user }) {
         </div>
       </div>
     </>
-  )
+  );
 }

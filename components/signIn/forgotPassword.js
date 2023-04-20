@@ -1,5 +1,5 @@
-import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
@@ -16,14 +16,13 @@ export default function ForgotPassword({ email }) {
     try {
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset link sent.");
-
       setIsForgotPasswordModalOpen(false);
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
 
     setIsPageLoading(false);
-  }
+  };
 
   return (
     <div>
@@ -43,5 +42,5 @@ export default function ForgotPassword({ email }) {
         />
       )}
     </div >
-  )
+  );
 }

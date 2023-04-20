@@ -1,44 +1,44 @@
 export const getDateAndTime = (timestamp) => {
-    let dateAndTime = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric'
-    });
+  let dateAndTime = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  });
 
-    return dateAndTime;
-}
+  return dateAndTime;
+};
 
 export const getDate = (timestamp) => {
-    let date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+  let date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
-    return date;
-}
+  return date;
+};
 
 export const getYear = (timestamp) => {
-    let year = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
-        year: 'numeric'
-    });
+  let year = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toLocaleDateString('en-US', {
+    year: 'numeric'
+  });
 
-    return year;
-}
+  return year;
+};
 
 export const timestampConversion = (timestamp) => {
-    let date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+  let date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
 
-    return date;
-}
+  return date;
+};
 
 export const getRegistrationDate = (createdAt) => {
-    let date = new Date(parseInt(createdAt)).toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: "numeric"
-    })
+  let date = new Date(parseInt(createdAt)).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: "numeric"
+  });
 
-    return date;
-}
+  return date;
+};

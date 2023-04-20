@@ -5,7 +5,7 @@ export default function Search({ setSearch }) {
   const searchRef = useRef(null);
 
   return (
-    <div className="px-6 space-y-12 sm:px-10 md:px-14 lg:pr-0 xl:px-24 2xl:px-32">
+    <div className="space-y-12 px-6 sm:px-10 md:px-14 lg:pr-0 xl:px-24 2xl:px-32">
       <div className="space-y-2">
         <h1>Search Games</h1>
         <p>Find your next favorite game with our easy-to-use search tool. Browse through our extensive library and filter by platform, release date and more.</p>
@@ -25,5 +25,5 @@ export default function Search({ setSearch }) {
         />
       </div>
     </div>
-  )
+  );
 }
