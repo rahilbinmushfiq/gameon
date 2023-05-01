@@ -13,10 +13,14 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
+// Function to retrieve the Firebase Admin app instance
 export function getFirebaseApp() {
+  // Check for existing Firebase app instances
   if (!getApps().length) {
+    // If no app instances exist, initialize a new app with the configuration
     return initializeApp(firebaseConfig);
   } else {
+    // If an app instance already exists, return that instance
     return getApp();
   }
 }

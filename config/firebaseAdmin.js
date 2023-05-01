@@ -1,8 +1,11 @@
 import { getApp, getApps, cert, initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 
+// Function to retrieve the Firebase Admin app instance
 function getFirebaseAdminApp() {
+  // Check for existing Firebase Admin app instances
   if (!getApps().length) {
+    // If no app instances exist, initialize a new app with the credentials
     return initializeApp({
       credential: cert({
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -11,6 +14,7 @@ function getFirebaseAdminApp() {
       })
     });
   } else {
+    // If an app instance already exists, return that instance
     return getApp();
   }
 }

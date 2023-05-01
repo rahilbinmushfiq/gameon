@@ -1,3 +1,4 @@
+// Function that returns an error message based on the provided Firebase Authentication error object
 export default function createErrorMessage(error) {
   switch (error.code) {
     case 'auth/weak-password':
