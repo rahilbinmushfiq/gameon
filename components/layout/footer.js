@@ -43,7 +43,7 @@ export default function Footer() {
               </Link>
             </div>
             {/* Game On description */}
-            <p>With our easy-to-use rating system and detailed expert reviews from critics, you'll always know what to expect before making your next game purchase.</p>
+            <p>With our easy-to-use rating system and detailed expert reviews from critics, you&apos;ll always know what to expect before making your next game purchase.</p>
           </div>
           {/* Game On social media links */}
           <div className="flex gap-4 [&>a]:social-link">

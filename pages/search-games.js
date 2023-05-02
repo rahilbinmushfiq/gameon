@@ -144,7 +144,7 @@ export default function SearchGames({ games }) {
           /* If filtered games array is empty */
           <div className="space-y-1 py-24 text-center">
             <h3 className="font-bold text-lg text-[#a9a9a9]">No Games Found</h3>
-            <p>We couldn't find what you searched for.</p>
+            <p>We couldn&apos;t find what you searched for.</p>
           </div>
         )}
       </section>

@@ -53,7 +53,7 @@ export default function Home() {
             <h1 className="m-0 font-semibold text-[44px] leading-[52px] after:content-none min-[1111px]:text-5xl min-[1111px]:leading-[56px] min-[1325px]:text-[54px] min-[1325px]:leading-[58px] 2xl:text-6xl 2xl:leading-[68px] min-[1700px]:text-7xl min-[1700px]:leading-[80px]">
               Get the <span className="text-[#e30e30] font-bold">Ultimate</span> <br className="hidden lg:inline" />Gaming Experience
             </h1>
-            <p>Whether you're a seasoned gamer or a newcomer to the scene, we've got you covered. We'll always make sure that you'll know what to expect before making your next game purchase.</p>
+            <p>Whether you&apos;re a seasoned gamer or a newcomer to the scene, we&apos;ve got you covered. We&apos;ll always make sure that you&apos;ll know what to expect before making your next game purchase.</p>
           </div>
           <div className="flex gap-6 [&>*>button]:font-bold [&>*>button]:w-32 [&>*>button]:h-12">
             <Link href="/search-games">
@@ -101,7 +101,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold">
               Join Our Community
             </h2>
-            <p>Join our platform for free and take your gaming experience to the next level. It's time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.</p>
+            <p>Join our platform for free and take your gaming experience to the next level. It&apos;s time you become part of the most vibrant gaming community on the web. Share your opinions, connect with other gamers, and discover new titles to play.</p>
           </div>
           {/* CTA button */}
           <div className="inline-block">
