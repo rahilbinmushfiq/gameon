@@ -35,7 +35,7 @@ export default function Account({ signInProvider }) {
     });
 
     unsubscribe(); // Unsubscribe from onAuthStateChanged listener
-  }, [user]);
+  }, [user, router]);
 
   // Function to sign user out
   const userSignOut = async () => {

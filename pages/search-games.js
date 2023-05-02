@@ -36,8 +36,15 @@ export default function SearchGames({ games }) {
     */
     if (router?.query?.platform) {
       setFilter({
-        ...emptyFilter,
-        platform: router.query.platform
+        sort: "",
+        platform: router.query.platform,
+        releaseDates: {
+          "2019": false,
+          "2020": false,
+          "2021": false,
+          "2022": false,
+          "2023": false
+        }
       });
     }
   }, [router?.query]);

@@ -75,7 +75,7 @@ export default function SignIn({ users }) {
     });
 
     unsubscribe(); // Unsubscribe from onAuthStateChanged listener
-  }, [user, isUserLoaded]);
+  }, [user, isUserLoaded, setIsPageLoading, router]);
 
   // Function to validate email field
   const emailValidation = () => {
