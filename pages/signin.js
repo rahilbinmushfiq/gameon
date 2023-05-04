@@ -120,7 +120,7 @@ export default function SignIn({ users }) {
       --Quote with background image section--
       Hide (extra small screen), or position on left column (smaller screens) or right column (larger screns) based on screen size
       */}
-      <div className="hidden p-10 bg-[linear-gradient(rgba(227,14,48,0.85),rgba(227,14,48,0.85)),url('../public/community-controller.jpg')] bg-no-repeat bg-cover bg-center sm:col-span-2 sm:flex sm:flex-col sm:justify-center md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2 2xl:col-span-2">
+      <div className="hidden p-10 bg-[linear-gradient(rgba(227,14,48,0.85),rgba(227,14,48,0.85)),url('/community-controller.jpg')] bg-no-repeat bg-cover bg-center sm:col-span-2 sm:flex sm:flex-col sm:justify-center md:p-14 lg:col-span-1 xl:col-span-3 xl:order-2 2xl:col-span-2">
         <div className="space-y-3 xl:w-[60%] xl:mx-auto xl:space-y-4 2xl:w-1/3">
           <p className="relative text-[#cfcfcf] xl:text-lg"><span className="absolute -top-14 -left-4 text-9xl text-[#dd7878] xl:-top-16 xl:-left-7 xl:text-[10rem]">&quot;</span>Joining a gaming community is like finding a second family, one that shares your passion for gaming.</p>
           <h2 className="font-semibold text-2xl text-right text-[#f1f1f1] xl:text-3xl">- Game On</h2>
