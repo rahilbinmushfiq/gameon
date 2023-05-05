@@ -124,15 +124,15 @@ export default function SearchGames({ games }) {
             </div>
           </div>
         </div>
-        {/* Check if there are any filtered games */}
-        {filteredGames.length ? (
-          /* If filtered games array is not empty */
-          <div className="mx-6 py-16 sm:mx-10 md:mx-14 xl:mx-24 xl:grid xl:grid-cols-4 xl:gap-x-4 2xl:mx-32">
-            {/* Render filter component (hidden on mobile and small descktop screens) */}
-            <div className="hidden xl:block xl:col-span-1">
-              <Filter filter={filter} setFilter={setFilter} />
-            </div>
-            {/* --Games list section-- */}
+        {/* --Games list section-- */}
+        <div className="mx-6 py-16 sm:mx-10 md:mx-14 xl:mx-24 xl:grid xl:grid-cols-4 xl:gap-x-4 2xl:mx-32">
+          {/* Render filter component (hidden on mobile and small desktop screens) */}
+          <div className="hidden xl:block xl:col-span-1">
+            <Filter filter={filter} setFilter={setFilter} />
+          </div>
+          {/* Check if there are any filtered games */}
+          {filteredGames.length ? (
+            // If filtered games array is not empty, render games list
             <div className="xl:col-span-3">
               {/* Display search result status (only if search bar or filter options are used) */}
               <h3 className={`font-bold text-xl text-[#a9a9a9] ${!search && JSON.stringify(filter) === JSON.stringify(emptyFilter) ? "hidden" : "pb-4"}`}>
@@ -146,14 +146,15 @@ export default function SearchGames({ games }) {
                 }
               </div>
             </div>
-          </div>
-        ) : (
-          /* If filtered games array is empty */
-          <div className="space-y-1 py-24 text-center">
-            <h3 className="font-bold text-lg text-[#a9a9a9]">No Games Found</h3>
-            <p>We couldn&apos;t find what you searched for.</p>
-          </div>
-        )}
+
+          ) : (
+            // If filtered games array is empty, render not found message
+            <div className="space-y-1 py-24 text-center xl:col-span-3 xl:flex xl:flex-col xl:justify-center xl:py-0">
+              <h3 className="font-bold text-lg text-[#a9a9a9]">No Games Found</h3>
+              <p>We couldn&apos;t find what you searched for.</p>
+            </div>
+          )}
+        </div>
       </section>
     </main>
   );
