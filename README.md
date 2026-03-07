@@ -12,7 +12,6 @@ A responsive and interactive game review web app that allows users to browse, se
 - [Installation](#installation)
 - [Usage](#usage)
 - [Future Development Plans](#future-development-plans)
-- [Contact](#contact)
 
 ## Live Demo
 
@@ -105,7 +104,3 @@ Although the app is functioning properly, I plan to make further improvements in
 
 - Allow users to edit or delete their own reviews.
 - Implement the functionality to keep critic reviews on pending after submission and review the post's validity before accepting. This feature will ensure that only high-quality critic reviews are published on the site, making it a more trustworthy source of information for users.
-
-## Contact
-
-If you have any questions or suggestions about this project, please feel free to contact me at rahilbinmushfiq@gmail.com.
