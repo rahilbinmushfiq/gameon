@@ -29,13 +29,12 @@ export default function GameCard({ index, game: { id, thumbnailURL, name, summar
         <div className="relative rounded-sm overflow-hidden md:col-span-2 xl:col-span-1">
           {/* Game thumbnail */}
           <Image
-            className="absolute w-full h-full object-cover"
+            className="object-cover"
             src={thumbnailURL}
             alt={`${name} thumbnail`}
-            width={0}
-            height={0}
-            sizes="50vh"
-            priority={index === 0}
+            fill
+            sizes="(min-width: 1280px) 25vw, (min-width: 768px) 40vw, (min-width: 640px) 50vw, 100vw"
+            priority={index < 2}
           />
         </div>
         {/* Text segment */}

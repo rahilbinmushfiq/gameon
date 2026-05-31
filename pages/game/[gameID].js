@@ -46,7 +46,7 @@ export default function GameDetails({ gameID, coverImage, name, overview, critic
             src={coverImage}
             alt={`${name} cover`}
             fill
-            sizes="100vh"
+            sizes="100vw"
             priority
           />
           {/* Add a heading to the cover image */}
