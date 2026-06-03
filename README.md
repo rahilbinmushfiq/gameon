@@ -2,7 +2,7 @@
 
 A responsive and interactive game review web app that allows users to browse, search, and filter video games, as well as to read and submit reviews. This project is built using Next.js, Firebase, React, and Tailwind CSS.
 
-![Game On Demo Walkthrough](https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Freadme%2Fgameon_demo_walkthrough.gif?alt=media&token=3011c632-f7ca-4657-a47b-99a52a29a6b1)
+![Game On Demo Walkthrough](https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478281/gameon_demo_walkthrough_ods6o8.gif)
 
 ## Table of Contents
 

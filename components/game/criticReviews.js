@@ -225,7 +225,7 @@ export default function CriticReviews({ criticReviews: { scores }, gameID }) {
                       <Review
                         key={review.userUID + review.comment + Math.random()}
                         reviewType="critic"
-                        photoURL="https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_group.png?alt=media&token=f4b1d20b-f059-4781-bde2-a23e25dd366b"
+                        photoURL="https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_group_oq1jkr.png"
                         name={review.organizationName}
                         postedOn={review.postedOn}
                         assessment={review.score}

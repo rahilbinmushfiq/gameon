@@ -57,14 +57,14 @@ export default function Register({ email, setEmail }) {
       // Update user profile with full name and default photo
       await updateProfile(userCredential?.user, {
         displayName: fullName,
-        photoURL: "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599"
+        photoURL: "https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_user_o56yd5.png"
       });
 
       // Add user data to database
       await setDoc(doc(db, "users", userCredential?.user?.uid), {
         email: email,
         fullName: fullName,
-        photoURL: "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599", // default user photo
+        photoURL: "https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_user_o56yd5.png", // default user photo
         registrationMethod: "password",
         linked: false
       });

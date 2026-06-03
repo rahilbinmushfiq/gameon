@@ -157,7 +157,7 @@ export default function UserReviews({ userReviews: { ratings }, users, gameID })
                        otherwise (if user is deleted), use default values
                     */
                     let fullName = user?.fullName || "Deleted User";
-                    let photoURL = user?.photoURL || "https://firebasestorage.googleapis.com/v0/b/gameon-game-database.appspot.com/o/userPhotos%2Fdefault%2Fdefault_user.png?alt=media&token=d0ac1eec-2da7-44c6-b969-094cebdba599";
+                    let photoURL = user?.photoURL || "https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_user_o56yd5.png";
 
                     // Render the Review component with the review and user data
                     return (
