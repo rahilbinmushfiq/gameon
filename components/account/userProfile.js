@@ -3,10 +3,9 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { toast } from "react-toastify";
 import { MdAddAPhoto, MdVerified, MdEmail, MdPerson, MdChevronRight } from "react-icons/md";
-import { db, storage } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { useLoading } from "../../contexts/loading";
 import { getRegistrationDate } from "../../utils/convertTimestamp";
 import createErrorMessage from "../../utils/createErrorMessage";
@@ -87,9 +86,48 @@ export default function UserProfile({ user }) {
     setIsPageLoading(true);
 
     try {
-      let userPhotoRef = ref(storage, `userPhotos/${user.uid}`); // Initialize a reference to the user's photo in Firebase Storage
-      await uploadBytes(userPhotoRef, image); // Upload the selected image to Firebase Storage
-      let photoURL = await getDownloadURL(userPhotoRef); // Get URL of the uploaded image
+      // 1. Request a signature
+      const timestamp = Math.round(Date.now() / 1000);
+      const paramsToSign = {
+        timestamp,
+        public_id: `game-on/profile-pictures/user-uploads/${user.uid}`,
+        asset_folder: "game-on/profile-pictures/user-uploads",
+        overwrite: true,
+      };
+      const signResponse = await fetch("/api/sign-cloudinary-params", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paramsToSign }),
+      });
+      if (!signResponse.ok) {
+        console.error("Failed to sign upload request.");
+        toast.error("Failed to initiate upload.");
+        return;
+      }
+      const { signature } = await signResponse.json();
+
+      // 2. Upload to Cloudinary using the signed params
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+      formData.append("timestamp", timestamp);
+      formData.append("public_id", `game-on/profile-pictures/user-uploads/${user.uid}`);
+      formData.append("asset_folder", "game-on/profile-pictures/user-uploads");
+      formData.append("overwrite", "true");
+      formData.append("signature", signature);
+
+      const uploadResponse = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        { method: "POST", body: formData }
+      );
+      if (!uploadResponse.ok) {
+        toast.error("Image upload to Cloudinary failed.");
+        return;
+      }
+      const uploadData = await uploadResponse.json();
+      const photoURL = uploadData.secure_url;
+
+      // 3. Update Firebase Auth profile and Firestore document with the newly uploaded photo URL
       await updateProfile(user, { photoURL }); // Update user profile with the new photo URL
       await updateDoc(doc(db, "users", user.uid), { photoURL }); // Update user's document in the database with the new photo URL
 
