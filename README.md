@@ -29,7 +29,7 @@ A live demo of the web app can be found [here](https://gameon-rahilbinmushfiq.ve
 - Single-page web application built with reusable React components
 - Server-side rendering and image optimization using Next.js
 - Dynamic and responsive user interface using React and Tailwind CSS
-- Data management using Firebase Storage and Cloud Firestore
+- Data management using Cloudinary and Cloud Firestore
 - User authentication using Firebase Authentication
 - User authorization using token ID verification with Firebase Admin SDK
 - User session management using Authentication context with React Context API
@@ -61,7 +61,8 @@ The web app is already deployed [here](https://gameon-rahilbinmushfiq.vercel.app
    - Create a Firebase project and register your app. [Learn more](https://firebase.google.com/docs/web/setup#create-firebase-project-and-app)
    - generate a private key to utilize the Firebase Admin SDK. [Learn more](https://firebase.google.com/docs/admin/setup#initialize_the_sdk_in_non-google_environments)
    - Enable Firebase Authentication with Google and email/password providers.
-   - Enable a Firebase Storage and Cloud Firestore database.
+   - Enable Cloud Firestore database.
+   - Create a Cloudinary account and retrieve your cloud name, API key, and API secret. [Learn more](https://cloudinary.com/documentation/developer_onboarding_faq_find_credentials)
    - Create a `.env.local` file in the root directory, and add your Firebase configuration keys and admin credentials:
 
 ```bash
@@ -74,6 +75,9 @@ The web app is already deployed [here](https://gameon-rahilbinmushfiq.vercel.app
   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = your_firebase_measurement_id
   FIREBASE_CLIENT_EMAIL = your_firebase_client_email
   FIREBASE_PRIVATE_KEY = your_firebase_private_key
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME = your_cloudinary_cloud_name
+  NEXT_PUBLIC_CLOUDINARY_API_KEY = your_cloudinary_api_key
+  CLOUDINARY_API_SECRET = your_cloudinary_api_secret
 ```
 
 5. Run the development server:
