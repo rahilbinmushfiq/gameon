@@ -34,11 +34,16 @@ export default function SignIn({ users }) {
   const { setIsPageLoading } = useLoading(); // Retrieve setIsPageLoading function from Loading context
   const [email, setEmail] = useState("");
   const [isUserNew, setIsUserNew] = useState(false); // State hook for tracking whether the user is new or not
+  const [isVerifying, setIsVerifying] = useState(() => {
+    return localStorage.getItem("isVerifying") === "true";
+  }); // State hook for tracking whether the user's email is currently being verified
   const [isUserLoaded, setIsUserLoaded] = useState(false); // State hook for tracking whether the user data has been loaded or not
   const emailRef = useRef("");
   const router = useRouter();
 
   useEffect(() => {
+    let interval;
+
     // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       // If the user is authenticated and their email is verified and the user is loaded
@@ -46,15 +51,17 @@ export default function SignIn({ users }) {
         // Notify user of successful sign in and redirect to account page
         toast.success("Sign in successful.");
         router.push("/account");
-      } else if (user && !user.emailVerified) {
+      } else if (user && !user.emailVerified && isVerifying) {
         /*
         If the user is authenticated but his email is not verified yet,
         keep checking for email verification for every 2 seconds
         */
-        let interval = setInterval(async () => {
+        interval = setInterval(async () => {
           if (user.emailVerified) {
             // If the email is verified, clear interval, sign user out, and notify user of success
             clearInterval(interval);
+            setIsVerifying(false);
+            localStorage.removeItem("isVerifying");
             setIsPageLoading(true);
             try {
               await signOut(auth);
@@ -70,12 +77,15 @@ export default function SignIn({ users }) {
             router.push("/signin");
           }
           await user.reload();
-        }, 2000);
+        }, 3000);
       }
     });
 
-    unsubscribe(); // Unsubscribe from onAuthStateChanged listener
-  }, [user, isUserLoaded, setIsPageLoading, router]);
+    return () => {
+      unsubscribe(); // Unsubscribe from onAuthStateChanged listener when component unmounts
+      if (interval) clearInterval(interval);
+    }
+  }, [isUserLoaded, isVerifying, setIsPageLoading, router]);
 
   // Function to validate email field
   const emailValidation = () => {
@@ -180,6 +190,7 @@ export default function SignIn({ users }) {
                 <Register
                   email={email}
                   setEmail={setEmail}
+                  setIsVerifying={setIsVerifying}
                 />
               ) : (
                 /* If email is already registered (already exists in database) */
@@ -233,7 +244,7 @@ export default function SignIn({ users }) {
         </section>
       ) : (
         /* If user is signed in */
-        !user.emailVerified && (
+        !user.emailVerified && isVerifying && (
           // If email address is not verified
           // --Email verification section--
           <section className="px-6 pt-7 pb-14 space-y-10 sm:col-span-3 sm:px-10 md:px-14 lg:col-span-1 xl:col-span-2 xl:pl-24 2xl:col-span-1 2xl:pl-32">

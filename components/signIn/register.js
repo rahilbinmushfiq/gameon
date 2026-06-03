@@ -18,7 +18,7 @@ import createErrorMessage from "../../utils/createErrorMessage";
  * 
  * @returns {JSX.Element} A JSX element that renders the registration form on the Sign-in page.
  */
-export default function Register({ email, setEmail }) {
+export default function Register({ email, setEmail, setIsVerifying }) {
   const { setIsPageLoading } = useLoading(); // Retrieve setIsPageLoading function from Loading context
   const fullNameRef = useRef("");
   const passwordRef = useRef("");
@@ -54,12 +54,6 @@ export default function Register({ email, setEmail }) {
       // Attempt to create user account with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-      // Update user profile with full name and default photo
-      await updateProfile(userCredential?.user, {
-        displayName: fullName,
-        photoURL: "https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_user_o56yd5.png"
-      });
-
       // Add user data to database
       await setDoc(doc(db, "users", userCredential?.user?.uid), {
         email: email,
@@ -69,10 +63,17 @@ export default function Register({ email, setEmail }) {
         linked: false
       });
 
+      // Update user profile with full name and default photo
+      await updateProfile(userCredential?.user, {
+        displayName: fullName,
+        photoURL: "https://res.cloudinary.com/deef39sq2/image/upload/f_auto,q_auto/v1780478392/default_user_o56yd5.png"
+      });
+
       // Send email verification to new user
       await sendEmailVerification(userCredential.user);
-
       toast.success("Verification email sent.");
+      setIsVerifying(true);
+      localStorage.setItem("isVerifying", "true");
     } catch (error) {
       toast.error(createErrorMessage(error));
     }
